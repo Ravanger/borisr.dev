@@ -11,8 +11,8 @@ import { art, sections } from "../data/site";
     <InstagramFeed client:load placeholderCount={art.tileCount} />
   </div>
   <p class="mt-5 text-sm">
-    <a class="link-accent" href={art.instagramUrl}>{art.instagramLabel}</a>
+    <a class="link-accent" href={art.instagramUrl} target="_blank" rel="noopener">{art.instagramLabel}</a>
     <span class="muted"> · </span>
-    <a class="link-accent" href={art.tiktokUrl}>{art.tiktokLabel}</a>
+    <a class="link-accent" href={art.tiktokUrl} target="_blank" rel="noopener">{art.tiktokLabel}</a>
   </p>
 </section>

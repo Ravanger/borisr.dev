@@ -32,7 +32,7 @@ const iconFor: Record<
       {
         socials.map((s) => (
           <li>
-            <a class="social-link" href={s.href} title={s.label} aria-label={s.label}>
+            <a class="social-link" href={s.href} title={s.label} aria-label={s.label} target="_blank" rel="noopener">
               <SocialIcon name={iconFor[s.label]} />
             </a>
           </li>

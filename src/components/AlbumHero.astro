@@ -27,7 +27,7 @@ const { album } = music;
         {
           album.tracks.map((track, i) => (
             <li>
-              <a class="track-row" href={track.url}>
+              <a class="track-row" href={track.url} target="_blank" rel="noopener">
                 <span class="track-num">{String(i + 1).padStart(2, "0")}</span>
                 <span class="track-play" aria-hidden="true">▶</span>
                 <span class="track-name">{track.name}</span>
@@ -38,8 +38,8 @@ const { album } = music;
         }
       </ol>
       <div class="album-actions">
-        <a class="btn-solid" href={music.bandcampAlbumUrl}>{album.buyLabel} ↗</a>
-        <a class="btn-outline" href={music.bandcampAlbumUrl}>{album.downloadLabel}</a>
+        <a class="btn-solid" href={music.bandcampAlbumUrl} target="_blank" rel="noopener">{album.buyLabel} ↗</a>
+        <a class="btn-outline" href={music.bandcampAlbumUrl} target="_blank" rel="noopener">{album.downloadLabel}</a>
       </div>
     </div>
   </div>
