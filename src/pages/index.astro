@@ -1,33 +1,33 @@
 ---
-import "../styles/tokens.css";
-import { placeholder } from "../data/site";
+import { site, teasers } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en" class="theme-a">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Boris Rossovsky — borisr.dev</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <script is:inline>
-      try {
-        if (localStorage.getItem("borisr-theme") === "light") {
-          document.documentElement.classList.add("light");
-        }
-      } catch (e) {}
-    </script>
-  </head>
-  <body>
-    <main class="mx-auto w-full max-w-2xl px-5 py-24 text-center">
-      <p class="eyebrow">borisr.dev</p>
-      <h1 class="font-display mt-4 text-5xl leading-tight font-semibold">
-        {placeholder.heading}
+<SiteLayout title="Boris Rossovsky — borisr.dev" description={site.description}>
+  <div class="grid gap-8 pt-12 md:grid-cols-12 md:pt-20">
+    <div class="md:col-span-5">
+      <p class="eyebrow">{site.domain}</p>
+      <h1
+        class="font-display mt-4 text-5xl leading-[1.02] font-medium tracking-tight md:text-6xl"
+      >
+        Boris<br />Rossovsky
       </h1>
-      <p class="muted mx-auto mt-6 max-w-md leading-relaxed">{placeholder.body}</p>
-      <p class="mt-8">
-        <a class="link-accent text-lg" href="/design/">{placeholder.linkLabel} &rarr;</a>
-      </p>
-    </main>
-  </body>
-</html>
+    </div>
+    <p class="muted max-w-md leading-relaxed md:col-span-7 md:self-end">{site.intro}</p>
+  </div>
+  <div class="mt-14 grid gap-4 sm:grid-cols-2">
+    {
+      teasers.map((t) => (
+        <a href={t.href} class="card lift block p-6">
+          <p class="eyebrow">
+            {t.index} / {t.label}
+          </p>
+          <p class="muted mt-3 text-sm leading-relaxed">{t.description}</p>
+          <p class="mt-4 text-sm">
+            <span class="link-accent">Open &nearr;</span>
+          </p>
+        </a>
+      ))
+    }
+  </div>
+</SiteLayout>

@@ -40,12 +40,33 @@ export const siteNav = [
   { label: "Contact", href: "/contact" },
 ];
 
-/** Placeholder home page (/) until a direction is chosen. */
-export const placeholder = {
-  heading: "Boris Rossovsky",
-  body: "The site is being rebuilt from scratch. Meanwhile, the new design is taking shape:",
-  linkLabel: "See the three design directions",
-};
+/** Home page teasers (Workbench): index-numbered cards linking to sections. */
+export const teasers = [
+  {
+    index: "01",
+    label: "Art",
+    href: "/art",
+    description: "Latest work — Instagram and TikTok first.",
+  },
+  {
+    index: "02",
+    label: "Music",
+    href: "/music",
+    description: "From the Depths, SoundCloud, Newgrounds.",
+  },
+  {
+    index: "03",
+    label: "Projects",
+    href: "/projects",
+    description: "Brighter Shores Routefinder. More coming.",
+  },
+  {
+    index: "04",
+    label: "Tools",
+    href: "/tools",
+    description: "The Routefinder, hosted right here.",
+  },
+];
 
 /** The /design index listing the three directions. */
 export const designIndex = {
@@ -53,7 +74,7 @@ export const designIndex = {
   heading: "Three design directions",
   intro:
     "Same content, three looks. Each has a dark/light toggle, dark by default. Pick the one that feels right and we iterate from there.",
-  backLabel: "Back to the placeholder home",
+  backLabel: "Back home",
   directions: [
     {
       id: "a",
