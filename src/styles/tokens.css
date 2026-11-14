@@ -412,6 +412,12 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   color: var(--muted);
+  /* Horizontal by construction: never stacked, never squeezed out of
+     the bar. (No vertical styling ever existed here — this makes the
+     horizontal reading explicit.) */
+  writing-mode: horizontal-tb;
+  white-space: nowrap;
+  flex: none;
 }
 
 .bottombar-wordmark:hover {
