@@ -1,0 +1,28 @@
+{
+  "name": "borisr.dev",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Boris Rossovsky's personal website \u2014 music, art, projects, tools.",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "biome check src",
+    "format": "biome format --write src"
+  },
+  "dependencies": {
+    "astro": "^7",
+    "@astrojs/svelte": "^9",
+    "svelte": "^5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2",
+    "@tailwindcss/vite": "^4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
