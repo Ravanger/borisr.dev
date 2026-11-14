@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+/**
+ * Prev / "All projects" / next row, rendered at the top AND bottom of
+ * project detail pages (same bar both places). The two side columns are
+ * equal 1fr tracks in CSS, so the center link sits at the exact middle
+ * of the row no matter how long the prev/next titles are.
+ */
+interface Props {
+  prev?: CollectionEntry<"projects">;
+  next?: CollectionEntry<"projects">;
+}
+
+const { prev, next } = Astro.props;
+---
+
+<nav class="project-nav" aria-label="More projects">
+  {
+    prev ? (
+      <a href={`/projects/${prev.id}`}>&larr; {prev.data.title}</a>
+    ) : (
+      <span aria-hidden="true" />
+    )
+  }
+  <a class="project-nav-all" href="/projects">All projects</a>
+  {
+    next ? (
+      <a href={`/projects/${next.id}`}>{next.data.title} &rarr;</a>
+    ) : (
+      <span aria-hidden="true" />
+    )
+  }
+</nav>
