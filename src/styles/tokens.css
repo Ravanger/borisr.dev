@@ -639,7 +639,7 @@ body {
 }
 
 /*
- * Signal chain: IN ─● ART ─● MUSIC ─● PROJECTS ─● ABOUT ─● OUT.
+ * Signal chain: IN ─● ART ─● MUSIC ─● PROJECTS ─● OUT.
  * One thin cable line joins the items; a 6px LED dot sits before
  * each label. Hidden on mobile — the bottom bar carries the nav
  * there and the top bar is just logo + toggle.

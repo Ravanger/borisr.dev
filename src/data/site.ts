@@ -31,14 +31,14 @@ export const nav = [
 ];
 
 /** Page navigation for the top signal-chain bar (desktop) and the
- * bottom bar (mobile): the four real pages. Home is the logo tap;
- * Tools is folded into Projects (issue #19, decided). About links
- * to /about, which lands in PR #27 — ahead of this PR in merge order. */
+ * bottom bar (mobile): the three real pages. Home is the logo tap;
+ * Tools is folded into Projects (issue #19, decided). About was
+ * dropped by Boris 2026-11-14 (PR #27 closed unmerged) — there is
+ * no About page and nothing links to one. */
 export const siteNav = [
   { label: "Art", href: "/art" },
   { label: "Music", href: "/music" },
   { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
 ];
 
 /** Home page teasers (Workbench): index-numbered cards linking to sections.

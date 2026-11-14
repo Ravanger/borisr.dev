@@ -1,6 +1,6 @@
 ---
 /**
- * Mobile bottom bar (64px + safe-area inset): the four pages with
+ * Mobile bottom bar (64px + safe-area inset): the three pages with
  * an icon above each label. Desktop has no bottom bar — the top
  * signal chain replaces it. Home is folded into the logo tap.
  * Each link is at least 48x48 (flex-1 item, 48px min height).
@@ -10,11 +10,10 @@ import NavIcon from "./NavIcon.astro";
 
 const pathname = Astro.url.pathname;
 const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
-const iconFor: Record<string, "art" | "music" | "projects" | "about"> = {
+const iconFor: Record<string, "art" | "music" | "projects"> = {
   "/art": "art",
   "/music": "music",
   "/projects": "projects",
-  "/about": "about",
 };
 ---
 

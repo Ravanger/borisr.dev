@@ -6,7 +6,7 @@
  * do not exist yet, and these are not faked as hand-drawn.
  */
 interface Props {
-  name: "art" | "music" | "projects" | "about";
+  name: "art" | "music" | "projects";
 }
 
 const { name } = Astro.props;
@@ -68,24 +68,6 @@ const { name } = Astro.props;
       <circle cx="18" cy="6" r="2.5" />
       <circle cx="12" cy="18" r="2.5" />
       <path d="M8.2 7.5l2.3 8M15.8 7.5l-2.3 8M8.5 6h7" />
-    </svg>
-  )
-}
-{
-  name === "about" && (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
     </svg>
   )
 }
