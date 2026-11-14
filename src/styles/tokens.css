@@ -534,15 +534,192 @@ body {
   border: 1px solid var(--line);
 }
 
-/* Project thumbnails: each public repo's GitHub social preview (external
-   CDN, lazy-loaded). Capped so the card stays a list row, not a banner. */
-.project-thumb {
+/*
+ * Project cards (issue #18, Workbench): image-led grid — 1 column
+ * mobile, 2 columns desktop (3 if 6+ projects). The image bleeds to
+ * the card edges; the silkscreen row, title, chips and links sit in
+ * the padded body below. Images are external CDN URLs (GitHub social
+ * previews for now, clearly marked as placeholders in the card copy),
+ * lazy-loaded, never committed here.
+ */
+.projects-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.project-card[hidden] {
+  display: none;
+}
+
+.project-card-media {
+  display: block;
+  line-height: 0;
+}
+
+.project-card-img {
   display: block;
   width: 100%;
-  max-width: 32rem;
-  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
+}
+
+.project-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem;
+}
+
+/* Silkscreen label row: code left, status LED + label right. */
+.project-silk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.status-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex: none;
+}
+
+.status-led-live {
+  background: #22c55e;
+  animation: live-pulse 2s ease-out infinite;
+}
+
+.status-led-wip {
+  background: var(--amber);
+}
+
+.status-led-off {
+  background: transparent;
+  border: 1px solid var(--muted);
+}
+
+.project-card-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1.05;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 0.75rem;
+}
+
+.project-card-title a {
+  color: var(--text);
+}
+
+/* Placeholder marker: mono, muted, sits under the one-liner so the
+   card never passes a stock image off as the real thing. */
+.project-img-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+/* Tech chips: mono 11px, muted, 1px border, no fill. */
+.tech-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 1rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.tech-chips li {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
   border: 1px solid var(--line);
-  margin-bottom: 1rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.project-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.project-gh {
+  display: inline-flex;
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.project-gh:hover {
+  color: var(--accent);
+}
+
+.project-gh svg {
+  display: block;
+}
+
+/* Coming-soon teaser card (issue #18): dashed border, blurred teaser
+   image, stamped IN THE WORKS. The blur is a stand-in, not the art. */
+.project-teaser {
+  border-style: dashed;
+}
+
+.project-teaser-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-teaser-img {
+  filter: blur(8px) grayscale(0.4);
+  transform: scale(1.06);
+}
+
+.project-teaser-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 /*
@@ -630,6 +807,195 @@ body {
 .project-body code {
   font-family: var(--font-mono);
   font-size: 0.85em;
+}
+
+/*
+ * Detail-page hero + spec sheet (issue #18): the hero is the project
+ * image at full content width; below it, the writeup sits left and a
+ * mono datasheet sits right, sticky on desktop.
+ */
+.project-hero {
+  margin-top: 1.5rem;
+}
+
+.project-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.project-hero .project-img-note {
+  margin-top: 0.5rem;
+}
+
+.project-detail {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 900px) {
+  .project-detail {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    align-items: start;
+  }
+}
+
+.project-detail .project-body {
+  margin-top: 0;
+}
+
+/* Prev/next project nav at the bottom of detail pages. */
+.project-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.project-nav a {
+  color: var(--accent);
+}
+
+.project-nav .project-nav-all {
+  color: var(--muted);
+}
+
+.spec-sheet {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1rem 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .spec-sheet {
+    position: sticky;
+    top: 4.5rem;
+  }
+}
+
+.spec-sheet-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.spec-sheet dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.spec-sheet dt {
+  color: var(--muted);
+  flex: none;
+}
+
+.spec-sheet dd {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.spec-sheet dd a {
+  color: var(--accent);
+}
+
+/*
+ * Code panels in the detail body (issue #18): fenced blocks render
+ * via Shiki's github-dark theme, which already is the dark surface
+ * panel in both themes; this adds the phosphor `$` prompt on bash
+ * blocks and a COPY button (added by the page script, so no-JS
+ * readers still get the plain block).
+ */
+.project-body pre {
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  overflow-x: auto;
+}
+
+.project-body pre code {
+  color: #e9e7df;
+  font-size: 0.85rem;
+}
+
+.project-body pre[data-language="bash"] code::before {
+  content: "$ ";
+  color: #8cff6a;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: #8e9187;
+  background: transparent;
+  border: 1px solid #262a22;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  color: #8cff6a;
+  border-color: #8cff6a;
+}
+
+/* "Games included" cards on the OpenParty detail page (issue #18):
+   four small cards with a two-letter mark, name, player count and
+   one line each. */
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .game-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.game-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.game-card p {
+  margin-top: 0.5rem;
+}
+
+.game-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
 }
 
 .project-photo {
@@ -958,10 +1324,10 @@ body {
 }
 
 /*
- * Projects filter (Workbench): mono uppercase buttons, one per category
- * plus All. The active button is filled with the accent. Filtering
- * toggles `hidden` on the cards; the rule below is needed because the
- * theme-c node rows set display:flex, which beats the UA [hidden] rule.
+ * Projects filter (Workbench, issue #18): sentence-case chips with a
+ * patch-bay jack — a small circle, filled phosphor when active. The
+ * active chip is phosphor text + border on a transparent background,
+ * never a solid fill block. Filtering toggles `hidden` on the cards.
  */
 .filter-row {
   display: flex;
@@ -971,10 +1337,12 @@ body {
 }
 
 .filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
   color: var(--muted);
   background: transparent;
   border: 1px solid var(--line);
@@ -988,7 +1356,22 @@ body {
 }
 
 .filter-btn[aria-pressed="true"] {
-  color: var(--bg);
+  color: var(--accent);
+  background: transparent;
+  border-color: var(--accent);
+}
+
+/* Patch-bay jack: hollow circle, filled phosphor when its filter
+   is active. */
+.filter-jack {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  border: 1px solid var(--muted);
+}
+
+.filter-btn[aria-pressed="true"] .filter-jack {
   background: var(--accent);
   border-color: var(--accent);
 }

@@ -244,7 +244,7 @@ export const art = {
   tileCount: 6,
 };
 
-export const projectsMoreLine = "More coming — WitClash later.";
+export const projectsMoreLine = "More coming as they ship.";
 
 export const tools = {
   path: "/tools/brighter-shores-routefinder",

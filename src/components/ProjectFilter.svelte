@@ -79,6 +79,7 @@ onMount(() => {
       aria-pressed={active === category}
       onclick={() => setFilter(category)}
     >
+      <span class="filter-jack" aria-hidden="true"></span>
       {category}
     </button>
   {/each}
