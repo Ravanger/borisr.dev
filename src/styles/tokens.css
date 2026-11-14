@@ -5,7 +5,18 @@
  * Dark is the default; adding `.light` to <html> switches to light.
  * Colors are CSS custom properties so every direction shares the same
  * component markup and only the tokens change.
+ *
+ * Grid (real site): a single centered column, --grid-max wide, with
+ * --grid-gutter side padding. .site-wrap is the only wrapper the real
+ * pages use — header, sections, cards, footer and the bottom bar all
+ * sit on it.
  */
+
+:root {
+  --grid-max: 56rem;
+  --grid-gutter: 1.5rem;
+  --bar-height: 3rem;
+}
 
 /* Direction A — "Tube amp": warm serif */
 .theme-a {
@@ -82,11 +93,36 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  /* Clearance for the fixed bottom bar (plus phone home-indicator area). */
+  padding-bottom: calc(var(--bar-height) + env(safe-area-inset-bottom));
 }
 
 ::selection {
   background: var(--accent);
   color: var(--bg);
+}
+
+/* ---- Grid ---- */
+
+.site-wrap {
+  width: 100%;
+  max-width: var(--grid-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-gutter);
+}
+
+/* Sub-pages: top spacing lives here; the first section's own top margin
+   is dropped so the page title doesn't sit under a double gap. */
+.page-top {
+  padding-top: 3rem;
+}
+@media (min-width: 768px) {
+  .page-top {
+    padding-top: 4rem;
+  }
+}
+.page-top > .section:first-child {
+  margin-top: 0;
 }
 
 /* ---- Shared semantic classes ---- */
@@ -145,6 +181,17 @@ body {
   margin-top: 0.6rem;
 }
 
+/* Subtle hover lift for interactive cards (home teasers). */
+.lift {
+  transition:
+    transform 0.15s ease-out,
+    border-color 0.15s ease-out;
+}
+.lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
 /* ---- Per-direction section styling ---- */
 
 .theme-a .section-title {
@@ -194,9 +241,235 @@ body {
   vertical-align: 0.15em;
 }
 
+/*
+ * Workbench section headers — tick-and-rule motif: a short vertical
+ * accent tick, the mono label, then a hairline running to the right
+ * edge. Applies to section headers only (not card eyebrows).
+ */
+.theme-c section > .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.theme-c section > .eyebrow::before {
+  content: "";
+  flex: none;
+  width: 2px;
+  height: 0.85em;
+  background: var(--accent);
+}
+
+.theme-c section > .eyebrow::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--line);
+  transform-origin: left center;
+  animation: draw-rule 0.7s ease-out both;
+}
+
+/*
+ * Node-and-connector rows (Workbench project/tool entries): a solid
+ * accent disc with a glyph, a short horizontal hairline elbow into the
+ * body, and — when another row follows — a vertical spine joining the
+ * discs. Other themes keep the plain card look: the disc and connector
+ * are hidden and the row renders as a card.
+ */
+.node-disc,
+.node-link {
+  display: none;
+}
+
+.theme-c .node-row {
+  background: transparent;
+  border: 0;
+  padding: 1.25rem 0;
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.theme-c .node-row:has(+ .node-row)::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 2.875rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+  transform-origin: top;
+  animation: draw-spine 0.5s ease-out both;
+}
+
+.theme-c .node-disc {
+  display: flex;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--bg);
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.15s ease-out;
+}
+
+.theme-c .node-row:hover .node-disc {
+  transform: scale(1.08);
+}
+
+.theme-c .node-link {
+  display: block;
+  flex: none;
+  width: 1rem;
+  margin-top: 13px;
+  border-top: 1px solid var(--line);
+}
+
+.theme-c .node-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- Bottom bar (fixed nav, OS-taskbar vibe) ---- */
+
+.bottombar {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottombar-wordmark {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.bottombar-wordmark:hover {
+  color: var(--text);
+}
+
+.bottombar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .bottombar-link {
+    font-size: 0.78rem;
+    padding-inline: 0.75rem;
+  }
+}
+
+.bottombar-link:hover {
+  color: var(--text);
+}
+
+/* Geometric state markers: current page = short vertical accent bar,
+   hover = small accent dot. No pills, no underlines. The marker slot is
+   a fixed height so the state never shifts the bar. */
+.bottombar-link .marker {
+  display: flex;
+  height: 0.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottombar-link .marker::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+}
+
+.bottombar-link:hover .marker::before {
+  opacity: 1;
+}
+
+.bottombar-link[aria-current="page"] {
+  color: var(--text);
+}
+
+.bottombar-link[aria-current="page"] .marker::before {
+  width: 2px;
+  height: 12px;
+  border-radius: 0;
+  opacity: 1;
+}
+
 /* ---- Theme toggle ---- */
 
 .btn-toggle {
   border: 1px solid var(--line);
   color: var(--muted);
+  background: var(--surface);
+}
+
+.btn-toggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ---- Restrained motion ---- */
+
+/* Short cross-fade on navigation (static pages fade in on load). */
+main {
+  animation: fade-in 0.25s ease-out both;
+}
+
+@keyframes draw-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes draw-spine {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
