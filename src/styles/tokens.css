@@ -1441,19 +1441,12 @@ body {
   }
 }
 
-/* ---- Bottom bar (mobile only, 64px + safe-area inset) ---- */
+/* ---- Bottom bar (all viewports, 64px + safe-area inset) ---- */
 
 .bottombar {
   background: var(--surface);
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Desktop has no bottom bar — the top signal chain replaces it. */
-@media (min-width: 768px) {
-  .bottombar {
-    display: none;
-  }
 }
 
 .bottombar-list {
@@ -1699,6 +1692,25 @@ body {
 .home-link:hover {
   color: var(--text);
   text-decoration: underline;
+}
+
+/* Fixed top row: home link left, theme toggle right. No background
+   or border — just the two controls floating over the page. 12px
+   vertical padding around the 36px toggle makes the row 60px tall;
+   .page-top clears it (see above). */
+.top-chrome {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 40;
+}
+
+.top-chrome-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 /* ---- Theme toggle: pedal footswitch in the nav bar ---- */
