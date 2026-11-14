@@ -252,8 +252,8 @@ body {
 /*
  * "The board": three stompboxes in a row on desktop (260x340, 24px
  * gap, centred), patch-cable signal chain above them. Tablet 2x2 with
- * the third pedal centred in the second row; mobile a horizontal
- * scroll-snap row, 80vw per pedal with the next one peeking.
+ * the third pedal centred in the second row; mobile a vertical stack
+ * of full-width cards (no hidden swipe row).
  * Enclosures are dark metal tints in dark mode and pale tinted paper
  * in light (datasheet) mode — see the .light overrides below; pedal
  * text follows the theme tokens.
@@ -316,10 +316,8 @@ body {
 
 .pedals {
   display: flex;
+  flex-direction: column;
   gap: 1.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 0.5rem;
 }
 
 @media (min-width: 640px) {
@@ -327,9 +325,6 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 260px);
     justify-content: center;
-    overflow-x: visible;
-    scroll-snap-type: none;
-    padding-bottom: 0;
   }
 
   /* Three pedals in a 2x2 grid: the third sits centred below. */
@@ -351,14 +346,10 @@ body {
 }
 
 .pedal {
-  flex: 0 0 80vw;
-  scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 260px;
-  max-width: 260px;
-  height: 340px;
+  width: 100%;
   padding: 1.25rem 1rem;
   background: var(--pedal-tint);
   border: 1px solid var(--line);
@@ -372,7 +363,8 @@ body {
 
 @media (min-width: 640px) {
   .pedal {
-    flex: none;
+    width: 260px;
+    height: 340px;
   }
 }
 
@@ -445,12 +437,19 @@ body {
 }
 
 .pedal-foot {
-  margin-top: auto;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
   padding-bottom: 0.25rem;
+}
+
+/* Fixed-height cards at >=640px: pin the foot to the card bottom. */
+@media (min-width: 640px) {
+  .pedal-foot {
+    margin-top: auto;
+  }
 }
 
 .pedal-led {
