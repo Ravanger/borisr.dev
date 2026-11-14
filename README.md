@@ -13,7 +13,7 @@ in [PLAN.md](PLAN.md).
   content stays in Astro. SvelteKit was passed over: this is a content site,
   not an app.
 - **Tailwind CSS v4** (via `@tailwindcss/vite`)
-- **Biome** for lint + format. **pnpm**, **Node 22.22+** (see `.nvmrc`).
+- **Biome** for lint + format. **pnpm**, **Node 22.23.5+** (see `.nvmrc`).
 
 ## Run it
 
