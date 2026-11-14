@@ -43,10 +43,15 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
   </div>
   <div class="mt-12 border-t rule pt-8">
     <h2 class="section-title">{music.moreNoiseTitle}</h2>
-    <div class="more-noise">
+    <div class="more-noise mt-6 flex flex-col gap-6">
       {
         music.moreNoise.map((item) => (
-          <a class="noise-card card lift" href={item.href}>
+          <a
+            class="noise-card card lift"
+            href={item.href}
+            target="_blank"
+            rel="noopener"
+          >
             <span class="noise-head">
               <span class="noise-mark" aria-hidden="true">{item.mark}</span>
               <span class="noise-label">{item.label}</span>
