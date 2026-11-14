@@ -15,7 +15,12 @@
 :root {
   --grid-max: 56rem;
   --grid-gutter: 1.5rem;
-  --bar-height: 3rem;
+  --bar-height: 4rem;
+  /* LED red, until PR #25 lands its --led on .theme-c (same value in
+     dark; #25's rule wins there once merged — it comes later in this
+     file — and its light value wins in light mode). --accent is the
+     phosphor token: #8CFF6A once #25 lands, the old orange until then. */
+  --led: #ff3d2e;
 }
 
 /* Direction A — "Tube amp": warm serif */
@@ -89,8 +94,8 @@ html {
   /* No page-level horizontal scroll: the tool frame breaks out to full
      viewport width with 100vw, which runs wider than the visible area
      by the vertical scrollbar's width on desktop. `clip` (not `hidden`)
-     doesn't create a scroll container, so the fixed chrome (bottom bar,
-     toggle, home link) is unaffected. */
+     doesn't create a scroll container, so the fixed chrome (top bar,
+     mobile bottom bar) is unaffected. */
   overflow-x: clip;
 }
 
@@ -99,8 +104,16 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-  /* Clearance for the fixed bottom bar (plus phone home-indicator area). */
-  padding-bottom: calc(var(--bar-height) + env(safe-area-inset-bottom));
+}
+
+/* Clearance for the fixed mobile bottom bar (plus phone
+   home-indicator area). Desktop has no bottom bar — the top bar is
+   cleared by .page-top on sub-pages and the home page's own top
+   padding. */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(var(--bar-height) + env(safe-area-inset-bottom));
+  }
 }
 
 ::selection {
@@ -119,8 +132,7 @@ body {
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
    is dropped so the page title doesn't sit under a double gap. 4rem
-   clears the fixed top-left home link and top-right toggle on mobile
-   (the link's bottom edge is ~41px; 3rem left only ~7px). */
+   clears the fixed 64px top bar. */
 .page-top {
   padding-top: 4rem;
 }
@@ -531,7 +543,7 @@ body {
   display: none;
 }
 
-/* ---- Bottom bar (fixed nav, OS-taskbar vibe) ---- */
+/* ---- Bottom bar (mobile only, 64px + safe-area inset) ---- */
 
 .bottombar {
   background: var(--surface);
@@ -539,103 +551,217 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-.bottombar-wordmark {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  /* Horizontal by construction: never stacked, never squeezed out of
-     the bar. (No vertical styling ever existed here — this makes the
-     horizontal reading explicit.) */
-  writing-mode: horizontal-tb;
-  white-space: nowrap;
-  flex: none;
+/* Desktop has no bottom bar — the top signal chain replaces it. */
+@media (min-width: 768px) {
+  .bottombar {
+    display: none;
+  }
 }
 
-.bottombar-wordmark:hover {
-  color: var(--text);
+.bottombar-list {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  list-style: none;
 }
 
+/*
+ * Icon above label, mono label (no longer the tiny 11px text-only
+ * links). Each link is at least 48x48: 48px min height plus padding,
+ * stretched to its flex-1 list item for width.
+ */
 .bottombar-link {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem 0.5rem;
+  justify-content: center;
+  gap: 0.2rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: 0.5rem 0.25rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
   cursor: pointer;
   white-space: nowrap;
 }
 
-@media (min-width: 640px) {
-  .bottombar-link {
-    font-size: 0.78rem;
-    padding-inline: 0.75rem;
-  }
-}
-
-/*
- * Narrow phones (Boris's A54 is 360px wide): six mono links at the
- * default metrics total ~370px and overflow the bar. Tighten the
- * metrics below the sm breakpoint so all six fit without wrapping
- * or scrolling. Tap targets stay full-width: each link stretches to
- * its flex-1 list item, so the hit area is ~50px wide even where the
- * label is short.
- */
-@media (max-width: 639px) {
-  .bottombar-link {
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    padding: 0.5rem 0.25rem;
-  }
+.bottombar-link svg {
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .bottombar-link:hover {
   color: var(--text);
 }
 
-/* Geometric state markers: current page = short horizontal accent dash,
-   hover = small accent dot. No pills, no underlines. The marker slot is
-   a fixed height so the state never shifts the bar. */
-.bottombar-link .marker {
-  display: flex;
-  height: 0.75rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.bottombar-link .marker::before {
-  content: "";
-  display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 9999px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.15s ease-out;
-}
-
-.bottombar-link:hover .marker::before {
-  opacity: 1;
+.bottombar-link:hover svg {
+  color: var(--accent);
 }
 
 .bottombar-link[aria-current="page"] {
   color: var(--text);
 }
 
-.bottombar-link[aria-current="page"] .marker::before {
+/* Current-page marker: the same short horizontal accent dash as the
+   old bottom bar, under the label, in a fixed-size slot. */
+.bottombar-link .marker {
+  display: block;
   width: 12px;
   height: 2px;
-  border-radius: 0;
-  opacity: 1;
+  background: transparent;
 }
 
-/* Top-left home link (fixed chrome, mirrors the toggle top-right):
-   mono wordmark, reads as a link, fixed size so it never shifts layout. */
+.bottombar-link[aria-current="page"] .marker {
+  background: var(--accent);
+}
+
+/* ---- Top bar (fixed signal-chain nav, real site) ---- */
+
+.topbar {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 40;
+  height: 4rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+/*
+ * Signal chain: IN ─● ART ─● MUSIC ─● PROJECTS ─● ABOUT ─● OUT.
+ * One thin cable line joins the items; a 6px LED dot sits before
+ * each label. Hidden on mobile — the bottom bar carries the nav
+ * there and the top bar is just logo + toggle.
+ */
+.topbar-chain {
+  display: none;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .topbar-chain {
+    display: flex;
+  }
+}
+
+.chain {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.chain-end {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.chain-item {
+  display: flex;
+  align-items: center;
+}
+
+.cable {
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--line);
+  transition: background-color 0.15s ease-out;
+}
+
+/*
+ * LED states: unlit #2A2E26; current page LED red + glow with the
+ * label in text colour; hover dims the LED on to 50% phosphor and
+ * turns the cable segment leading into that item phosphor. The
+ * current-page marker from the old bottom bar — a short horizontal
+ * dash under the label — is kept, in a fixed-size slot so the state
+ * never shifts the bar. The glow is a static shadow, never a pulse,
+ * so there is no motion to gate (the global reduced-motion rule
+ * below still zeroes the transitions).
+ */
+.led {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #2a2e26;
+  transition:
+    background-color 0.15s ease-out,
+    opacity 0.15s ease-out,
+    box-shadow 0.15s ease-out;
+}
+
+.chain-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chain-link:hover {
+  color: var(--text);
+}
+
+.chain-item:hover .cable {
+  background: var(--accent);
+}
+
+.chain-item:hover .led {
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+.chain-link[aria-current="page"] {
+  color: var(--text);
+}
+
+.chain-link[aria-current="page"] .led {
+  background: var(--led);
+  box-shadow: 0 0 6px var(--led);
+}
+
+.chain-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.chain-label .chain-marker {
+  display: block;
+  width: 12px;
+  height: 2px;
+  background: transparent;
+}
+
+.chain-link[aria-current="page"] .chain-marker {
+  background: var(--accent);
+}
+
+/* Home link (logo, left end of the top bar): mono wordmark, reads as
+   a link, fixed size so it never shifts layout. */
 .home-link {
   font-family: var(--font-mono);
   font-size: 0.72rem;
