@@ -86,6 +86,12 @@
 html {
   background: var(--bg);
   scroll-behavior: smooth;
+  /* No page-level horizontal scroll: the tool frame breaks out to full
+     viewport width with 100vw, which runs wider than the visible area
+     by the vertical scrollbar's width on desktop. `clip` (not `hidden`)
+     doesn't create a scroll container, so the fixed chrome (bottom bar,
+     toggle, home link) is unaffected. */
+  overflow-x: clip;
 }
 
 body {
