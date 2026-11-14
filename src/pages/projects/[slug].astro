@@ -134,9 +134,13 @@ const repoShort = repoUrl.replace("https://github.com/", "");
   </div>
 </SiteLayout>
 
-<script>
+<script data-astro-rerun>
   // Copy buttons on detail-page code panels: progressive enhancement.
   // Each <pre> gets one COPY button; the button copies the block text.
+  // data-astro-rerun: the router remembers executed scripts by content
+  // across navigations, so on returning to a detail page it would treat
+  // this script as a duplicate and never re-run it — the swapped-in
+  // <pre> blocks would get no COPY button.
   document.querySelectorAll(".project-body pre").forEach((pre) => {
     if (pre.querySelector(".copy-btn")) return;
     const button = document.createElement("button");
