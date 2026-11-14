@@ -1,0 +1,36 @@
+---
+import ArtFeed from "../../components/ArtFeed.astro";
+import MusicEmbeds from "../../components/MusicEmbeds.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import ToolsCard from "../../components/ToolsCard.astro";
+import { site } from "../../data/site";
+import DesignLayout from "../../layouts/DesignLayout.astro";
+
+const fonts = [
+  "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap",
+];
+const wrap = "max-w-2xl";
+---
+
+<DesignLayout
+  theme="a"
+  title="Boris Rossovsky — borisr.dev (Direction A)"
+  description={site.description}
+  fonts={fonts}
+  wrapClass={wrap}
+>
+  <div class={`mx-auto w-full ${wrap} px-5`}>
+    <div class="pt-10 pb-2 text-center md:pt-16">
+      <p class="eyebrow text-center">{site.domain}</p>
+      <h1 class="font-display mt-5 text-5xl leading-[1.05] font-semibold md:text-6xl">
+        Boris<br />Rossovsky
+      </h1>
+      <p class="muted mx-auto mt-6 max-w-md leading-relaxed">{site.intro}</p>
+    </div>
+    <hr class="rule my-12 border-t" />
+    <ArtFeed />
+    <MusicEmbeds />
+    <ProjectCard />
+    <ToolsCard />
+  </div>
+</DesignLayout>

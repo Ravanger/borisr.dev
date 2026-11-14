@@ -1,0 +1,53 @@
+---
+import "../../styles/tokens.css";
+import { designIndex, placeholder } from "../../data/site";
+---
+
+<!doctype html>
+<html lang="en" class="theme-a">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design directions — borisr.dev</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+    />
+    <script is:inline>
+      try {
+        if (localStorage.getItem("borisr-theme") === "light") {
+          document.documentElement.classList.add("light");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <main class="mx-auto w-full max-w-2xl px-5 py-16">
+      <p class="eyebrow">{designIndex.eyebrow}</p>
+      <h1 class="font-display mt-4 text-4xl leading-tight font-semibold">
+        {designIndex.heading}
+      </h1>
+      <p class="muted mt-4 leading-relaxed">{designIndex.intro}</p>
+      <ul class="mt-10 grid gap-4">
+        {
+          designIndex.directions.map((d) => (
+            <li class="card p-6">
+              <h2 class="font-display text-xl font-semibold">
+                <a class="link-accent" href={d.href}>
+                  {d.name}
+                </a>
+              </h2>
+              <p class="muted mt-2 text-sm leading-relaxed">{d.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="muted mt-10 text-sm">
+        <a class="link-accent" href="/">&larr; {designIndex.backLabel}</a>
+      </p>
+    </main>
+  </body>
+</html>

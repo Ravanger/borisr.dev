@@ -1,0 +1,33 @@
+---
+import "../styles/tokens.css";
+import { placeholder } from "../data/site";
+---
+
+<!doctype html>
+<html lang="en" class="theme-a">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Boris Rossovsky — borisr.dev</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      try {
+        if (localStorage.getItem("borisr-theme") === "light") {
+          document.documentElement.classList.add("light");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <main class="mx-auto w-full max-w-2xl px-5 py-24 text-center">
+      <p class="eyebrow">borisr.dev</p>
+      <h1 class="font-display mt-4 text-5xl leading-tight font-semibold">
+        {placeholder.heading}
+      </h1>
+      <p class="muted mx-auto mt-6 max-w-md leading-relaxed">{placeholder.body}</p>
+      <p class="mt-8">
+        <a class="link-accent text-lg" href="/design/">{placeholder.linkLabel} &rarr;</a>
+      </p>
+    </main>
+  </body>
+</html>
