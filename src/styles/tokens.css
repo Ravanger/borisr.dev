@@ -158,6 +158,11 @@ html {
      doesn't create a scroll container, so the fixed chrome (bottom bar,
      toggle, home link) is unaffected. */
   overflow-x: clip;
+  /* Reserve the scrollbar's space even when there is no scrollbar, so the
+     layout never shifts (e.g. /art/ with an empty feed is short enough to
+     drop the vertical scrollbar, which would re-flow the bottom bar's
+     thirds and move the nav icons). */
+  scrollbar-gutter: stable;
 }
 
 body {
