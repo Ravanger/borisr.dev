@@ -100,9 +100,13 @@ theme (direction C); the three `/design/*` pages stay as reference.
 - **Grid**: one centered column (`--grid-max: 56rem`,
   `--grid-gutter: 1.5rem` in the tokens); header, sections, cards,
   footer, and bottom bar all sit on it via `.site-wrap`.
-- **Projects filter**: All / Software / Framework / Hardware buttons
-  (`src/components/ProjectFilter.svelte`, client-side, no reload);
-  categories come from each project's frontmatter.
+- **Projects filter**: All / Software / Framework / Hardware / Live
+  buttons (`src/components/ProjectFilter.svelte`, client-side, no
+  reload); categories come from each project's frontmatter, Live shows
+  only projects with a live tool. The filter syncs to the URL
+  (`?filter=<category>`, e.g. `?filter=live`) via `history.pushState` —
+  no reload, shareable links, back/forward works; `All` clears the
+  param (plain `/projects`).
 - **Tools**: the Routefinder is embedded, not proxied — a full-height
   iframe on `/tools/brighter-shores-routefinder` (real borisr.dev page,
   site chrome stays visible), with an "open in a new tab" link to the
