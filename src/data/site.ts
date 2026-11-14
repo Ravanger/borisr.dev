@@ -45,6 +45,46 @@ export const siteNav = [
   { label: "Tools", href: "/tools" },
 ];
 
+/** Home stompbox board (#16): one pedal per section, in signal-chain
+ * order. `knobs` are the two decorative knob labels; `line` is the one
+ * line of real content; `tint` is the pedal's dark enclosure colour
+ * (fixed dark in both themes — pedals are hardware). */
+export interface Pedal {
+  label: string;
+  name: string;
+  href: string;
+  knobs: [string, string];
+  line: string;
+  tint: string;
+}
+
+export const pedals: Pedal[] = [
+  {
+    label: "ART",
+    name: "Art",
+    href: "/art",
+    knobs: ["INK", "CHAOS"],
+    line: "Old drawings, from the Instagram archive.",
+    tint: "#16131a",
+  },
+  {
+    label: "MUSIC",
+    name: "Music",
+    href: "/music",
+    knobs: ["GAIN", "FUZZ"],
+    line: "From the Depths. 10 tracks, 52 minutes.",
+    tint: "#1a1212",
+  },
+  {
+    label: "PROJECTS",
+    name: "Projects",
+    href: "/projects",
+    knobs: ["SOLDER", "SCOPE"],
+    line: "Routefinder, OpenParty, desk gadget.",
+    tint: "#121712",
+  },
+];
+
 /** Home page teasers (Workbench): index-numbered cards linking to sections.
  * `motif` picks the card's mark (see TeaserMotif): brush = art, wave =
  * music, nodes = projects, terminal = tools. */
