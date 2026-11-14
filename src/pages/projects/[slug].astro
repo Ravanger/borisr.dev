@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import ProjectNav from "../../components/ProjectNav.astro";
 import SiteLayout from "../../layouts/SiteLayout.astro";
 
 export async function getStaticPaths() {
@@ -22,6 +23,7 @@ const {
   directUrl,
   directLabel,
   thumb,
+  thumbAvif,
   status,
   lang,
   stack,
@@ -39,6 +41,7 @@ const repoShort = repoUrl.replace("https://github.com/", "");
 
 <SiteLayout title={`${title} — borisr.dev`} description={tagline}>
   <div class="page-top">
+    <ProjectNav prev={prev} next={next} />
     <section class="section">
       <p class="eyebrow">{category}</p>
       <h1 class="section-title">{title}</h1>
@@ -61,7 +64,16 @@ const repoShort = repoUrl.replace("https://github.com/", "");
         <a class="link-accent" href={repoUrl} target="_blank" rel="noopener">GitHub &nearr;</a>
       </p>
       <figure class="project-hero">
-        <img src={thumb} alt="" width="1200" height="600" />
+        {
+          thumbAvif ? (
+            <picture>
+              <source type="image/avif" srcset={thumbAvif} />
+              <img src={thumb} alt="" width="1200" height="600" />
+            </picture>
+          ) : (
+            <img src={thumb} alt="" width="1200" height="600" />
+          )
+        }
         {
           imageNote && (
             <figcaption class="project-img-note">
@@ -114,23 +126,7 @@ const repoShort = repoUrl.replace("https://github.com/", "");
         </aside>
       </div>
     </section>
-    <nav class="project-nav" aria-label="More projects">
-      {
-        prev ? (
-          <a href={`/projects/${prev.id}`}>&larr; {prev.data.title}</a>
-        ) : (
-          <span aria-hidden="true" />
-        )
-      }
-      <a class="project-nav-all" href="/projects">All projects</a>
-      {
-        next ? (
-          <a href={`/projects/${next.id}`}>{next.data.title} &rarr;</a>
-        ) : (
-          <span aria-hidden="true" />
-        )
-      }
-    </nav>
+    <ProjectNav prev={prev} next={next} />
   </div>
 </SiteLayout>
 

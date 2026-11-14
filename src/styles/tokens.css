@@ -158,6 +158,11 @@ html {
      doesn't create a scroll container, so the fixed chrome (bottom bar,
      toggle, home link) is unaffected. */
   overflow-x: clip;
+  /* Reserve the scrollbar's space even when there is no scrollbar, so the
+     layout never shifts (e.g. /art/ with an empty feed is short enough to
+     drop the vertical scrollbar, which would re-flow the bottom bar's
+     thirds and move the nav icons). */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -184,12 +189,11 @@ body {
 }
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
-   is dropped so the page title doesn't sit under a double gap. 5rem
+   is dropped so the page title doesn't sit under a double gap. 4.5rem
    clears the fixed top row (60px: 36px toggle + 12px padding each
-   side) with ~20px to spare — 4rem left content flush against the
-   old 64px top bar, and only ~4px against the new row. */
+   side) with ~12px to spare; tightened from 5rem for a denser rhythm. */
 .page-top {
-  padding-top: 5rem;
+  padding-top: 4.5rem;
 }
 .page-top > .section:first-child {
   margin-top: 0;
@@ -200,8 +204,8 @@ body {
 /*
  * Hero: 100vh minus the fixed bottom bar on desktop, auto height on
  * mobile. The H1 is the typeset name in the wordmark slot (see
- * index.astro) — a clearly-marked placeholder until Boris draws the
- * hand-drawn wordmark. Intro 20px, max 44ch.
+ * index.astro) — a clearly-marked placeholder until a hand-drawn
+ * wordmark replaces it. Intro 20px, max 44ch.
  */
 .hero {
   position: relative;
@@ -248,10 +252,11 @@ body {
 /*
  * "The board": three stompboxes in a row on desktop (260x340, 24px
  * gap, centred), patch-cable signal chain above them. Tablet 2x2 with
- * the third pedal centred in the second row; mobile a horizontal
- * scroll-snap row, 80vw per pedal with the next one peeking.
- * Enclosures are fixed dark tints in both themes (pedals are
- * hardware), so pedal text uses fixed light colours, not theme vars.
+ * the third pedal centred in the second row; mobile a vertical stack
+ * of full-width cards (no hidden swipe row).
+ * Enclosures are dark metal tints in dark mode and pale tinted paper
+ * in light (datasheet) mode — see the .light overrides below; pedal
+ * text follows the theme tokens.
  */
 .board {
   margin-top: 4rem;
@@ -272,6 +277,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.01em;
   margin: 0;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -310,10 +316,8 @@ body {
 
 .pedals {
   display: flex;
+  flex-direction: column;
   gap: 1.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 0.5rem;
 }
 
 @media (min-width: 640px) {
@@ -321,9 +325,6 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 260px);
     justify-content: center;
-    overflow-x: visible;
-    scroll-snap-type: none;
-    padding-bottom: 0;
   }
 
   /* Three pedals in a 2x2 grid: the third sits centred below. */
@@ -345,19 +346,15 @@ body {
 }
 
 .pedal {
-  flex: 0 0 80vw;
-  scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 260px;
-  max-width: 260px;
-  height: 340px;
+  width: 100%;
   padding: 1.25rem 1rem;
   background: var(--pedal-tint);
   border: 1px solid var(--line);
   border-radius: 2px;
-  color: #e9e7df;
+  color: var(--text);
   text-decoration: none;
   transition:
     border-color 0.15s ease-out,
@@ -366,7 +363,8 @@ body {
 
 @media (min-width: 640px) {
   .pedal {
-    flex: none;
+    width: 260px;
+    height: 340px;
   }
 }
 
@@ -417,7 +415,7 @@ body {
 .knob-label {
   font-size: 10px;
   letter-spacing: 0.06em;
-  color: #8e9187;
+  color: var(--muted);
 }
 
 .pedal-name {
@@ -439,12 +437,19 @@ body {
 }
 
 .pedal-foot {
-  margin-top: auto;
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
   padding-bottom: 0.25rem;
+}
+
+/* Fixed-height cards at >=640px: pin the foot to the card bottom. */
+@media (min-width: 640px) {
+  .pedal-foot {
+    margin-top: auto;
+  }
 }
 
 .pedal-led {
@@ -476,6 +481,27 @@ body {
 .pedal:active .pedal-switch,
 .pedal.thunk .pedal-switch {
   transform: translateY(2px);
+}
+
+/* Light (datasheet) mode: enclosures become pale tinted paper in the
+   pedal's own hue, knobs read as bright plastic on paper, the unlit
+   LED as a faint red smudge. The metal footswitch is hardware and
+   stays the same in both themes. */
+.light .pedal {
+  background: var(--pedal-tint-light);
+}
+
+.light .knob {
+  background: var(--surface);
+  border-color: var(--line);
+}
+
+.light .pedal-line {
+  color: color-mix(in oklab, var(--text) 82%, var(--bg));
+}
+
+.light .pedal-led {
+  background: color-mix(in oklab, var(--led) 22%, var(--surface));
 }
 
 /* ---- Shared semantic classes ---- */
@@ -662,38 +688,6 @@ body {
   display: block;
 }
 
-/* Coming-soon teaser card (issue #18): dashed border, blurred teaser
-   image, stamped IN THE WORKS. The blur is a stand-in, not the art. */
-.project-teaser {
-  border-style: dashed;
-}
-
-.project-teaser-media {
-  position: relative;
-  overflow: hidden;
-}
-
-.project-teaser-img {
-  filter: blur(8px) grayscale(0.4);
-  transform: scale(1.06);
-}
-
-.project-teaser-stamp {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  color: var(--text);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  padding: 0.4rem 0.75rem;
-  line-height: 1;
-  white-space: nowrap;
-}
-
 /*
  * Instagram feed (Workbench): uniform grid, square crops, hairline
  * borders — the same language as the placeholder tiles it replaces.
@@ -818,12 +812,14 @@ body {
   margin-top: 0;
 }
 
-/* Prev/next project nav at the bottom of detail pages. */
+/* Prev / All projects / next row, at the top AND bottom of detail pages.
+   Two equal 1fr side tracks keep "All projects" at the exact centre of
+   the row no matter how long the prev/next titles are (the old flex
+   space-between drifted whenever the side labels were uneven). */
 .project-nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
   gap: 1rem;
   margin-top: 3rem;
   padding-top: 1.5rem;
@@ -836,7 +832,19 @@ body {
   color: var(--accent);
 }
 
+/* Side links hug their column edges so the centre one stays centred. */
+.project-nav > :first-child {
+  justify-self: start;
+  text-align: left;
+}
+
+.project-nav > :last-child {
+  justify-self: end;
+  text-align: right;
+}
+
 .project-nav .project-nav-all {
+  justify-self: center;
   color: var(--muted);
 }
 
@@ -1017,6 +1025,38 @@ body {
   display: block;
   width: 100%;
   background: var(--surface);
+}
+
+/*
+ * "More noise" cards: service icon + label row with a muted one-liner
+ * below. Icons are the shared inline-SVG set (SocialIcon) — no icon
+ * font, no extra request; the same marks as the footer socials.
+ */
+.noise-card {
+  display: block;
+  padding: 1rem 1.25rem;
+}
+
+.noise-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.noise-mark {
+  display: inline-flex;
+  color: var(--accent);
+}
+
+.noise-arrow {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.noise-blurb {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--muted);
 }
 
 .link-accent {
@@ -1412,11 +1452,19 @@ body {
  * stretched to its flex-1 list item for width.
  */
 .bottombar-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* Single max-content column: the track is sized by the widest child
+     (the label), so the marker can span exactly the label's width and
+     everything shares one centre line at any viewport/DPR. */
+  display: grid;
+  grid-template-columns: max-content;
+  /* Centre the single track in the column, and each item in the track. */
   justify-content: center;
-  gap: 0.2rem;
+  justify-items: center;
+  align-content: center;
+  row-gap: 0.2rem;
+  /* Fill the flex-1 column so icon + label sit at its centre (a hugging
+     anchor would pin each item to the column's left edge). */
+  width: 100%;
   min-width: 3rem;
   min-height: 3rem;
   padding: 0.5rem 0.25rem;
@@ -1447,17 +1495,22 @@ body {
   color: var(--text);
 }
 
-/* Current-page marker: the same short horizontal accent dash as the
-   old bottom bar, under the label, in a fixed-size slot. */
+/* Current-page marker: an accent dash above the icon, spanning the
+   label's width (the grid track is sized by the label). The extra
+   margin-bottom (on top of the row gap) keeps it clear of the icon;
+   the slot is present on every item, so nothing shifts when the
+   current page changes. */
 .bottombar-link .marker {
   display: block;
-  width: 12px;
+  width: 100%;
   height: 2px;
+  margin-bottom: 0.15rem;
   background: transparent;
 }
 
 .bottombar-link[aria-current="page"] .marker {
   background: var(--accent);
+  opacity: 0.5;
 }
 
 /* ---- Footer social icons ---- */

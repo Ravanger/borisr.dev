@@ -1,12 +1,12 @@
 ---
 import { music } from "../data/site";
+import SocialIcon from "./SocialIcon.astro";
 
 // Bandcamp large player (size=large, 470px) and the SoundCloud classic
 // player (visual=false, 470px) sit side by side in a two-column grid on
-// desktop, stacking to one column on mobile — the PR #24 arrangement,
-// restored below the album hero. PR #29 moved the Bandcamp player into
-// the hero as a slim player; the grid supersedes it, so the slim player
-// is gone and there is no duplicate Bandcamp player. Both players sit in
+// desktop, stacking to one column on mobile — the PR #24 arrangement.
+// This section is the whole music page: players up top, "More noise"
+// links below (the old album hero was removed). Both players sit in
 // an .embed-frame so their outer boxes measure the same height — tops
 // and bottoms flush, no optical offset. SoundCloud visual=true wastes
 // the height on artwork (a real-browser render showed 2 track rows + a
@@ -53,7 +53,7 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
             rel="noopener"
           >
             <span class="noise-head">
-              <span class="noise-mark" aria-hidden="true">{item.mark}</span>
+              <span class="noise-mark"><SocialIcon name={item.icon} /></span>
               <span class="noise-label">{item.label}</span>
               <span class="noise-arrow" aria-hidden="true">↗</span>
             </span>

@@ -7,7 +7,7 @@
  * LED and turns the knobs a little; click depresses the switch 2px
  * with a 120ms "thunk" before navigating (no-JS keeps the plain link;
  * reduced motion navigates at once). The patch-cable SVG above the
- * row is the signal chain IN -> ART -> MUSIC -> PROJECTS -> OUT.
+ * row is the signal chain IN -> PROJECTS -> MUSIC -> ART -> OUT.
  */
 import { pedals } from "../data/site";
 ---
@@ -34,16 +34,16 @@ import { pedals } from "../data/site";
     </g>
     <g class="patch-cable-label">
       <text x="16" y="48" text-anchor="middle">IN</text>
-      <text x="130" y="48" text-anchor="middle">ART</text>
+      <text x="130" y="48" text-anchor="middle">PROJECTS</text>
       <text x="414" y="48" text-anchor="middle">MUSIC</text>
-      <text x="698" y="48" text-anchor="middle">PROJECTS</text>
+      <text x="698" y="48" text-anchor="middle">ART</text>
       <text x="812" y="48" text-anchor="middle">OUT</text>
     </g>
   </svg>
   <div class="pedals">
     {
       pedals.map((p) => (
-        <a class="pedal" href={p.href} style={`--pedal-tint: ${p.tint}`}>
+        <a class="pedal" href={p.href} style={`--pedal-tint: ${p.tint}; --pedal-tint-light: ${p.tintLight}`}>
           <span class="pedal-knobs">
             {p.knobs.map((k) => (
               <span class="pedal-knob">

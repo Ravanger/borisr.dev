@@ -1,4 +1,13 @@
 ---
+/**
+ * Layout structure (kept in frontmatter so nothing developer-facing
+ * ships to the browser): fonts are self-hosted in public/fonts/ with
+ * the display face preloaded, the rest loading via @font-face in
+ * tokens.css; the grain overlay is the only full-page texture and is
+ * real-site only — the /design pages don't get it; the fixed top row
+ * holds the home link and theme toggle, with no nav up there — the
+ * bottom bar is the single nav.
+ */
 import { ClientRouter } from "astro:transitions";
 import "../styles/tokens.css";
 import BottomBar from "../components/BottomBar.astro";
@@ -24,9 +33,6 @@ const { title, description } = Astro.props;
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <!-- Self-hosted fonts (public/fonts/): preload the display face;
-         the other two load via @font-face in tokens.css. No remote
-         font requests on the real site. -->
     <link
       rel="preload"
       href="/fonts/big-shoulders-display-latin-800-normal.woff2"
@@ -38,11 +44,7 @@ const { title, description } = Astro.props;
     <ThemeInit />
   </head>
   <body id="top">
-    <!-- Grain overlay: the only full-page texture (see .grain in
-         tokens.css). Real site only — the /design pages don't get it. -->
     <div class="grain" aria-hidden="true"></div>
-    <!-- Fixed top row: home link left, theme toggle right. No bar,
-         no nav up here — the bottom bar is the single nav. -->
     <div class="top-chrome">
       <div class="site-wrap top-chrome-inner">
         <HomeLink />

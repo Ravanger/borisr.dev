@@ -1,4 +1,6 @@
 ---
+/** WORDMARK SLOT: the hand-drawn wordmark replaces the typeset H1
+ * once it's drawn — do not fake a hand-drawn mark. */
 import StompboxBoard from "../components/StompboxBoard.astro";
 import { site } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
@@ -7,9 +9,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 <SiteLayout title="Boris Rossovsky — borisr.dev" description={site.description}>
   <section class="hero" aria-labelledby="home-title">
     <div class="hero-copy">
-      <!-- WORDMARK SLOT: the hand-drawn wordmark goes here once Boris
-           draws it. Until then the typeset name below is the placeholder
-           — do not fake a hand-drawn mark. -->
       <h1 id="home-title" class="hero-name font-display" data-wordmark-slot>
         Boris<br />Rossovsky
       </h1>
