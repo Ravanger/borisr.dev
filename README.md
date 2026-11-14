@@ -77,7 +77,7 @@ theme (direction C); the three `/design/*` pages stay as reference.
 ## Site structure
 
 - **Real pages** (Workbench theme, `src/layouts/SiteLayout.astro`): `/`
-  (intro + section teasers, each with its own mark), `/art`, `/music`,
+  (hero + stompbox board linking to Art, Music, Projects), `/art`, `/music`,
   `/projects`. Thin composition over the shared components.
   There is no `/contact` page — the footer is the contact point
   (JS-assembled email + GitHub only). There is no `/tools` index page
@@ -129,8 +129,9 @@ theme (direction C); the three `/design/*` pages stay as reference.
 ## Content
 
 Everything user-facing is in `src/data/site.ts` or the MDX collections:
-intro, nav, home teasers (each with a motif: brush / waveform / nodes /
-terminal), music links (Bandcamp album `3553260334`, SoundCloud,
+intro, nav, home stompbox board (Art / Music / Projects, each with knob
+labels, a one-line summary, footswitch + LED; patch-cable signal chain
+IN → ART → MUSIC → PROJECTS → OUT), music links (Bandcamp album `3553260334`, SoundCloud,
 Newgrounds), art feed links (Instagram, TikTok `@ravanger666`), the
 projects collection, the `/tools/brighter-shores-routefinder` tools entry
 (with live status and the fan-made disclaimer), footer socials (GitHub

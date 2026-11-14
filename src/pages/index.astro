@@ -1,35 +1,32 @@
 ---
-import TeaserMotif from "../components/TeaserMotif.astro";
-import { site, teasers } from "../data/site";
+import StompboxBoard from "../components/StompboxBoard.astro";
+import { site } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
 
 <SiteLayout title="Boris Rossovsky — borisr.dev" description={site.description}>
-  <div class="grid gap-8 pt-16 md:grid-cols-12 md:pt-20">
-    <div class="md:col-span-5">
-      <p class="eyebrow">{site.domain}</p>
-      <h1 class="font-display h1 mt-4">
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <!-- WORDMARK SLOT: the hand-drawn wordmark goes here once Boris
+           draws it. Until then the typeset name below is the placeholder
+           — do not fake a hand-drawn mark. -->
+      <h1 id="home-title" class="hero-name font-display" data-wordmark-slot>
         Boris<br />Rossovsky
       </h1>
+      <p class="hero-wordmark-note mono">hand-drawn wordmark goes here</p>
+      <p class="hero-intro">{site.intro}</p>
     </div>
-    <p class="muted max-w-md leading-relaxed md:col-span-7 md:self-end">{site.intro}</p>
-  </div>
-  <div class="mt-14 grid gap-4 sm:grid-cols-2">
-    {
-      teasers.map((t) => (
-        <a href={t.href} class="card lift block p-6">
-          <div class="teaser-head">
-            <p class="eyebrow">
-              {t.index} / {t.label}
-            </p>
-            <TeaserMotif motif={t.motif} />
-          </div>
-          <p class="muted mt-3 text-sm leading-relaxed">{t.description}</p>
-          <p class="mt-4 text-sm">
-            <span class="link-accent">Open &nearr;</span>
-          </p>
-        </a>
-      ))
-    }
-  </div>
+    <figure class="hero-avatar">
+      <img
+        src={site.avatarUrl}
+        alt="Illustrated avatar of Boris Rossovsky"
+        width="280"
+        height="280"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption class="mono">{site.avatarLabel}</figcaption>
+    </figure>
+  </section>
+  <StompboxBoard />
 </SiteLayout>

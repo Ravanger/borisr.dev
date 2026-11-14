@@ -15,10 +15,16 @@ export const site = {
   domain: "borisr.dev",
   tagline: "personal site",
   intro:
-    "Boris Rossovsky. I make things — music, pedals, software, and whatever else ends up on the bench. This is where it all lives.",
+    "I make loud music, build pedals and gadgets, and write tools for games I play too much. Everything here came off the same messy bench.",
   footerNote: "This site sets no cookies and runs no analytics.",
   description: "Music, pedals, software, and whatever else ends up on the bench.",
   contactPrefix: "Reach me at",
+  /**
+   * Illustrated GitHub avatar, hotlinked from GitHub's CDN
+   * (api.github.com/users/Ravanger -> avatar_url) — never committed.
+   */
+  avatarUrl: "https://avatars.githubusercontent.com/u/814853?v=4",
+  avatarLabel: "U1 BORIS",
 };
 
 export const nav = [
@@ -41,45 +47,43 @@ export const siteNav = [
   { label: "Projects", href: "/projects" },
 ];
 
-/** Home page teasers (Workbench): index-numbered cards linking to sections.
- * `motif` picks the card's mark (see TeaserMotif): brush = art, wave =
- * music, nodes = projects, terminal = tools. */
-export interface Teaser {
-  index: string;
+/** Home stompbox board (#16): one pedal per section, in signal-chain
+ * order. `knobs` are the two decorative knob labels; `line` is the one
+ * line of real content; `tint` is the pedal's dark enclosure colour
+ * (fixed dark in both themes — pedals are hardware). */
+export interface Pedal {
   label: string;
+  name: string;
   href: string;
-  description: string;
-  motif: "brush" | "wave" | "nodes" | "terminal";
+  knobs: [string, string];
+  line: string;
+  tint: string;
 }
 
-export const teasers: Teaser[] = [
+export const pedals: Pedal[] = [
   {
-    index: "01",
-    label: "Art",
+    label: "ART",
+    name: "Art",
     href: "/art",
-    description: "Latest work — Instagram and TikTok first.",
-    motif: "brush",
+    knobs: ["INK", "CHAOS"],
+    line: "Old drawings, from the Instagram archive.",
+    tint: "#16131a",
   },
   {
-    index: "02",
-    label: "Music",
+    label: "MUSIC",
+    name: "Music",
     href: "/music",
-    description: "From the Depths, SoundCloud, Newgrounds.",
-    motif: "wave",
+    knobs: ["GAIN", "FUZZ"],
+    line: "From the Depths. 11 tracks, 55 minutes.",
+    tint: "#1a1212",
   },
   {
-    index: "03",
-    label: "Projects",
+    label: "PROJECTS",
+    name: "Projects",
     href: "/projects",
-    description: "Routefinder, OpenParty, desk gadget.",
-    motif: "nodes",
-  },
-  {
-    index: "04",
-    label: "Tools",
-    href: "/projects?filter=live",
-    description: "The Routefinder, running right here.",
-    motif: "terminal",
+    knobs: ["SOLDER", "SCOPE"],
+    line: "Routefinder, OpenParty, desk gadget.",
+    tint: "#121712",
   },
 ];
 

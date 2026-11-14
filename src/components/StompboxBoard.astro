@@ -1,0 +1,85 @@
+---
+/**
+ * The board (#16): three stompboxes in signal-chain order, replacing
+ * the old 2x2 teaser grid. Each pedal is a link to its section: two
+ * decorative knobs with mono labels, the section name, one line of
+ * real content, then an LED above the footswitch. Hover lights the
+ * LED and turns the knobs a little; click depresses the switch 2px
+ * with a 120ms "thunk" before navigating (no-JS keeps the plain link;
+ * reduced motion navigates at once). The patch-cable SVG above the
+ * row is the signal chain IN -> ART -> MUSIC -> PROJECTS -> OUT.
+ */
+import { pedals } from "../data/site";
+---
+
+<section class="board" aria-labelledby="board-title">
+  <h2 id="board-title" class="board-title font-display">The board</h2>
+  <svg
+    class="patch-cable"
+    viewBox="0 0 828 56"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      class="patch-cable-wire"
+      d="M16 14 Q73 34 130 14 Q272 34 414 14 Q556 34 698 14 Q755 34 812 14"
+      fill="none"
+    />
+    <g class="patch-cable-jack" fill="currentColor">
+      <circle cx="16" cy="14" r="4"></circle>
+      <circle cx="130" cy="14" r="4"></circle>
+      <circle cx="414" cy="14" r="4"></circle>
+      <circle cx="698" cy="14" r="4"></circle>
+      <circle cx="812" cy="14" r="4"></circle>
+    </g>
+    <g class="patch-cable-label">
+      <text x="16" y="48" text-anchor="middle">IN</text>
+      <text x="130" y="48" text-anchor="middle">ART</text>
+      <text x="414" y="48" text-anchor="middle">MUSIC</text>
+      <text x="698" y="48" text-anchor="middle">PROJECTS</text>
+      <text x="812" y="48" text-anchor="middle">OUT</text>
+    </g>
+  </svg>
+  <div class="pedals">
+    {
+      pedals.map((p) => (
+        <a class="pedal" href={p.href} style={`--pedal-tint: ${p.tint}`}>
+          <span class="pedal-knobs">
+            {p.knobs.map((k) => (
+              <span class="pedal-knob">
+                <span class="knob" aria-hidden="true" />
+                <span class="knob-label mono">{k}</span>
+              </span>
+            ))}
+          </span>
+          <span class="pedal-name font-display">{p.name}</span>
+          <span class="pedal-line">{p.line}</span>
+          <span class="pedal-foot">
+            <span class="pedal-led" aria-hidden="true" />
+            <span class="pedal-switch" aria-hidden="true" />
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  // Pedal click: switch depresses (2px, 120ms "thunk") before navigating.
+  // No-JS keeps the plain link; reduced motion navigates at once.
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var links = document.querySelectorAll("a.pedal");
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener("click", function (ev) {
+        if (reduce || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
+        ev.preventDefault();
+        var el = ev.currentTarget;
+        el.classList.add("thunk");
+        setTimeout(function () {
+          window.location.href = el.getAttribute("href");
+        }, 120);
+      });
+    }
+  })();
+</script>

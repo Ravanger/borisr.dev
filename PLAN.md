@@ -186,7 +186,7 @@ palette, which projects/tools, art scope, contact/socials.
   woff2; light stays as a daylight/datasheet mode. OG image skipped:
   it needs the hand-drawn wordmark, which doesn't exist yet.
 - Site split into real pages (no everything-on-one-page): /, /art,
-  /music, /projects. Home stays light (teasers + links). The /tools
+  /music, /projects. Home stays light (hero + stompbox board). The /tools
   index was folded into Projects 2026-11-14 (issue #19): nav is four
   items, live tools are a filter on /projects, and
   /tools/brighter-shores-routefinder stays live with no index behind it.
@@ -238,8 +238,11 @@ palette, which projects/tools, art scope, contact/socials.
   iframe on a real borisr.dev page, where the app runs at its own
   root; the proxy rewrite is gone, no trailing-slash redirect.
 - Contact page removed; footer = JS-assembled email + GitHub only.
-- Home teaser cards carry a per-section mark (brush / waveform /
-  nodes / terminal) in the Workbench language.
+- Home hero + stompbox board: hero is the typeset name in a placeholder
+  slot for the hand-drawn wordmark (Boris draws it later), corrected
+  intro, GitHub-CDN avatar; the board is 3 pedals (Art / Music /
+  Projects) with knob labels, one-line summaries, footswitch + LED,
+  patch-cable signal chain IN → ART → MUSIC → PROJECTS → OUT.
 - Nav wordmark horizontal (explicit in the tokens; no vertical
   styling ever existed — the rule makes the reading unambiguous).
   Top-left home link ("borisr.dev" -> /) on every page, mirroring
