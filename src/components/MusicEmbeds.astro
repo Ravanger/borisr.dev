@@ -1,33 +1,19 @@
 ---
-import { music, sections } from "../data/site";
+import { music } from "../data/site";
 
-// Bandcamp link colour is set in the embed URL (linkcol) — the accent
-// value is duplicated here as a literal, the only way to reach inside
-// the iframe; it must match --accent (phosphor #8CFF6A, theme issue
-// #14). SoundCloud uses the classic player (visual=false) with the same
+// SoundCloud uses the classic player (visual=false) with the phosphor
 // accent as its colour param: visual=true wastes the height on artwork
 // (a real-browser render showed 2 track rows + a clipped third at
 // 470px), while the classic player at 470px shows the track list.
-// Both players sit in an .embed-frame so their outer boxes measure the
-// same height — tops and bottoms flush, no optical offset.
-const bandcampSrc = `https://bandcamp.com/EmbeddedPlayer/album=${music.bandcampAlbumId}/size=large/bgcol=333333/linkcol=8cff6a/tracklist=true/artwork=small/transparent=true/`;
+// The player sits in an .embed-frame so it never renders as a white
+// box while loading. The Bandcamp player moved to the album hero
+// (AlbumHero.astro) as the slim player under the tracklist — the large
+// Bandcamp embed is gone, not duplicated here.
 const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(music.soundcloudUrl)}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false&color=8cff6a`;
 ---
 
 <section id="music" class="section">
-  <p class="eyebrow">{sections.music.eyebrow}</p>
-  <h2 class="section-title">{sections.music.title}</h2>
-  <div class="mt-10 grid gap-10 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
-    <figure class="min-w-0">
-      <p class="eyebrow mb-3">Bandcamp — From the Depths</p>
-      <div class="embed-frame">
-        <iframe
-          title="From the Depths by Ravanger on Bandcamp"
-          src={bandcampSrc}
-          loading="lazy"
-          class="h-[470px] w-full max-w-[350px] border-0"></iframe>
-      </div>
-    </figure>
+  <div class="mt-10">
     <figure class="min-w-0">
       <p class="eyebrow mb-3">SoundCloud — Latest tracks</p>
       <div class="embed-frame">
@@ -41,12 +27,20 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
     </figure>
   </div>
   <div class="mt-12 border-t rule pt-8">
-    <p class="text-sm">
-      <span class="muted">{music.moreAudioPrefix} </span>
-      <a class="link-accent" href={music.newgroundsUrl}>Newgrounds</a>
-      <span class="muted"> {music.moreAudioMiddle} </span>
-      <a class="link-accent" href={music.bandcampAlbumUrl}>Bandcamp</a>.
-    </p>
-    <p class="muted mt-3 text-xs">{music.playersNote}</p>
+    <h2 class="section-title">{music.moreNoiseTitle}</h2>
+    <div class="more-noise">
+      {
+        music.moreNoise.map((item) => (
+          <a class="noise-card card lift" href={item.href}>
+            <span class="noise-head">
+              <span class="noise-mark" aria-hidden="true">{item.mark}</span>
+              <span class="noise-label">{item.label}</span>
+              <span class="noise-arrow" aria-hidden="true">↗</span>
+            </span>
+            <span class="noise-blurb">{item.blurb}</span>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </section>

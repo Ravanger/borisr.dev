@@ -2,8 +2,14 @@
 import { site, siteNav } from "../data/site";
 
 const pathname = Astro.url.pathname;
+// The Routefinder tool page lives under /tools/ but Tools is folded
+// into Projects (issue #19), so it counts as a Projects page here.
 const isActive = (href: string) =>
-  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+  href === "/"
+    ? pathname === "/"
+    : pathname === href ||
+      pathname.startsWith(`${href}/`) ||
+      (href === "/projects" && pathname.startsWith("/tools/"));
 ---
 
 <div class="bottombar fixed inset-x-0 bottom-0 z-40">
