@@ -145,7 +145,9 @@ Setup (Boris): convert the Instagram account to Creator/Business, create
 a Meta developer app, use Instagram Login to generate a long-lived
 access token, and set it as the `INSTAGRAM_TOKEN` env var on the
 borisr-redesign Netlify site. No Facebook Page is needed, and no paid
-widget is used. Never put the token in the repo or in chat.
+widget is used. The token lives only as a Netlify secret — see
+`.env.example` for the variable name; never commit a real value, and
+never put the token in the repo or in chat.
 
 ## Media policy
 
