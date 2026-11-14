@@ -35,6 +35,9 @@ const { title, description } = Astro.props;
     <ThemeInit />
   </head>
   <body id="top">
+    <!-- Grain overlay: the only full-page texture (see .grain in
+         tokens.css). Real site only — the /design pages don't get it. -->
+    <div class="grain" aria-hidden="true"></div>
     <div class="fixed left-4 top-4 z-50">
       <HomeLink />
     </div>
