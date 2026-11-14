@@ -24,7 +24,10 @@ const projects = defineCollection({
     // Card + detail spec sheet (issue #18). `status` drives the
     // silkscreen LED; `imageNote` marks the thumb as a placeholder
     // until the real asset lands (never commit heavy media — the
-    // thumb stays an external CDN URL).
+    // thumb stays an external CDN URL, except the routefinder's:
+    // its GitHub social preview proved unreliable in the browser,
+    // so it is an inline SVG placeholder tile until the real
+    // screenshot lands).
     status: z.enum(["LIVE", "WIP", "ARCHIVED"]).default("WIP"),
     tech: z.array(z.string()).default([]),
     lang: z.string(),
