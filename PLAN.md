@@ -172,3 +172,18 @@ palette, which projects/tools, art scope, contact/socials.
   per feature, descriptive conventional-commit messages, never amend /
   rebase / force-push pushed commits, never squash distinct features
   together; fix mistakes with a new commit on top.
+
+## Decisions — direction + nav (2026-11-14, Boris)
+- Direction C (Workbench) chosen. A and B stay at /design/* as reference.
+- Site split into real pages (no everything-on-one-page): /, /art,
+  /music, /projects, /tools, /contact. Home stays light (teasers + links).
+- Nav: ONE fixed bottom bar, OS-taskbar vibe, on every page, with
+  active-page state. Mobile responsive.
+- Theme toggle: separate fixed button (top-right), real <button>,
+  sun/moon icon for the mode it switches to, fixed size, cursor:pointer
+  — toggling must not shift any layout.
+- Grid discipline: everything sits on the Workbench grid.
+- Bandcamp player taller via its natural large layout (art + tracklist),
+  never stretched with CSS.
+- Tools proxy: netlify.toml 200 rewrite /tools/brighter-shores-routefinder/*
+  -> brighter-shores-routefinder.netlify.app/:splat.
