@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/tokens.css";
 import BottomBar from "../components/BottomBar.astro";
 import HomeLink from "../components/HomeLink.astro";
@@ -32,6 +33,7 @@ const { title, description } = Astro.props;
       type="font/woff2"
       crossorigin
     />
+    <ClientRouter />
     <ThemeInit />
   </head>
   <body id="top">

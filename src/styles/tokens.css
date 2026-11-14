@@ -714,6 +714,45 @@ body {
   display: none;
 }
 
+/*
+ * Live-tool badge (Projects): pulsing green LED + LIVE label on cards
+ * with a live tool. The pulse is a fading box-shadow ring; the global
+ * prefers-reduced-motion rule zeroes the animation, leaving a static
+ * dot. Green is fixed (not a theme token): it reads as "live" in both
+ * themes, the way a bench LED does.
+ */
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #22c55e;
+  animation: live-pulse 2s ease-out infinite;
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
 /* ---- Bottom bar (fixed nav, OS-taskbar vibe) ---- */
 
 .bottombar {
@@ -762,12 +801,11 @@ body {
 }
 
 /*
- * Narrow phones (Boris's A54 is 360px wide): six mono links at the
- * default metrics total ~370px and overflow the bar. Tighten the
- * metrics below the sm breakpoint so all six fit without wrapping
- * or scrolling. Tap targets stay full-width: each link stretches to
- * its flex-1 list item, so the hit area is ~50px wide even where the
- * label is short.
+ * Narrow phones (Boris's A54 is 360px wide): four mono links fit the
+ * bar at the default metrics. The metrics below the sm breakpoint keep
+ * them comfortable without wrapping or scrolling. Tap targets stay
+ * full-width: each link stretches to its flex-1 list item, so the hit
+ * area stays wide even where the label is short.
  */
 @media (max-width: 639px) {
   .bottombar-link {
@@ -849,6 +887,14 @@ body {
 
 /* ---- Restrained motion ---- */
 
+/* View transitions (SPA feel): short crossfade on navigation.
+   The tool page's iframe is a separate document and still reloads
+   on navigation — expected, view transitions can't cross that. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
 /* Short cross-fade on navigation (static pages fade in on load). */
 main {
   animation: fade-in 0.25s ease-out both;
@@ -891,6 +937,12 @@ main {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* No crossfade at all for view transitions: instant swap. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
   }
 }
 
