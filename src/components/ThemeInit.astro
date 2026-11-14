@@ -2,8 +2,12 @@
 /* Pre-paint theme script, shared by every layout. */
 ---
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   // Apply the saved theme before first paint (dark is the default).
+  // data-astro-rerun: client-side navigation swaps in a fresh <html>
+  // element (dropping the class) and dedupes identical inline scripts,
+  // so without this the script would only ever run on full loads and
+  // the theme would reset to dark after the first client-side nav.
   try {
     if (localStorage.getItem("borisr-theme") === "light") {
       document.documentElement.classList.add("light");
