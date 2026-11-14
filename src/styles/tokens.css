@@ -185,11 +185,12 @@ body {
 }
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
-   is dropped so the page title doesn't sit under a double gap. 4rem
-   clears the fixed top-left home link and top-right toggle on mobile
-   (the link's bottom edge is ~41px; 3rem left only ~7px). */
+   is dropped so the page title doesn't sit under a double gap. 5rem
+   clears the fixed top row (60px: 36px toggle + 12px padding each
+   side) with ~20px to spare — 4rem left content flush against the
+   old 64px top bar, and only ~4px against the new row. */
 .page-top {
-  padding-top: 4rem;
+  padding-top: 5rem;
 }
 .page-top > .section:first-child {
   margin-top: 0;
@@ -209,7 +210,7 @@ body {
   display: grid;
   gap: 2rem;
   align-items: center;
-  padding-top: 4rem;
+  padding-top: 5rem;
   padding-bottom: 2rem;
 }
 
