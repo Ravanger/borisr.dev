@@ -164,3 +164,5 @@ palette, which projects/tools, art scope, contact/socials.
   images/video/audio committed. Art comes from the social feeds'
   CDNs, not the repo. Thumbnails only if needed as lazy-loading
   placeholders that can't be generated dynamically, kept tiny.
+- Commits (2026-11-14): separate commits for separate features as you
+  build — one commit per feature, never bundle unrelated changes.
