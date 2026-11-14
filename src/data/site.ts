@@ -36,12 +36,14 @@ export const nav = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** Page navigation for the bottom bar (real pages, not anchors).
- * Four items since the Tools fold (2026-11-14, issue #19): live tools
+/** Page navigation for the top signal-chain bar (desktop) and the
+ * bottom bar (mobile): the three real pages. Home is the logo tap;
+ * Tools is folded into Projects (issue #19, decided) — live tools
  * are a filter on /projects, and /tools/brighter-shores-routefinder
- * stays live as a bookmarked URL with no index page behind it. */
+ * stays live as a bookmarked URL with no index page behind it. About
+ * was dropped by Boris 2026-11-14 (PR #27 closed unmerged) — there
+ * is no About page and nothing links to one. */
 export const siteNav = [
-  { label: "Home", href: "/" },
   { label: "Art", href: "/art" },
   { label: "Music", href: "/music" },
   { label: "Projects", href: "/projects" },
@@ -257,10 +259,17 @@ export const tools = {
 
 /**
  * Footer socials: email is separate (JS-assembled, see SiteFooter).
- * Instagram, TikTok, Bandcamp and SoundCloud live on their own pages
- * (/art, /music) — the footer keeps only GitHub.
+ * All six profiles, rendered as icons in the footer. Bandcamp is the
+ * profile origin of the album URL in `music` above.
  */
-export const socials = [{ label: "GitHub", href: "https://github.com/Ravanger" }];
+export const socials = [
+  { label: "GitHub", href: "https://github.com/Ravanger" },
+  { label: "Instagram", href: art.instagramUrl },
+  { label: "TikTok", href: art.tiktokUrl },
+  { label: "Bandcamp", href: "https://ravanger.bandcamp.com" },
+  { label: "SoundCloud", href: music.soundcloudUrl },
+  { label: "Newgrounds", href: music.newgroundsUrl },
+];
 
 /**
  * Email is kept split so the plain address never appears in the HTML

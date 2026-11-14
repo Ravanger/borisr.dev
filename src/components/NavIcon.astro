@@ -1,0 +1,73 @@
+---
+/**
+ * Mobile nav icons: one inline-SVG set, 24px grid, 2px stroke,
+ * stroke currentColor, turns phosphor on hover (see .bottombar-link
+ * in tokens.css). No icon files are committed — Boris-drawn icons
+ * do not exist yet, and these are not faked as hand-drawn.
+ */
+interface Props {
+  name: "art" | "music" | "projects";
+}
+
+const { name } = Astro.props;
+---
+
+{
+  name === "art" && (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 19l7-7 3 3-7 7-3-3z" />
+      <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+      <path d="M2 2l7.586 7.586" />
+      <circle cx="11" cy="11" r="2" />
+    </svg>
+  )
+}
+{
+  name === "music" && (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M9 18V5l12-2v13" />
+      <circle cx="6" cy="18" r="3" />
+      <circle cx="18" cy="16" r="3" />
+    </svg>
+  )
+}
+{
+  name === "projects" && (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="18" cy="6" r="2.5" />
+      <circle cx="12" cy="18" r="2.5" />
+      <path d="M8.2 7.5l2.3 8M15.8 7.5l-2.3 8M8.5 6h7" />
+    </svg>
+  )
+}

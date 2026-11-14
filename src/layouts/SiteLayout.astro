@@ -2,10 +2,9 @@
 import { ClientRouter } from "astro:transitions";
 import "../styles/tokens.css";
 import BottomBar from "../components/BottomBar.astro";
-import HomeLink from "../components/HomeLink.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ThemeInit from "../components/ThemeInit.astro";
-import ThemeToggle from "../components/ThemeToggle.svelte";
+import TopBar from "../components/TopBar.astro";
 
 interface Props {
   title: string;
@@ -40,12 +39,7 @@ const { title, description } = Astro.props;
     <!-- Grain overlay: the only full-page texture (see .grain in
          tokens.css). Real site only — the /design pages don't get it. -->
     <div class="grain" aria-hidden="true"></div>
-    <div class="fixed left-4 top-4 z-50">
-      <HomeLink />
-    </div>
-    <div class="fixed right-4 top-4 z-50">
-      <ThemeToggle client:load />
-    </div>
+    <TopBar />
     <main class="site-wrap">
       <slot />
     </main>

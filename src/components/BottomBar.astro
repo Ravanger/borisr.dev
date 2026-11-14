@@ -1,33 +1,41 @@
 ---
-import { site, siteNav } from "../data/site";
+/**
+ * Mobile bottom bar (64px + safe-area inset): the three pages with
+ * an icon above each label. Desktop has no bottom bar — the top
+ * signal chain replaces it. Home is folded into the logo tap.
+ * Each link is at least 48x48 (flex-1 item, 48px min height).
+ */
+import { siteNav } from "../data/site";
+import NavIcon from "./NavIcon.astro";
 
 const pathname = Astro.url.pathname;
 // The Routefinder tool page lives under /tools/ but Tools is folded
 // into Projects (issue #19), so it counts as a Projects page here.
 const isActive = (href: string) =>
-  href === "/"
-    ? pathname === "/"
-    : pathname === href ||
-      pathname.startsWith(`${href}/`) ||
-      (href === "/projects" && pathname.startsWith("/tools/"));
+  pathname === href ||
+  pathname.startsWith(`${href}/`) ||
+  (href === "/projects" && pathname.startsWith("/tools/"));
+const iconFor: Record<string, "art" | "music" | "projects"> = {
+  "/art": "art",
+  "/music": "music",
+  "/projects": "projects",
+};
 ---
 
 <div class="bottombar fixed inset-x-0 bottom-0 z-40">
-  <nav class="site-wrap flex items-center justify-between gap-2" aria-label="Main">
-    <a href="/" class="bottombar-wordmark hidden sm:block" aria-label="Home — borisr.dev">
-      {site.domain}
-    </a>
-    <ul class="flex flex-1 items-stretch justify-between sm:flex-none sm:justify-end">
+  <nav class="site-wrap" aria-label="Main">
+    <ul class="bottombar-list">
       {
         siteNav.map((item) => (
-          <li class="flex min-w-0 flex-1 sm:flex-none">
+          <li class="flex min-w-0 flex-1">
             <a
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
               class="bottombar-link"
             >
-              <span class="marker" aria-hidden="true" />
+              <NavIcon name={iconFor[item.href]} />
               <span>{item.label}</span>
+              <span class="marker" aria-hidden="true" />
             </a>
           </li>
         ))
