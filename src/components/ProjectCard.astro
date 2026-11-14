@@ -1,12 +1,11 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { projectsMoreLine, sections } from "../data/site";
 
-interface Props {
-  projects: CollectionEntry<"projects">[];
-}
-
-const { projects } = Astro.props;
+// The card reads the projects collection itself, so every page that
+// renders it (the /projects index and the /design/* reference pages)
+// gets the same list with no props to forget.
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <section id="projects" class="section">

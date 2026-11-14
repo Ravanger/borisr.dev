@@ -1,16 +1,11 @@
 ---
-import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
 import { site } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
-
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
 ---
 
 <SiteLayout title="Projects — borisr.dev" description={site.description}>
   <div class="page-top">
-    <ProjectCard projects={projects} />
+    <ProjectCard />
   </div>
 </SiteLayout>
