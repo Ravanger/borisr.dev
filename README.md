@@ -7,7 +7,9 @@ Live site: [borisr.dev](https://borisr.dev) (Netlify). The redesign plan lives
 in [PLAN.md](PLAN.md).
 
 Staging (previews): [borisr-redesign.netlify.app](https://borisr-redesign.netlify.app)
-— the separate Netlify staging site, auto-deploys from `main`.
+— the separate Netlify staging site. Work lands via PRs against `main`
+(no direct pushes to `main`); Netlify builds a deploy preview per PR and
+production deploys on merge. Squash on merge.
 
 ## Stack
 
@@ -29,8 +31,10 @@ pnpm lint     # biome check src
 pnpm format   # biome format --write src
 ```
 
-Deploy is via Netlify (staging first). Do not create Netlify sites from here;
-the site is linked to this repo and deploys on push to `main`.
+Deploy is via Netlify. Do not create Netlify sites from here; the staging
+site is linked to this repo. Work lands via PRs against `main` — Netlify
+builds a deploy preview per PR, and merging to `main` deploys staging.
+Do not push to `main` directly.
 
 ## Separation of concerns (hard rule)
 
@@ -58,7 +62,26 @@ Each has a dark/light toggle (dark default, persisted in `localStorage`).
   Satoshi (Fontshare) + JetBrains Mono, signal orange accent,
   index-numbered sections.
 
-`/design/` lists all three. `/` is a placeholder until a direction is chosen.
+`/design/` lists all three. `/` is the real home page in the Workbench
+theme (direction C); the three `/design/*` pages stay as reference.
+
+## Site structure
+
+- **Real pages** (Workbench theme, `src/layouts/SiteLayout.astro`): `/`
+  (intro + section teasers), `/art`, `/music`, `/projects`, `/tools`,
+  `/contact`. Thin composition over the shared components.
+- **Navigation**: one fixed bottom bar on every page (Home, Art, Music,
+  Projects, Tools, Contact; current page marked by a short vertical
+  accent bar, hover by a dot). The dark/light toggle is a separate
+  fixed top-right `<button>` (sun/moon icon, 44px), so toggling never
+  shifts any layout.
+- **Grid**: one centered column (`--grid-max: 56rem`,
+  `--grid-gutter: 1.5rem` in the tokens); header, sections, cards,
+  footer, and bottom bar all sit on it via `.site-wrap`.
+- **Tools proxy**: `netlify.toml` rewrites
+  `/tools/brighter-shores-routefinder/*` (200, `force = true`) to the
+  standalone Routefinder Netlify site, so the tool runs under borisr.dev.
+  The proxy is not verifiable locally — check it on the staging deploy.
 
 ### Adding or changing a direction
 
@@ -71,12 +94,13 @@ Each has a dark/light toggle (dark default, persisted in `localStorage`).
 
 ## Content
 
-Everything user-facing is in `src/data/site.ts`: intro, nav, music links
-(Bandcamp album `3553260334`, SoundCloud, Newgrounds), art feed links
-(Instagram, TikTok `@ravanger666`), the Routefinder project card, the
-`/tools/brighter-shores-routefinder` tools path, socials, email
-(`contact@borisr.dev`, assembled in JS in the footer so the plain address
-isn't in the HTML source).
+Everything user-facing is in `src/data/site.ts`: intro, nav, home teasers,
+music links (Bandcamp album `3553260334`, SoundCloud, Newgrounds), art feed
+links (Instagram, TikTok `@ravanger666`), the Routefinder project card, the
+`/tools/brighter-shores-routefinder` tools entry (with live status and the
+fan-made disclaimer), socials, email (`contact@borisr.dev`, assembled in JS
+by the footer script for every `.email-link` on the page — footer and
+contact page — so the plain address isn't in the HTML source).
 
 ## Media policy
 
@@ -95,3 +119,6 @@ committed is the 228-byte SVG favicon.)
   purpose: the theme accent is a CSS token and can't reach an iframe URL at
   build time, and keeping colors solely in `src/styles/` wins over matching
   the players to the palette.
+- The Bandcamp player uses its native large layout with the tracklist on
+  (`size=large`, `tracklist=true`, 470px tall, max 350px wide) — never
+  CSS-stretched.
