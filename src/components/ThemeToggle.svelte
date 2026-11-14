@@ -1,12 +1,12 @@
 <script>
 // Interactive island: dark/light theme toggle (dark is the default).
 // The saved theme is applied before first paint by ThemeInit; this
-// component only owns the toggle interaction. It renders as a pedal
-// footswitch — a 36px metal circle — with a small LED beside it
-// showing the state (lit = light theme on). The whole thing is a
-// fixed size, so toggling never shifts any layout. Styling comes
-// from the theme tokens (.btn-toggle, .toggle-led) — nothing color-
-// or font-related lives here.
+// component only owns the toggle interaction. It renders as a flat
+// 36px round button with a phosphor 2px-stroke line icon (sun in
+// dark mode, moon in light) — no metal, no 3D, no state LED; the
+// icon itself shows the state. Fixed size, so toggling never shifts
+// any layout. Styling comes from the theme tokens (.btn-toggle) —
+// nothing color- or font-related lives here.
 let light = $state(false);
 
 $effect(() => {
@@ -23,13 +23,12 @@ function toggle() {
 }
 </script>
 
-<span class="theme-toggle-wrap">
-  <button
-    type="button"
-    class="btn-toggle footswitch flex h-9 w-9 cursor-pointer items-center justify-center rounded-full"
-    aria-label={light ? "Switch to dark theme" : "Switch to light theme"}
-    onclick={toggle}
-  >
+<button
+  type="button"
+  class="btn-toggle flex h-9 w-9 cursor-pointer items-center justify-center rounded-full"
+  aria-label={light ? "Switch to dark theme" : "Switch to light theme"}
+  onclick={toggle}
+>
     {#if light}
       <!-- Moon: click to go dark. -->
       <svg
@@ -69,6 +68,4 @@ function toggle() {
         <path d="M18.36 5.64l1.42-1.42" />
       </svg>
     {/if}
-  </button>
-  <span class="toggle-led" class:lit={light} aria-hidden="true"></span>
-</span>
+</button>
