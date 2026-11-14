@@ -199,3 +199,11 @@ palette, which projects/tools, art scope, contact/socials.
 - Do not borrow: empty left column; decorative (non-nav) bottom strip;
   total lack of hover feedback; low contrast. No light mode or mobile
   story on his site — both are ours to design.
+
+## Workflow — bundle changes in PRs (2026-11-14, Boris)
+- Work on branches; bundle changes into PRs against main. Do not push
+  straight to main — every main push triggers a Netlify production
+  build, and per-commit pushes overwhelm it.
+- Netlify builds a deploy preview per PR; production deploys on merge.
+- Squash on merge (his WitClash norm). One commit per feature on the
+  branch; never amend / rebase / force-push pushed commits.
