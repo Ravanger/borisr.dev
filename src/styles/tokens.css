@@ -497,6 +497,155 @@ body {
   font-family: var(--font-mono);
   font-size: 0.85em;
 }
+/*
+ * Detail-page hero + spec sheet (issue #18): the hero is the project
+ * image at full content width; below it, the writeup sits left and a
+ * mono datasheet sits right, sticky on desktop.
+ */
+.project-hero {
+  margin-top: 1.5rem;
+}
+
+.project-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.project-hero .project-img-note {
+  margin-top: 0.5rem;
+}
+
+.project-detail {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 900px) {
+  .project-detail {
+    grid-template-columns: minmax(0, 1fr) 15rem;
+    align-items: start;
+  }
+}
+
+.project-detail .project-body {
+  margin-top: 0;
+}
+
+/* Prev/next project nav at the bottom of detail pages. */
+.project-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.project-nav a {
+  color: var(--accent);
+}
+
+.project-nav .project-nav-all {
+  color: var(--muted);
+}
+
+.spec-sheet {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1rem 1.25rem;
+}
+
+@media (min-width: 900px) {
+  .spec-sheet {
+    position: sticky;
+    top: 4.5rem;
+  }
+}
+
+.spec-sheet-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.spec-sheet dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.spec-sheet dt {
+  color: var(--muted);
+  flex: none;
+}
+
+.spec-sheet dd {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.spec-sheet dd a {
+  color: var(--accent);
+}
+
+/*
+ * Code panels in the detail body (issue #18): fenced blocks render
+ * via Shiki's github-dark theme, which already is the dark surface
+ * panel in both themes; this adds the phosphor `$` prompt on bash
+ * blocks and a COPY button (added by the page script, so no-JS
+ * readers still get the plain block).
+ */
+.project-body pre {
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--line);
+  overflow-x: auto;
+}
+
+.project-body pre code {
+  color: #e9e7df;
+  font-size: 0.85rem;
+}
+
+.project-body pre[data-language="bash"] code::before {
+  content: "$ ";
+  color: #8cff6a;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: #8e9187;
+  background: transparent;
+  border: 1px solid #262a22;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  color: #8cff6a;
+  border-color: #8cff6a;
+}
+
+
 
 .project-photo {
   display: block;

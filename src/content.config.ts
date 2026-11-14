@@ -29,6 +29,8 @@ const projects = defineCollection({
     tech: z.array(z.string()).default([]),
     lang: z.string(),
     stack: z.string(),
+    // OpenParty only: player range across its games (spec sheet row).
+    players: z.string().optional(),
     imageNote: z.string().optional(),
   }),
 });
