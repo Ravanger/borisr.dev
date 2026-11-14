@@ -1,5 +1,6 @@
 ---
 import { email, site, socials } from "../data/site";
+import EmailLink from "./EmailLink.astro";
 
 interface Props {
   wrapClass?: string;
@@ -8,12 +9,12 @@ interface Props {
 const { wrapClass = "max-w-6xl" } = Astro.props;
 ---
 
-<footer id="contact" class={`mx-auto w-full ${wrapClass} px-5 pt-16 pb-10 md:px-8`}>
+<footer id="contact" class={`mx-auto w-full ${wrapClass} pt-16 pb-10`}>
   <hr class="rule mb-8 border-t" />
   <div class="flex flex-wrap items-baseline justify-between gap-6">
     <p class="text-sm">
       <span class="muted">{site.contactPrefix} </span>
-      <a id="email-link" href="#" class="link-accent">email</a>
+      <EmailLink />
     </p>
     <ul class="flex flex-wrap gap-x-5 gap-y-2">
       {
@@ -33,11 +34,14 @@ const { wrapClass = "max-w-6xl" } = Astro.props;
 <script define:vars={{ user: email.user, domain: email.domain }}>
   // Assemble the address here so the plain address never appears in the
   // HTML source. (The players above are third-party embeds; see their note.)
+  // Class-based: assembles every .email-link on the page, so the contact
+  // page's link gets filled in by this one footer script too.
   (function () {
-    var el = document.getElementById("email-link");
-    if (!el) return;
     var addr = user + "@" + domain;
-    el.href = "mailto:" + addr;
-    el.textContent = addr;
+    var links = document.querySelectorAll(".email-link");
+    for (var i = 0; i < links.length; i++) {
+      links[i].href = "mailto:" + addr;
+      links[i].textContent = addr;
+    }
   })();
 </script>

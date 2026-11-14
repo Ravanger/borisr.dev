@@ -1,0 +1,11 @@
+---
+import ToolsCard from "../components/ToolsCard.astro";
+import { site } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Tools — borisr.dev" description={site.description}>
+  <div class="page-top">
+    <ToolsCard />
+  </div>
+</SiteLayout>

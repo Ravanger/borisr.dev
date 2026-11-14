@@ -377,6 +377,22 @@ body {
   }
 }
 
+/*
+ * Narrow phones (Boris's A54 is 360px wide): six mono links at the
+ * default metrics total ~370px and overflow the bar. Tighten the
+ * metrics below the sm breakpoint so all six fit without wrapping
+ * or scrolling. Tap targets stay full-width: each link stretches to
+ * its flex-1 list item, so the hit area is ~50px wide even where the
+ * label is short.
+ */
+@media (max-width: 639px) {
+  .bottombar-link {
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 0.5rem 0.25rem;
+  }
+}
+
 .bottombar-link:hover {
   color: var(--text);
 }

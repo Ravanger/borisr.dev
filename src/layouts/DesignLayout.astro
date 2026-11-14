@@ -38,7 +38,7 @@ const { theme, title, description, fonts, wrapClass = "max-w-6xl" } = Astro.prop
     <main>
       <slot />
     </main>
-    <SiteFooter wrapClass={wrapClass} />
+    <SiteFooter wrapClass={`${wrapClass} px-5 md:px-8`} />
     <BottomBar />
   </body>
 </html>
