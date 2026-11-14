@@ -236,13 +236,6 @@ body {
   margin: 0;
 }
 
-.hero-wordmark-note {
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-top: 0.75rem;
-}
-
 .hero-intro {
   font-size: 1.25rem;
   line-height: 1.6;
