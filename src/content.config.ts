@@ -15,7 +15,13 @@ const projects = defineCollection({
     tagline: z.string(),
     category: z.enum(["Software", "Framework", "Hardware"]),
     order: z.number(),
-    thumb: z.string().url(),
+    // Absolute URL or root-relative path under /public. Local files are
+    // for small images only — heavy media stays external (each project's
+    // own repo, referenced by URL).
+    thumb: z.union([z.string().url(), z.string().startsWith("/")]),
+    // Optional AVIF variant of the thumb for <picture> (`thumb` is the
+    // fallback source). Same URL-or-local-path rule as `thumb`.
+    thumbAvif: z.union([z.string().url(), z.string().startsWith("/")]).optional(),
     repoUrl: z.string().url(),
     liveUrl: z.string().optional(),
     liveLabel: z.string().optional(),
@@ -23,11 +29,7 @@ const projects = defineCollection({
     directLabel: z.string().optional(),
     // Card + detail spec sheet (issue #18). `status` drives the
     // silkscreen LED; `imageNote` marks the thumb as a placeholder
-    // until the real asset lands (never commit heavy media — the
-    // thumb stays an external CDN URL, except the routefinder's:
-    // its GitHub social preview proved unreliable in the browser,
-    // so it is an inline SVG placeholder tile until the real
-    // screenshot lands).
+    // until the real asset lands.
     status: z.enum(["LIVE", "WIP", "ARCHIVED"]).default("WIP"),
     tech: z.array(z.string()).default([]),
     lang: z.string(),

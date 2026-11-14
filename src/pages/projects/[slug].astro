@@ -22,6 +22,7 @@ const {
   directUrl,
   directLabel,
   thumb,
+  thumbAvif,
   status,
   lang,
   stack,
@@ -61,7 +62,16 @@ const repoShort = repoUrl.replace("https://github.com/", "");
         <a class="link-accent" href={repoUrl} target="_blank" rel="noopener">GitHub &nearr;</a>
       </p>
       <figure class="project-hero">
-        <img src={thumb} alt="" width="1200" height="600" />
+        {
+          thumbAvif ? (
+            <picture>
+              <source type="image/avif" srcset={thumbAvif} />
+              <img src={thumb} alt="" width="1200" height="600" />
+            </picture>
+          ) : (
+            <img src={thumb} alt="" width="1200" height="600" />
+          )
+        }
         {
           imageNote && (
             <figcaption class="project-img-note">
