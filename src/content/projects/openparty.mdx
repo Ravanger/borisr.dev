@@ -17,13 +17,58 @@ OpenParty is a TypeScript framework for multi-device party games: the game runs 
 
 It ships with four reference games, all built only on the framework's packages:
 
-- **WitClash** (3–8 players) — the full reference game: rules, browser UI, bots, terminal client and content.
-- **Bluff** (3–8 players) — playable with a browser UI, bot kit, demo tables and a terminal client.
-- **Crew** (3–5 players) — headless rules only: an asymmetric co-op guess-the-sum game.
-- **Rush** (2–8 players) — headless rules only: a tap race driven by the server tick.
+<div className="game-cards">
+
+<div className="game-card">
+
+<span className="game-mark">WI</span>
+
+**WitClash** · 3–8 players
+
+The full reference game: rules, browser UI, bots, terminal client and content.
+
+</div>
+
+<div className="game-card">
+
+<span className="game-mark">BL</span>
+
+**Bluff** · 3–8 players
+
+Browser UI, bot kit, demo tables and a terminal client.
+
+</div>
+
+<div className="game-card">
+
+<span className="game-mark">CR</span>
+
+**Crew** · 3–5 players
+
+Headless rules only: an asymmetric co-op guess-the-sum game.
+
+</div>
+
+<div className="game-card">
+
+<span className="game-mark">RU</span>
+
+**Rush** · 2–8 players
+
+Headless rules only: a tap race driven by the server tick.
+
+</div>
+
+</div>
 
 ## How it works
 
-One command launches a game — `bun run launch wit-clash` opens the host page, and players join with a room code. Bots can fill empty seats and play by themselves, and games with a terminal entry can be played at a prompt or watched as an all-bot demo.
+One command launches a game:
+
+```bash
+bun run launch wit-clash
+```
+
+That opens the host page, and players join with a room code. Bots can fill empty seats and play by themselves, and games with a terminal entry can be played at a prompt or watched as an all-bot demo.
 
 Under the hood the framework is split into small packages — the Colyseus-free runtime, the Colyseus host, a Svelte 5 client SDK, generic viewmodels and components, a bot kit, terminal clients, and a launcher that runs the server, code API, client, bots or demo as one process group. Tests enforce 100% coverage.

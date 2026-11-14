@@ -378,6 +378,7 @@ body {
 .project-gh svg {
   display: block;
 }
+
 /* Coming-soon teaser card (issue #18): dashed border, blurred teaser
    image, stamped IN THE WORKS. The blur is a stand-in, not the art. */
 .project-teaser {
@@ -409,7 +410,6 @@ body {
   line-height: 1;
   white-space: nowrap;
 }
-
 
 /*
  * Instagram feed (Workbench): uniform grid, square crops, hairline
@@ -497,6 +497,7 @@ body {
   font-family: var(--font-mono);
   font-size: 0.85em;
 }
+
 /*
  * Detail-page hero + spec sheet (issue #18): the hero is the project
  * image at full content width; below it, the writeup sits left and a
@@ -645,7 +646,46 @@ body {
   border-color: #8cff6a;
 }
 
+/* "Games included" cards on the OpenParty detail page (issue #18):
+   four small cards with a two-letter mark, name, player count and
+   one line each. */
+.game-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
 
+@media (min-width: 640px) {
+  .game-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.game-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.game-card p {
+  margin-top: 0.5rem;
+}
+
+.game-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
 
 .project-photo {
   display: block;
