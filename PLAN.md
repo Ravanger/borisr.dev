@@ -188,8 +188,10 @@ palette, which projects/tools, art scope, contact/socials.
 - Site split into real pages (no everything-on-one-page): /, /art,
   /music, /projects. Home stays light (hero + stompbox board). The /tools
   index was folded into Projects 2026-11-14 (issue #19): nav is four
-  items, live tools are a filter on /projects, and
-  /tools/brighter-shores-routefinder stays live with no index behind it.
+  items, and /tools/brighter-shores-routefinder stays live with no
+  index behind it, linked from its project card. (The Live filter the
+  fold originally added was removed 2026-11-14; ?filter=live falls
+  back to All.)
 - Nav: ONE fixed bottom bar, OS-taskbar vibe, on every page, with
   active-page state. Mobile responsive. Plus a fixed top-left home
   link ("borisr.dev" -> /) on every page, mirroring the toggle.
@@ -268,6 +270,11 @@ palette, which projects/tools, art scope, contact/socials.
   LED badge on live cards) and the filter syncs to the URL
   (?filter=<category>) without a page reload; back/forward works.
 - Home Tools teaser links to /projects?filter=live.
+- 2026-11-14 (round 4, Boris): the Live filter was removed — the
+  filter is All / Software / Framework / Hardware only. The LIVE badge
+  on the Routefinder card and the Open Tool link stay; a bookmarked
+  ?filter=live falls back to All. (No home Tools teaser linking to
+  ?filter=live exists in src — ToolsCard links straight to the tool.)
 - Project cards render an "Open Tool" link from the project's liveUrl
   frontmatter (content config already had the optional field; only the
   Routefinder has one). OpenParty (framework) and the desk gadget

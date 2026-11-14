@@ -15,16 +15,10 @@ export const site = {
   domain: "borisr.dev",
   tagline: "personal site",
   intro:
-    "I make loud music, build pedals and gadgets, and write tools for games I play too much. Everything here came off the same messy bench.",
+    "I make music, build pedals and gadgets, and write tools for games I play too much. Everything here is something I actually use.",
   footerNote: "This site sets no cookies and runs no analytics.",
   description: "Music, pedals, software, and whatever else ends up on the bench.",
   contactPrefix: "Reach me at",
-  /**
-   * Illustrated GitHub avatar, hotlinked from GitHub's CDN
-   * (api.github.com/users/Ravanger -> avatar_url) — never committed.
-   */
-  avatarUrl: "https://avatars.githubusercontent.com/u/814853?v=4",
-  avatarLabel: "U1 BORIS",
 };
 
 export const nav = [
@@ -36,13 +30,13 @@ export const nav = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** Page navigation for the top signal-chain bar (desktop) and the
- * bottom bar (mobile): the three real pages. Home is the logo tap;
- * Tools is folded into Projects (issue #19, decided) — live tools
- * are a filter on /projects, and /tools/brighter-shores-routefinder
- * stays live as a bookmarked URL with no index page behind it. About
- * was dropped by Boris 2026-11-14 (PR #27 closed unmerged) — there
- * is no About page and nothing links to one. */
+/** Page navigation for the bottom bar: the three real pages. Home is
+ * the logo tap; Tools is folded into Projects (issue #19, decided) —
+ * the Routefinder lives at /tools/brighter-shores-routefinder as a
+ * bookmarked URL with no index page behind it, linked from its
+ * project card. About was dropped by Boris 2026-11-14
+ * (PR #27 closed unmerged) — there is no About page and nothing
+ * links to one. */
 export const siteNav = [
   { label: "Art", href: "/art" },
   { label: "Music", href: "/music" },

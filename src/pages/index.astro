@@ -1,5 +1,4 @@
 ---
-import ScopeTrace from "../components/ScopeTrace.astro";
 import StompboxBoard from "../components/StompboxBoard.astro";
 import { site } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
@@ -7,7 +6,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <SiteLayout title="Boris Rossovsky — borisr.dev" description={site.description}>
   <section class="hero" aria-labelledby="home-title">
-    <ScopeTrace />
     <div class="hero-copy">
       <!-- WORDMARK SLOT: the hand-drawn wordmark goes here once Boris
            draws it. Until then the typeset name below is the placeholder
@@ -15,20 +13,8 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <h1 id="home-title" class="hero-name font-display" data-wordmark-slot>
         Boris<br />Rossovsky
       </h1>
-      <p class="hero-wordmark-note mono">hand-drawn wordmark goes here</p>
       <p class="hero-intro">{site.intro}</p>
     </div>
-    <figure class="hero-avatar">
-      <img
-        src={site.avatarUrl}
-        alt="Illustrated avatar of Boris Rossovsky"
-        width="280"
-        height="280"
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption class="mono">{site.avatarLabel}</figcaption>
-    </figure>
   </section>
   <StompboxBoard />
 </SiteLayout>

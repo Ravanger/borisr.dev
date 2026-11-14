@@ -34,7 +34,6 @@ const codeFor = (entry: (typeof projects)[number]) => {
           <article
             class="card project-card"
             data-category={p.category}
-            data-live={p.liveUrl ? "true" : undefined}
           >
             <a href={href} aria-label={p.title} class="project-card-media">
               <img
@@ -96,7 +95,7 @@ const codeFor = (entry: (typeof projects)[number]) => {
                     </a>
                   )
                 }
-                <a class="link-accent project-gh" href={p.repoUrl} aria-label={`${p.title} on GitHub`}>
+                <a class="link-accent project-gh" href={p.repoUrl} aria-label={`${p.title} on GitHub`} target="_blank" rel="noopener">
                   <svg
                     width="20"
                     height="20"

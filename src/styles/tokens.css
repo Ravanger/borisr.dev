@@ -101,8 +101,7 @@
 
 /*
  * Direction C — "Workbench", the real site: 'bench at 2am'.
- * Phosphor #8CFF6A is the only primary accent (links, scope trace,
- * focus ring); LED #FF3D2E is reserved for on/active/live, amber
+ * Phosphor #8CFF6A is the only primary accent (links, focus ring); LED #FF3D2E is reserved for on/active/live, amber
  * #FFB43F is rare (warnings, fan-made note). Glow lives only on lit
  * things, never on body text. Muted #8E9187 is 6.15:1 on the bg,
  * text 15.9:1 — both clear 4.5:1.
@@ -185,11 +184,12 @@ body {
 }
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
-   is dropped so the page title doesn't sit under a double gap. 4rem
-   clears the fixed top-left home link and top-right toggle on mobile
-   (the link's bottom edge is ~41px; 3rem left only ~7px). */
+   is dropped so the page title doesn't sit under a double gap. 5rem
+   clears the fixed top row (60px: 36px toggle + 12px padding each
+   side) with ~20px to spare — 4rem left content flush against the
+   old 64px top bar, and only ~4px against the new row. */
 .page-top {
-  padding-top: 4rem;
+  padding-top: 5rem;
 }
 .page-top > .section:first-child {
   margin-top: 0;
@@ -201,42 +201,24 @@ body {
  * Hero: 100vh minus the fixed bottom bar on desktop, auto height on
  * mobile. The H1 is the typeset name in the wordmark slot (see
  * index.astro) — a clearly-marked placeholder until Boris draws the
- * hand-drawn wordmark. Intro 20px, max 44ch. Avatar right on desktop,
- * stacked below the copy on mobile.
+ * hand-drawn wordmark. Intro 20px, max 44ch.
  */
 .hero {
   position: relative;
   display: grid;
   gap: 2rem;
   align-items: center;
-  padding-top: 4rem;
+  padding-top: 5rem;
   padding-bottom: 2rem;
 }
 
-/* Oscilloscope trace (#22): full-bleed canvas, bottom 60% of the
-   hero, behind the copy and avatar. pointer-events none — it never
-   eats clicks. The 100vw breakout uses the same pattern as
-   .tool-frame-wrap; html already clips the overflow. */
-.scope-trace {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  z-index: 0;
-  width: 100vw;
-  height: 60%;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.hero-copy,
-.hero-avatar {
+.hero-copy {
   position: relative;
   z-index: 1;
 }
 
 @media (min-width: 768px) {
   .hero {
-    grid-template-columns: 1fr auto;
     gap: 3rem;
     min-height: calc(100dvh - var(--bar-height));
     padding-top: 2rem;
@@ -254,43 +236,11 @@ body {
   margin: 0;
 }
 
-.hero-wordmark-note {
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-top: 0.75rem;
-}
-
 .hero-intro {
   font-size: 1.25rem;
   line-height: 1.6;
   max-width: 44ch;
   margin-top: 1.5rem;
-}
-
-.hero-avatar {
-  margin: 0;
-  justify-self: center;
-}
-
-.hero-avatar img {
-  display: block;
-  width: 280px;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-  /* 1px phosphor border: var(--accent) is phosphor once the theme
-     tokens land (#25); until then it is the current accent. */
-  border: 1px solid var(--accent);
-  transform: rotate(-3deg);
-}
-
-.hero-avatar figcaption {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-top: 0.75rem;
 }
 
 /* ---- Home stompbox board (#16) ---- */
@@ -1441,19 +1391,12 @@ body {
   }
 }
 
-/* ---- Bottom bar (mobile only, 64px + safe-area inset) ---- */
+/* ---- Bottom bar (all viewports, 64px + safe-area inset) ---- */
 
 .bottombar {
   background: var(--surface);
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
-}
-
-/* Desktop has no bottom bar — the top signal chain replaces it. */
-@media (min-width: 768px) {
-  .bottombar {
-    display: none;
-  }
 }
 
 .bottombar-list {
@@ -1517,147 +1460,6 @@ body {
   background: var(--accent);
 }
 
-/* ---- Top bar (fixed signal-chain nav, real site) ---- */
-
-.topbar {
-  position: fixed;
-  inset-inline: 0;
-  top: 0;
-  z-index: 40;
-  height: 4rem;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-.topbar-inner {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  gap: 1rem;
-}
-
-/*
- * Signal chain: IN ─● ART ─● MUSIC ─● PROJECTS ─● OUT.
- * One thin cable line joins the items; a 6px LED dot sits before
- * each label. Hidden on mobile — the bottom bar carries the nav
- * there and the top bar is just logo + toggle.
- */
-.topbar-chain {
-  display: none;
-  flex: 1;
-  min-width: 0;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .topbar-chain {
-    display: flex;
-  }
-}
-
-.chain {
-  display: flex;
-  align-items: center;
-  list-style: none;
-}
-
-.chain-end {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-}
-
-.chain-item {
-  display: flex;
-  align-items: center;
-}
-
-.cable {
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--line);
-  transition: background-color 0.15s ease-out;
-}
-
-/*
- * LED states: unlit #2A2E26; current page LED red + glow with the
- * label in text colour; hover dims the LED on to 50% phosphor and
- * turns the cable segment leading into that item phosphor. The
- * current-page marker from the old bottom bar — a short horizontal
- * dash under the label — is kept, in a fixed-size slot so the state
- * never shifts the bar. The glow is a static shadow, never a pulse,
- * so there is no motion to gate (the global reduced-motion rule
- * below still zeroes the transitions).
- */
-.led {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 9999px;
-  background: #2a2e26;
-  transition:
-    background-color 0.15s ease-out,
-    opacity 0.15s ease-out,
-    box-shadow 0.15s ease-out;
-}
-
-.chain-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.625rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.chain-link:hover {
-  color: var(--text);
-}
-
-.chain-item:hover .cable {
-  background: var(--accent);
-}
-
-.chain-item:hover .led {
-  background: var(--accent);
-  opacity: 0.5;
-}
-
-.chain-link[aria-current="page"] {
-  color: var(--text);
-}
-
-.chain-link[aria-current="page"] .led {
-  background: var(--led);
-  box-shadow: 0 0 6px var(--led);
-}
-
-.chain-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.chain-label .chain-marker {
-  display: block;
-  width: 12px;
-  height: 2px;
-  background: transparent;
-}
-
-.chain-link[aria-current="page"] .chain-marker {
-  background: var(--accent);
-}
-
 /* ---- Footer social icons ---- */
 
 .footer-socials {
@@ -1701,54 +1503,45 @@ body {
   text-decoration: underline;
 }
 
-/* ---- Theme toggle: pedal footswitch in the nav bar ---- */
-
-/* Fixed-size wrapper (36px switch + 6px LED + gap) so the toggle
-   never shifts layout. */
-.theme-toggle-wrap {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: 0.375rem;
+/* Fixed top row: home link left, theme toggle right. No background
+   or border — just the two controls floating over the page. 12px
+   vertical padding around the 36px toggle makes the row 60px tall;
+   .page-top clears it (see above). */
+.top-chrome {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 40;
 }
 
-/* 36px metal footswitch: radial gradient, dark icon on the metal so
-   the sun/moon reads in either theme. Metal is metal — the gradient
-   is the same in light mode. */
+.top-chrome-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* ---- Theme toggle: flat round button, phosphor line icon ---- */
+
+/* 36px flat button: transparent, thin line border, phosphor icon
+   (the 2px-stroke sun/moon SVG in ThemeToggle.svelte, currentColor).
+   No gradient, no shadow, no 3D — it reads flat in both themes.
+   The state LED is gone: the icon itself shows the state. */
 .btn-toggle {
-  border: 1px solid rgb(0 0 0 / 0.45);
-  color: #1a1a18;
-  background: radial-gradient(circle at 35% 30%, #e8e8e2, #b0b0aa 40%, #6a6a64 75%, #3f3f3c);
-  box-shadow:
-    inset 0 1px 1px rgb(255 255 255 / 0.5),
-    inset 0 -2px 3px rgb(0 0 0 / 0.35),
-    0 1px 2px rgb(0 0 0 / 0.4);
+  flex: none;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  background: transparent;
 }
 
 .btn-toggle:hover {
-  filter: brightness(1.08);
+  color: var(--text);
+  border-color: var(--accent);
 }
 
 .btn-toggle:active {
-  transform: translateY(1px);
-}
-
-/* State LED beside the switch: unlit #2A2E26 in dark mode, lit
-   phosphor + glow when the light theme is on. */
-.toggle-led {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 9999px;
-  background: #2a2e26;
-  transition:
-    background-color 0.15s ease-out,
-    box-shadow 0.15s ease-out;
-}
-
-.toggle-led.lit {
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
+  background: var(--surface);
 }
 
 /* ---- DEVOUR MODE (Konami easter egg, #22) ---- */
@@ -1756,9 +1549,7 @@ body {
 /* Accent flips to LED red and the grain doubles for 10s; FunLayer
    toggles .devour-mode on <html> and removes it on a timer — no
    persistence. The second selector beats .theme-c.light on
-   specificity, so the flip works in both themes. The scope trace
-   reads --accent, so it flips red too, and goes full fuzz while the
-   class is present (see ScopeTrace.astro). */
+   specificity, so the flip works in both themes. */
 html.devour-mode {
   --accent: var(--led);
 }
@@ -1841,7 +1632,6 @@ main {
 }
 
 .theme-c .bottombar-link,
-.theme-c .chain-link,
 .theme-c .home-link,
 .theme-c .filter-btn {
   letter-spacing: 0.06em;

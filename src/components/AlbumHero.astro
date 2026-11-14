@@ -27,7 +27,7 @@ const { album } = music;
         {
           album.tracks.map((track, i) => (
             <li>
-              <a class="track-row" href={track.url}>
+              <a class="track-row" href={track.url} target="_blank" rel="noopener">
                 <span class="track-num">{String(i + 1).padStart(2, "0")}</span>
                 <span class="track-play" aria-hidden="true">▶</span>
                 <span class="track-name">{track.name}</span>
@@ -37,18 +37,9 @@ const { album } = music;
           ))
         }
       </ol>
-      <div class="album-player">
-        <div class="embed-frame">
-          <iframe
-            title="From the Depths by Ravanger on Bandcamp"
-            src={`https://bandcamp.com/EmbeddedPlayer/album=${music.bandcampAlbumId}/size=small/bgcol=0a0b09/linkcol=8cff6a/transparent=true/`}
-            loading="lazy"
-            class="border-0"></iframe>
-        </div>
-      </div>
       <div class="album-actions">
-        <a class="btn-solid" href={music.bandcampAlbumUrl}>{album.buyLabel} ↗</a>
-        <a class="btn-outline" href={music.bandcampAlbumUrl}>{album.downloadLabel}</a>
+        <a class="btn-solid" href={music.bandcampAlbumUrl} target="_blank" rel="noopener">{album.buyLabel} ↗</a>
+        <a class="btn-outline" href={music.bandcampAlbumUrl} target="_blank" rel="noopener">{album.downloadLabel}</a>
       </div>
     </div>
   </div>

@@ -3,9 +3,10 @@ import { ClientRouter } from "astro:transitions";
 import "../styles/tokens.css";
 import BottomBar from "../components/BottomBar.astro";
 import FunLayer from "../components/FunLayer.astro";
+import HomeLink from "../components/HomeLink.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ThemeInit from "../components/ThemeInit.astro";
-import TopBar from "../components/TopBar.astro";
+import ThemeToggle from "../components/ThemeToggle.svelte";
 
 interface Props {
   title: string;
@@ -40,7 +41,14 @@ const { title, description } = Astro.props;
     <!-- Grain overlay: the only full-page texture (see .grain in
          tokens.css). Real site only — the /design pages don't get it. -->
     <div class="grain" aria-hidden="true"></div>
-    <TopBar />
+    <!-- Fixed top row: home link left, theme toggle right. No bar,
+         no nav up here — the bottom bar is the single nav. -->
+    <div class="top-chrome">
+      <div class="site-wrap top-chrome-inner">
+        <HomeLink />
+        <ThemeToggle client:load />
+      </div>
+    </div>
     <main class="site-wrap">
       <slot />
     </main>

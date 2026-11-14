@@ -1,20 +1,21 @@
 <script>
 // Interactive island: category filter for the projects index. Owns only
 // the active-button state; filtering itself toggles the `hidden`
-// attribute on the server-rendered cards ([data-category] / [data-live]),
+// attribute on the server-rendered cards ([data-category]),
 // so the grid shows everything with no JS. Categories come from the
-// projects collection (first-appearance order); "Live" is a virtual
-// filter that shows only projects with a live tool (data-live="true").
+// projects collection (first-appearance order).
 //
 // The filter syncs to the URL (?filter=<category>, lowercased) without
 // a page reload: selecting a filter pushStates the URL, the param is
 // read on load so links are shareable, and back/forward (popstate)
-// updates the filter. "All" clears the param (plain /projects).
+// updates the filter. "All" clears the param (plain /projects). An
+// unknown value (e.g. a bookmarked ?filter=live from the removed Live
+// filter) falls back to "All".
 import { onMount } from "svelte";
 
 let { categories = [] } = $props();
 
-const options = ["All", ...categories, "Live"];
+const options = ["All", ...categories];
 
 function categoryOf(value) {
   return options.find((c) => c.toLowerCase() === value) ?? "All";
@@ -30,7 +31,6 @@ let active = $state(readFilterFromUrl());
 
 function matches(category, el) {
   if (category === "All") return true;
-  if (category === "Live") return el.dataset.live === "true";
   return el.dataset.category === category;
 }
 
