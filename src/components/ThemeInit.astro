@@ -1,0 +1,12 @@
+---
+/* Pre-paint theme script, shared by every layout. */
+---
+
+<script is:inline>
+  // Apply the saved theme before first paint (dark is the default).
+  try {
+    if (localStorage.getItem("borisr-theme") === "light") {
+      document.documentElement.classList.add("light");
+    }
+  } catch (e) {}
+</script>

@@ -1,7 +1,10 @@
 ---
 import "../styles/tokens.css";
+import BottomBar from "../components/BottomBar.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import ThemeInit from "../components/ThemeInit.astro";
+import ThemeToggle from "../components/ThemeToggle.svelte";
 
 interface Props {
   theme: "a" | "b" | "c";
@@ -25,20 +28,17 @@ const { theme, title, description, fonts, wrapClass = "max-w-6xl" } = Astro.prop
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     {fonts.map((href) => <link rel="stylesheet" href={href} />)}
-    <script is:inline>
-      // Apply the saved theme before first paint (dark is the default).
-      try {
-        if (localStorage.getItem("borisr-theme") === "light") {
-          document.documentElement.classList.add("light");
-        }
-      } catch (e) {}
-    </script>
+    <ThemeInit />
   </head>
   <body id="top">
+    <div class="fixed right-4 top-4 z-50">
+      <ThemeToggle client:load />
+    </div>
     <SiteHeader wrapClass={wrapClass} />
     <main>
       <slot />
     </main>
     <SiteFooter wrapClass={wrapClass} />
+    <BottomBar />
   </body>
 </html>
