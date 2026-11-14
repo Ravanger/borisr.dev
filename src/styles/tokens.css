@@ -128,6 +128,82 @@ body {
   margin-top: 0;
 }
 
+/* ---- Home hero (#16) ---- */
+
+/*
+ * Hero: 100vh minus the fixed bottom bar on desktop, auto height on
+ * mobile. The H1 is the typeset name in the wordmark slot (see
+ * index.astro) — a clearly-marked placeholder until Boris draws the
+ * hand-drawn wordmark. Intro 20px, max 44ch. Avatar right on desktop,
+ * stacked below the copy on mobile.
+ */
+.hero {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    min-height: calc(100dvh - var(--bar-height));
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 11vw, 6rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.hero-wordmark-note {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+.hero-intro {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 44ch;
+  margin-top: 1.5rem;
+}
+
+.hero-avatar {
+  margin: 0;
+  justify-self: center;
+}
+
+.hero-avatar img {
+  display: block;
+  width: 280px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  /* 1px phosphor border: var(--accent) is phosphor once the theme
+     tokens land (#25); until then it is the current accent. */
+  border: 1px solid var(--accent);
+  transform: rotate(-3deg);
+}
+
+.hero-avatar figcaption {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
 /* ---- Shared semantic classes ---- */
 
 .font-display {

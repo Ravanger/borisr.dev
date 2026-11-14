@@ -15,10 +15,16 @@ export const site = {
   domain: "borisr.dev",
   tagline: "personal site",
   intro:
-    "Boris Rossovsky. I make things — music, pedals, software, and whatever else ends up on the bench. This is where it all lives.",
+    "I make loud music, build pedals and gadgets, and write tools for games I play too much. Everything here came off the same messy bench.",
   footerNote: "This site sets no cookies and runs no analytics.",
   description: "Music, pedals, software, and whatever else ends up on the bench.",
   contactPrefix: "Reach me at",
+  /**
+   * Illustrated GitHub avatar, hotlinked from GitHub's CDN
+   * (api.github.com/users/Ravanger -> avatar_url) — never committed.
+   */
+  avatarUrl: "https://avatars.githubusercontent.com/u/814853?v=4",
+  avatarLabel: "U1 BORIS",
 };
 
 export const nav = [
