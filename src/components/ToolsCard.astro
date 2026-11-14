@@ -1,0 +1,19 @@
+---
+import { sections, tools } from "../data/site";
+---
+
+<section id="tools" class="section">
+  <p class="eyebrow">{sections.tools.eyebrow}</p>
+  <h2 class="section-title">{sections.tools.title}</h2>
+  <article class="card mt-6 p-6">
+    <h3 class="font-display text-xl font-semibold">{tools.label}</h3>
+    <p class="muted mt-2 text-sm leading-relaxed">
+      {tools.livesAt} <code class="mono text-[0.85em]">{tools.path}</code> — {
+        tools.comingLabel
+      }.
+    </p>
+    <p class="mt-4 text-sm">
+      <a class="link-accent" href={tools.path}>borisr.dev{tools.path} &nearr;</a>
+    </p>
+  </article>
+</section>

@@ -1,0 +1,43 @@
+---
+import { email, site, socials } from "../data/site";
+
+interface Props {
+  wrapClass?: string;
+}
+
+const { wrapClass = "max-w-6xl" } = Astro.props;
+---
+
+<footer id="contact" class={`mx-auto w-full ${wrapClass} px-5 pt-16 pb-10 md:px-8`}>
+  <hr class="rule mb-8 border-t" />
+  <div class="flex flex-wrap items-baseline justify-between gap-6">
+    <p class="text-sm">
+      <span class="muted">{site.contactPrefix} </span>
+      <a id="email-link" href="#" class="link-accent">email</a>
+    </p>
+    <ul class="flex flex-wrap gap-x-5 gap-y-2">
+      {
+        socials.map((s) => (
+          <li>
+            <a class="muted text-sm hover:underline" href={s.href}>
+              {s.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <p class="muted mt-8 text-xs">{site.footerNote}</p>
+</footer>
+
+<script define:vars={{ user: email.user, domain: email.domain }}>
+  // Assemble the address here so the plain address never appears in the
+  // HTML source. (The players above are third-party embeds; see their note.)
+  (function () {
+    var el = document.getElementById("email-link");
+    if (!el) return;
+    var addr = user + "@" + domain;
+    el.href = "mailto:" + addr;
+    el.textContent = addr;
+  })();
+</script>

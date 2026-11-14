@@ -1,0 +1,44 @@
+---
+import "../styles/tokens.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+
+interface Props {
+  theme: "a" | "b" | "c";
+  title: string;
+  description?: string;
+  fonts: string[];
+  wrapClass?: string;
+}
+
+const { theme, title, description, fonts, wrapClass = "max-w-6xl" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class={`theme-${theme}`}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {fonts.map((href) => <link rel="stylesheet" href={href} />)}
+    <script is:inline>
+      // Apply the saved theme before first paint (dark is the default).
+      try {
+        if (localStorage.getItem("borisr-theme") === "light") {
+          document.documentElement.classList.add("light");
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body id="top">
+    <SiteHeader wrapClass={wrapClass} />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter wrapClass={wrapClass} />
+  </body>
+</html>

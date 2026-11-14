@@ -1,0 +1,35 @@
+---
+import { music, sections } from "../data/site";
+
+// NOTE: the embeds use the vendors' default player colors on purpose.
+// The theme accent is a CSS token and cannot reach the iframe URL at
+// build time; keeping colors solely in src/styles/ wins over matching
+// the players to the palette.
+const bandcampSrc = `https://bandcamp.com/EmbeddedPlayer/album=${music.bandcampAlbumId}/size=large/bgcol=333333/tracklist=false/artwork=small/transparent=true/`;
+const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(music.soundcloudUrl)}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`;
+---
+
+<section id="music" class="section">
+  <p class="eyebrow">{sections.music.eyebrow}</p>
+  <h2 class="section-title">{sections.music.title}</h2>
+  <div class="mt-6 grid gap-6">
+    <iframe
+      title="From the Depths by Ravanger on Bandcamp"
+      src={bandcampSrc}
+      loading="lazy"
+      class="h-[120px] w-full border-0"></iframe>
+    <iframe
+      title="Ravanger on SoundCloud"
+      src={soundcloudSrc}
+      loading="lazy"
+      allow="autoplay"
+      class="h-[300px] w-full border-0"></iframe>
+    <p class="text-sm">
+      <span class="muted">{music.moreAudioPrefix} </span>
+      <a class="link-accent" href={music.newgroundsUrl}>Newgrounds</a>
+      <span class="muted"> {music.moreAudioMiddle} </span>
+      <a class="link-accent" href={music.bandcampAlbumUrl}>Bandcamp</a>.
+    </p>
+    <p class="muted text-xs">{music.playersNote}</p>
+  </div>
+</section>

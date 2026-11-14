@@ -1,0 +1,21 @@
+---
+import { art, sections } from "../data/site";
+---
+
+<section id="art" class="section">
+  <p class="eyebrow">{sections.art.eyebrow}</p>
+  <h2 class="section-title">{sections.art.title}</h2>
+  <p class="muted mt-3 max-w-xl text-sm leading-relaxed">{art.feedLine}</p>
+  <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+    {
+      Array.from({ length: art.tileCount }).map((_, i) => (
+        <div class="tile aspect-square" role="img" aria-label={`Artwork placeholder ${i + 1}`} />
+      ))
+    }
+  </div>
+  <p class="mt-5 text-sm">
+    <a class="link-accent" href={art.instagramUrl}>{art.instagramLabel}</a>
+    <span class="muted"> · </span>
+    <a class="link-accent" href={art.tiktokUrl}>{art.tiktokLabel}</a>
+  </p>
+</section>
