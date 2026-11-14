@@ -195,8 +195,10 @@ export const projectsMoreLine = "More coming — WitClash later.";
 export const tools = {
   path: "/tools/brighter-shores-routefinder",
   label: "Brighter Shores Routefinder",
-  description: "Merchant route finder for Brighter Shores, hosted here.",
+  description: "Merchant route finder for Brighter Shores, running right here.",
   liveLabel: "Open the tool",
+  directUrl: "https://brighter-shores-routefinder.netlify.app/",
+  directLabel: "Open in a new tab",
   status: "Live",
   disclaimer: "Fan-made tool, not affiliated with Brighter Shores or its developers.",
 };

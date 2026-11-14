@@ -1,0 +1,27 @@
+---
+import { sections, tools } from "../../data/site";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Brighter Shores Routefinder — borisr.dev"
+  description={tools.description}
+>
+  <div class="page-top">
+    <section class="section">
+      <p class="eyebrow">{sections.tools.eyebrow}</p>
+      <h1 class="section-title">{tools.label}</h1>
+      <p class="muted mt-3 max-w-xl text-sm leading-relaxed">{tools.description}</p>
+      <p class="mt-4 text-sm">
+        <a class="link-accent" href={tools.directUrl} target="_blank" rel="noopener">
+          {tools.directLabel} &nearr;
+        </a>
+      </p>
+      <p class="muted mt-4 text-xs">{tools.disclaimer}</p>
+    </section>
+  </div>
+  <div class="tool-frame-wrap">
+    <iframe title="Brighter Shores Routefinder" src={tools.directUrl} class="tool-frame"
+    ></iframe>
+  </div>
+</SiteLayout>

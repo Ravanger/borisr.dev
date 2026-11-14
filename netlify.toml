@@ -1,10 +1,10 @@
 # Netlify config for borisr.dev.
 #
-# The Routefinder is its own Netlify site; this 200 rewrite proxies it
-# under /tools/ so the URL stays on borisr.dev (no redirect).
-
-[[redirects]]
-  from = "/tools/brighter-shores-routefinder/*"
-  to = "https://brighter-shores-routefinder.netlify.app/:splat"
-  status = 200
-  force = true
+# The Routefinder is deliberately NOT proxied under /tools/ anymore.
+# It is a Vite app built with base "./", so under a subpath its
+# relative JS/CSS resolve against /tools/ and 404 (blank page without
+# a trailing slash; its client-side router also assumes site root).
+# Instead it is embedded in a full-height iframe on a real borisr.dev
+# page (src/pages/tools/brighter-shores-routefinder.astro), where it
+# runs at its own root and its router works. The site chrome (bottom
+# bar, toggle, footer) stays visible around it.

@@ -164,6 +164,31 @@ body {
   margin-bottom: 1rem;
 }
 
+/*
+ * Embedded tool frame (Workbench): the Routefinder runs in a full-height
+ * iframe on a real borisr.dev page. The frame breaks out of the centered
+ * column to full viewport width; its height fills the viewport minus the
+ * fixed bottom bar and the page header. The footer sits below the fold;
+ * the app scrolls inside its frame.
+ */
+.tool-frame-wrap {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: 2rem;
+}
+
+.tool-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--bar-height) - 8rem);
+  height: calc(100dvh - var(--bar-height) - 8rem);
+  min-height: 28rem;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
 .link-accent {
   color: var(--accent);
 }
