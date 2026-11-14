@@ -125,9 +125,6 @@ export const music = {
   bandcampAlbumUrl: "https://ravanger.bandcamp.com/album/from-the-depths",
   soundcloudUrl: "https://soundcloud.com/ravanger",
   newgroundsUrl: "https://himenow.newgrounds.com/audio",
-  moreAudioPrefix: "More audio on",
-  moreAudioMiddle: "and",
-  playersNote: "Players load from Bandcamp and SoundCloud.",
   /**
    * From the Depths — real data from the public Bandcamp page
    * (ravanger.bandcamp.com/album/from-the-depths, read 2026-11-14):
@@ -207,6 +204,7 @@ export const music = {
    * SoundCloud public pages don't expose a usable count (both blocked
    * the fetch on 2026-11-14), and counts are never guessed.
    */
+  moreNoiseTitle: "More noise",
   moreNoise: [
     {
       label: "Bandcamp",

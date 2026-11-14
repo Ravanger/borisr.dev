@@ -885,6 +885,72 @@ body {
   height: 42px;
 }
 
+/* "More noise" cards: one per audio home (Bandcamp, SoundCloud,
+   Newgrounds). The mark is a two-letter mono tag, not a brand logo. */
+.more-noise {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .more-noise {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.noise-card {
+  display: block;
+  padding: 1.25rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.noise-card:focus-visible {
+  outline: 2px solid var(--phosphor, #8cff6a);
+  outline-offset: 2px;
+}
+
+.noise-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.noise-mark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  color: var(--phosphor, #8cff6a);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+
+.noise-label {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.noise-arrow {
+  color: var(--muted);
+}
+
+.noise-blurb {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 /* ---- Restrained motion ---- */
 
 /* Short cross-fade on navigation (static pages fade in on load). */

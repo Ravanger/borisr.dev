@@ -27,12 +27,20 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
     </figure>
   </div>
   <div class="mt-12 border-t rule pt-8">
-    <p class="text-sm">
-      <span class="muted">{music.moreAudioPrefix} </span>
-      <a class="link-accent" href={music.newgroundsUrl}>Newgrounds</a>
-      <span class="muted"> {music.moreAudioMiddle} </span>
-      <a class="link-accent" href={music.bandcampAlbumUrl}>Bandcamp</a>.
-    </p>
-    <p class="muted mt-3 text-xs">{music.playersNote}</p>
+    <h2 class="section-title">{music.moreNoiseTitle}</h2>
+    <div class="more-noise">
+      {
+        music.moreNoise.map((item) => (
+          <a class="noise-card card lift" href={item.href}>
+            <span class="noise-head">
+              <span class="noise-mark" aria-hidden="true">{item.mark}</span>
+              <span class="noise-label">{item.label}</span>
+              <span class="noise-arrow" aria-hidden="true">↗</span>
+            </span>
+            <span class="noise-blurb">{item.blurb}</span>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </section>
