@@ -160,3 +160,7 @@ palette, which projects/tools, art scope, contact/socials.
   considered and passed over: app-first model, ships runtime JS per
   page; Astro's content-first model + typed collections fit a showcase
   site, and Svelte is already in his stack via WitClash.
+- Media policy (2026-11-14): no heavy media hosted in the repo — no
+  images/video/audio committed. Art comes from the social feeds'
+  CDNs, not the repo. Thumbnails only if needed as lazy-loading
+  placeholders that can't be generated dynamically, kept tiny.
