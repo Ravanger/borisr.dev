@@ -1025,6 +1025,38 @@ body {
   background: var(--surface);
 }
 
+/*
+ * "More noise" cards: service icon + label row with a muted one-liner
+ * below. Icons are the shared inline-SVG set (SocialIcon) — no icon
+ * font, no extra request; the same marks as the footer socials.
+ */
+.noise-card {
+  display: block;
+  padding: 1rem 1.25rem;
+}
+
+.noise-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.noise-mark {
+  display: inline-flex;
+  color: var(--accent);
+}
+
+.noise-arrow {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.noise-blurb {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--muted);
+}
+
 .link-accent {
   color: var(--accent);
 }

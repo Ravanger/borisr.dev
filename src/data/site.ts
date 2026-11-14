@@ -135,19 +135,19 @@ export const music = {
   moreNoise: [
     {
       label: "Bandcamp",
-      mark: "BC",
+      icon: "bandcamp",
       blurb: "From the Depths — full-length demo album, 2015.",
       href: "https://ravanger.bandcamp.com/album/from-the-depths",
     },
     {
       label: "SoundCloud",
-      mark: "SC",
+      icon: "soundcloud",
       blurb: "Latest tracks.",
       href: "https://soundcloud.com/ravanger",
     },
     {
       label: "Newgrounds",
-      mark: "NG",
+      icon: "newgrounds",
       blurb: "Older stuff, game tracks, experiments.",
       href: "https://himenow.newgrounds.com/audio",
     },
