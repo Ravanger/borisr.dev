@@ -180,7 +180,7 @@ palette, which projects/tools, art scope, contact/socials.
 ## Decisions — direction + nav (2026-11-14, Boris)
 - Direction C (Workbench) chosen. A and B stay at /design/* as reference.
 - Site split into real pages (no everything-on-one-page): /, /art,
-  /music, /projects, /tools. Home stays light (teasers + links).
+  /music, /projects, /tools. Home stays light (hero + stompbox board).
 - Nav: ONE fixed bottom bar, OS-taskbar vibe, on every page, with
   active-page state. Mobile responsive. Plus a fixed top-left home
   link ("borisr.dev" -> /) on every page, mirroring the toggle.
@@ -229,8 +229,11 @@ palette, which projects/tools, art scope, contact/socials.
   iframe on a real borisr.dev page, where the app runs at its own
   root; the proxy rewrite is gone, no trailing-slash redirect.
 - Contact page removed; footer = JS-assembled email + GitHub only.
-- Home teaser cards carry a per-section mark (brush / waveform /
-  nodes / terminal) in the Workbench language.
+- Home hero + stompbox board: hero is the typeset name in a placeholder
+  slot for the hand-drawn wordmark (Boris draws it later), corrected
+  intro, GitHub-CDN avatar; the board is 3 pedals (Art / Music /
+  Projects) with knob labels, one-line summaries, footswitch + LED,
+  patch-cable signal chain IN → ART → MUSIC → PROJECTS → OUT.
 - Nav wordmark horizontal (explicit in the tokens; no vertical
   styling ever existed — the rule makes the reading unambiguous).
   Top-left home link ("borisr.dev" -> /) on every page, mirroring
