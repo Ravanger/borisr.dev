@@ -18,12 +18,14 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
       src={bandcampSrc}
       loading="lazy"
       class="h-[470px] w-full max-w-[350px] border-0"></iframe>
-    <iframe
-      title="Ravanger on SoundCloud"
-      src={soundcloudSrc}
-      loading="lazy"
-      allow="autoplay"
-      class="h-[300px] w-full border-0"></iframe>
+    <div class="embed-frame">
+      <iframe
+        title="Ravanger on SoundCloud"
+        src={soundcloudSrc}
+        loading="lazy"
+        allow="autoplay"
+        class="h-[300px] border-0"></iframe>
+    </div>
     <p class="text-sm">
       <span class="muted">{music.moreAudioPrefix} </span>
       <a class="link-accent" href={music.newgroundsUrl}>Newgrounds</a>

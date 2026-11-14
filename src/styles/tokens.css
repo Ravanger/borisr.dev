@@ -282,6 +282,22 @@ body {
   background: var(--surface);
 }
 
+/*
+ * Embedded players: a dark shell so a player iframe never renders as a
+ * white box while loading on the dark site (interim fix — the Music
+ * rebuild restyles the players properly).
+ */
+.embed-frame {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.embed-frame iframe {
+  display: block;
+  width: 100%;
+  background: var(--surface);
+}
+
 .link-accent {
   color: var(--accent);
 }
