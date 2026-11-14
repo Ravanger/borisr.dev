@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — one theme per design direction.
+ * Dark is the default; adding `.light` to <html> switches to light.
+ * Colors are CSS custom properties so every direction shares the same
+ * component markup and only the tokens change.
+ */
+
+/* Direction A — "Tube amp": warm serif */
+.theme-a {
+  --bg: #141210;
+  --surface: #1e1a17;
+  --text: #ede6da;
+  --muted: #a89f92;
+  --accent: #d9a03f;
+  --line: #2d2823;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+.theme-a.light {
+  --bg: #f4efe6;
+  --surface: #fffdf8;
+  --text: #211d18;
+  --muted: #6f675c;
+  --accent: #8a6414;
+  --line: #e0d8ca;
+}
+
+/* Direction B — "Instrument": matched family */
+.theme-b {
+  --bg: #101013;
+  --surface: #191920;
+  --text: #f2f2ee;
+  --muted: #9b9ba4;
+  --accent: #7ba7c7;
+  --line: #26262e;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+.theme-b.light {
+  --bg: #f5f5f2;
+  --surface: #ffffff;
+  --text: #17171c;
+  --muted: #62626c;
+  --accent: #3d6a8c;
+  --line: #e2e2dc;
+}
+
+/* Direction C — "Workbench": grotesque + mono */
+.theme-c {
+  --bg: #0f0f0e;
+  --surface: #171716;
+  --text: #e9e7e1;
+  --muted: #97948a;
+  --accent: #e86a33;
+  --line: #262624;
+  --font-display: "Clash Display", "Inter", system-ui, sans-serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+.theme-c.light {
+  --bg: #f3f1ec;
+  --surface: #fffefb;
+  --text: #191817;
+  --muted: #6b675e;
+  --accent: #b34a1d;
+  --line: #ddd9cf;
+}
+
+/* ---- Base ---- */
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ---- Shared semantic classes ---- */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.rule {
+  border-color: var(--line);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.link-accent {
+  color: var(--accent);
+}
+
+.link-accent:hover {
+  text-decoration: underline;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section {
+  margin-top: 4.5rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  line-height: 1.15;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+/* ---- Per-direction section styling ---- */
+
+.theme-a .section-title {
+  font-size: 2.1rem;
+  font-weight: 600;
+}
+
+.theme-b .section-title {
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+
+.theme-b .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.theme-b .eyebrow::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--line);
+}
+
+.theme-c .section-title {
+  font-size: 1.55rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.theme-c main {
+  counter-reset: section;
+}
+
+.theme-c .section {
+  counter-increment: section;
+}
+
+.theme-c .section-title::before {
+  content: counter(section, decimal-leading-zero) " / ";
+  font-family: var(--font-mono);
+  font-size: 0.55em;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  vertical-align: 0.15em;
+}
+
+/* ---- Theme toggle ---- */
+
+.btn-toggle {
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
