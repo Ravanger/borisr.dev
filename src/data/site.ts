@@ -145,8 +145,11 @@ export const project = {
 export const tools = {
   path: "/tools/brighter-shores-routefinder",
   label: "Brighter Shores Routefinder",
-  livesAt: "Lives at",
-  comingLabel: "coming with the new site",
+  description: "Merchant route finder for Brighter Shores, hosted here.",
+  liveLabel: "Open the tool",
+  status: "Live",
+  disclaimer:
+    "Fan-made tool, not affiliated with Brighter Shores or its developers.",
 };
 
 export const socials = [

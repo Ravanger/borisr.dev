@@ -5,15 +5,20 @@ import { sections, tools } from "../data/site";
 <section id="tools" class="section">
   <p class="eyebrow">{sections.tools.eyebrow}</p>
   <h2 class="section-title">{sections.tools.title}</h2>
-  <article class="card mt-6 p-6">
-    <h3 class="font-display text-xl font-semibold">{tools.label}</h3>
-    <p class="muted mt-2 text-sm leading-relaxed">
-      {tools.livesAt} <code class="mono text-[0.85em]">{tools.path}</code> — {
-        tools.comingLabel
-      }.
-    </p>
-    <p class="mt-4 text-sm">
-      <a class="link-accent" href={tools.path}>borisr.dev{tools.path} &nearr;</a>
-    </p>
+  <article class="card node-row mt-6 p-6">
+    <span class="node-disc" aria-hidden="true">&nearr;</span>
+    <span class="node-link" aria-hidden="true"></span>
+    <div class="node-body">
+      <h3 class="font-display text-xl font-semibold">{tools.label}</h3>
+      <p class="muted mt-2 text-sm leading-relaxed">{tools.description}</p>
+      <p class="mono mt-3 text-xs">
+        <span class="link-accent">&bull;</span>
+        <span class="muted"> {tools.status}</span>
+      </p>
+      <p class="mt-4 text-sm">
+        <a class="link-accent" href={tools.path}>{tools.liveLabel} &nearr;</a>
+      </p>
+      <p class="muted mt-4 text-xs">{tools.disclaimer}</p>
+    </div>
   </article>
 </section>

@@ -1,0 +1,10 @@
+# Netlify config for borisr.dev.
+#
+# The Routefinder is its own Netlify site; this 200 rewrite proxies it
+# under /tools/ so the URL stays on borisr.dev (no redirect).
+
+[[redirects]]
+  from = "/tools/brighter-shores-routefinder/*"
+  to = "https://brighter-shores-routefinder.netlify.app/:splat"
+  status = 200
+  force = true
