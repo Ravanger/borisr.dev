@@ -277,6 +277,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.01em;
   margin: 0;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -1417,11 +1418,19 @@ body {
  * stretched to its flex-1 list item for width.
  */
 .bottombar-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* Single max-content column: the track is sized by the widest child
+     (the label), so the marker can span exactly the label's width and
+     everything shares one centre line at any viewport/DPR. */
+  display: grid;
+  grid-template-columns: max-content;
+  /* Centre the single track in the column, and each item in the track. */
   justify-content: center;
-  gap: 0.2rem;
+  justify-items: center;
+  align-content: center;
+  row-gap: 0.2rem;
+  /* Fill the flex-1 column so icon + label sit at its centre (a hugging
+     anchor would pin each item to the column's left edge). */
+  width: 100%;
   min-width: 3rem;
   min-height: 3rem;
   padding: 0.5rem 0.25rem;
@@ -1452,17 +1461,22 @@ body {
   color: var(--text);
 }
 
-/* Current-page marker: the same short horizontal accent dash as the
-   old bottom bar, under the label, in a fixed-size slot. */
+/* Current-page marker: an accent dash above the icon, spanning the
+   label's width (the grid track is sized by the label). The extra
+   margin-bottom (on top of the row gap) keeps it clear of the icon;
+   the slot is present on every item, so nothing shifts when the
+   current page changes. */
 .bottombar-link .marker {
   display: block;
-  width: 12px;
+  width: 100%;
   height: 2px;
+  margin-bottom: 0.15rem;
   background: transparent;
 }
 
 .bottombar-link[aria-current="page"] .marker {
   background: var(--accent);
+  opacity: 0.5;
 }
 
 /* ---- Footer social icons ---- */
