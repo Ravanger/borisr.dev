@@ -85,48 +85,6 @@ export const pedals: Pedal[] = [
   },
 ];
 
-/** Home page teasers (Workbench): index-numbered cards linking to sections.
- * `motif` picks the card's mark (see TeaserMotif): brush = art, wave =
- * music, nodes = projects, terminal = tools. */
-export interface Teaser {
-  index: string;
-  label: string;
-  href: string;
-  description: string;
-  motif: "brush" | "wave" | "nodes" | "terminal";
-}
-
-export const teasers: Teaser[] = [
-  {
-    index: "01",
-    label: "Art",
-    href: "/art",
-    description: "Latest work — Instagram and TikTok first.",
-    motif: "brush",
-  },
-  {
-    index: "02",
-    label: "Music",
-    href: "/music",
-    description: "From the Depths, SoundCloud, Newgrounds.",
-    motif: "wave",
-  },
-  {
-    index: "03",
-    label: "Projects",
-    href: "/projects",
-    description: "Routefinder, OpenParty, desk gadget.",
-    motif: "nodes",
-  },
-  {
-    index: "04",
-    label: "Tools",
-    href: "/tools",
-    description: "The Routefinder, running right here.",
-    motif: "terminal",
-  },
-];
-
 /** The /design index listing the three directions. */
 export const designIndex = {
   eyebrow: "borisr.dev — redesign",
