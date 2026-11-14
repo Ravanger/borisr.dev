@@ -118,6 +118,7 @@ export const sections = {
   music: { eyebrow: "Music", title: "Music" },
   projects: { eyebrow: "Projects", title: "Projects" },
   tools: { eyebrow: "Tools", title: "Tools" },
+  about: { eyebrow: "About", title: "Boris Rossovsky" },
 };
 
 export const music = {
@@ -140,6 +141,57 @@ export const art = {
 };
 
 export const projectsMoreLine = "More coming — WitClash later.";
+
+/**
+ * About page (/about). Copy approved by Boris 2026-11-14 (#10, v4 —
+ * verbatim, do not rewrite). Ravanger is black metal; he does not draw;
+ * art is old work only. The avatar is his GitHub avatar (external CDN,
+ * never committed). Rig lines render each item's name in text colour
+ * with the parenthetical note muted (see src/pages/about.astro).
+ */
+export const about = {
+  avatarUrl: "https://avatars.githubusercontent.com/u/814853?v=4",
+  avatarLabel: "U1 BORIS",
+  paragraphs: [
+    "I'm Boris. I play loud music, solder fuzz pedals, and write tools for games I play too much. This site is where it all ends up.",
+    "Ravanger is the music: black metal, guitar and bass through more gain than is reasonable. There's one album, From the Depths, plus a pile of rough mixes and half-finished stuff on SoundCloud and Newgrounds.",
+    "Away from the amp, I mess around with ESP32s, 3D printing, and party games that run on the TV and everyone's phones. I live in Toronto with two cats and drink too much coffee.",
+  ],
+  rig: [
+    {
+      label: "PLAYS",
+      items: [
+        { name: "Les Paul Studio", note: "Burstbuckers, coil split" },
+        { name: "Epiphone Les Paul" },
+        { name: "Dean Paramount bass", note: "maple fretboard, Classic Black" },
+        { name: "Boss Katana 50 Gen 3" },
+        { name: "Hotone Pulze Mini" },
+        { name: "Behringer TO800" },
+        { name: "M-VAVE FM-1" },
+        { name: "Scarlett 2i2 + Reaper" },
+      ],
+    },
+    {
+      label: "BUILDS",
+      items: [
+        { name: "Klon Centaur clone" },
+        { name: "Bazz Fuzz" },
+        { name: "Fuzz Face clones" },
+        { name: "ESP32 desk gadget" },
+        { name: "ELEGOO Centauri Carbon 2" },
+      ],
+    },
+    {
+      label: "CODES",
+      items: [
+        { name: "OpenParty", note: "TypeScript" },
+        { name: "Brighter Shores routefinder" },
+        { name: "ESP32 firmware" },
+        { name: "local LLM stack" },
+      ],
+    },
+  ],
+};
 
 export const tools = {
   path: "/tools/brighter-shores-routefinder",
