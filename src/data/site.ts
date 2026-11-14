@@ -30,6 +30,16 @@ export const nav = [
   { label: "Contact", href: "#contact" },
 ];
 
+/** Page navigation for the bottom bar (real pages, not anchors). */
+export const siteNav = [
+  { label: "Home", href: "/" },
+  { label: "Art", href: "/art" },
+  { label: "Music", href: "/music" },
+  { label: "Projects", href: "/projects" },
+  { label: "Tools", href: "/tools" },
+  { label: "Contact", href: "/contact" },
+];
+
 /** Placeholder home page (/) until a direction is chosen. */
 export const placeholder = {
   heading: "Boris Rossovsky",

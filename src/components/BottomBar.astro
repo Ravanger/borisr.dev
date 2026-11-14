@@ -1,0 +1,31 @@
+---
+import { site, siteNav } from "../data/site";
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+---
+
+<div class="bottombar fixed inset-x-0 bottom-0 z-40">
+  <nav class="site-wrap flex items-center justify-between gap-2" aria-label="Main">
+    <a href="/" class="bottombar-wordmark hidden sm:block" aria-label="Home — borisr.dev">
+      {site.domain}
+    </a>
+    <ul class="flex flex-1 items-stretch justify-between sm:flex-none sm:justify-end">
+      {
+        siteNav.map((item) => (
+          <li class="flex flex-1 sm:flex-none">
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              class="bottombar-link"
+            >
+              <span class="marker" aria-hidden="true" />
+              <span>{item.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
