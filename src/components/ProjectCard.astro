@@ -5,13 +5,17 @@ import { project, sections } from "../data/site";
 <section id="projects" class="section">
   <p class="eyebrow">{sections.projects.eyebrow}</p>
   <h2 class="section-title">{sections.projects.title}</h2>
-  <article class="card mt-6 p-6">
-    <h3 class="font-display text-xl font-semibold">{project.name}</h3>
-    <p class="muted mt-2 text-sm leading-relaxed">{project.tagline}</p>
-    <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-      <a class="link-accent" href={project.liveUrl}>{project.liveLabel} &nearr;</a>
-      <a class="link-accent" href={project.repoUrl}>{project.repoLabel} &nearr;</a>
-    </p>
+  <article class="card node-row mt-6 p-6">
+    <span class="node-disc" aria-hidden="true">&nearr;</span>
+    <span class="node-link" aria-hidden="true"></span>
+    <div class="node-body">
+      <h3 class="font-display text-xl font-semibold">{project.name}</h3>
+      <p class="muted mt-2 text-sm leading-relaxed">{project.tagline}</p>
+      <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <a class="link-accent" href={project.liveUrl}>{project.liveLabel} &nearr;</a>
+        <a class="link-accent" href={project.repoUrl}>{project.repoLabel} &nearr;</a>
+      </p>
+    </div>
   </article>
   <p class="muted mt-4 text-sm">{project.moreLine}</p>
 </section>

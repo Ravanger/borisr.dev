@@ -1,0 +1,11 @@
+---
+import ProjectCard from "../components/ProjectCard.astro";
+import { site } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Projects — borisr.dev" description={site.description}>
+  <div class="page-top">
+    <ProjectCard />
+  </div>
+</SiteLayout>

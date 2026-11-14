@@ -1,0 +1,11 @@
+---
+import ArtFeed from "../components/ArtFeed.astro";
+import { site } from "../data/site";
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Art — borisr.dev" description={site.description}>
+  <div class="page-top">
+    <ArtFeed />
+  </div>
+</SiteLayout>

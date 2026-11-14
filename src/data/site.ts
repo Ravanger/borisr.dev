@@ -105,6 +105,12 @@ export const sections = {
   music: { eyebrow: "Music", title: "Music" },
   projects: { eyebrow: "Projects", title: "Projects" },
   tools: { eyebrow: "Tools", title: "Tools" },
+  contact: { eyebrow: "Contact", title: "Contact" },
+};
+
+export const contact = {
+  intro: "Email is the fastest way to reach me.",
+  socialsHeading: "Elsewhere",
 };
 
 export const music = {
