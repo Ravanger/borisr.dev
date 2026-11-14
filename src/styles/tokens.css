@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 /*
+ * Self-hosted Workbench fonts (see public/fonts/ATTRIBUTION.md):
+ * Big Shoulders Display 800, IBM Plex Sans 400/500, Departure Mono 400.
+ * Latin subsets only, woff2, font-display: swap. The display face is
+ * preloaded by SiteLayout; nothing here loads a remote font.
+ */
+@font-face {
+  font-family: "Big Shoulders Display";
+  src: url("/fonts/big-shoulders-display-latin-800-normal.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Departure Mono";
+  src: url("/fonts/DepartureMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
  * Design tokens — one theme per design direction.
  * Dark is the default; adding `.light` to <html> switches to light.
  * Colors are CSS custom properties so every direction shares the same
  * component markup and only the tokens change.
  *
- * Grid (real site): a single centered column, --grid-max wide, with
- * --grid-gutter side padding. .site-wrap is the only wrapper the real
- * pages use — header, sections, cards, footer and the bottom bar all
- * sit on it.
+ * Grid (real site, .theme-c only): a single centered column, 1200px
+ * max, 24px gutters desktop / 16px mobile. .site-wrap is the only
+ * wrapper the real pages use — header, sections, cards, footer and
+ * the bottom bar all sit on it. The /design directions keep their
+ * own narrower wraps.
  */
 
 :root {
   --grid-max: 56rem;
   --grid-gutter: 1.5rem;
-  --bar-height: 4rem;
-  /* LED red, until PR #25 lands its --led on .theme-c (same value in
-     dark; #25's rule wins there once merged — it comes later in this
-     file — and its light value wins in light mode). --accent is the
-     phosphor token: #8CFF6A once #25 lands, the old orange until then. */
-  --led: #ff3d2e;
+  --bar-height: 3rem;
 }
 
 /* Direction A — "Tube amp": warm serif */
@@ -65,25 +99,53 @@
   --line: #e2e2dc;
 }
 
-/* Direction C — "Workbench": grotesque + mono */
+/*
+ * Direction C — "Workbench", the real site: 'bench at 2am'.
+ * Phosphor #8CFF6A is the only primary accent (links, scope trace,
+ * focus ring); LED #FF3D2E is reserved for on/active/live, amber
+ * #FFB43F is rare (warnings, fan-made note). Glow lives only on lit
+ * things, never on body text. Muted #8E9187 is 6.15:1 on the bg,
+ * text 15.9:1 — both clear 4.5:1.
+ */
 .theme-c {
-  --bg: #0f0f0e;
-  --surface: #171716;
-  --text: #e9e7e1;
-  --muted: #97948a;
-  --accent: #e86a33;
-  --line: #262624;
-  --font-display: "Clash Display", "Inter", system-ui, sans-serif;
-  --font-body: "Satoshi", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --bg: #0a0b09;
+  --surface: #131511;
+  --surface-2: #1b1e18;
+  --text: #e9e7df;
+  --muted: #8e9187;
+  --accent: #8cff6a;
+  --accent-40: rgb(140 255 106 / 0.4);
+  --led: #ff3d2e;
+  --amber: #ffb43f;
+  --line: #262a22;
+  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "Departure Mono", ui-monospace, monospace;
+  /* 12-col grid, 1200px max; 16px gutters mobile, 24px desktop. */
+  --grid-max: 75rem;
+  --grid-gutter: 1rem;
 }
+/* Daylight / datasheet mode: paper, black ink, phosphor darkened to
+   #1E7A1E so the accent still clears 4.5:1 on paper (4.73:1);
+   muted #5C6055 is 5.6:1 on paper. LED/amber darkened the same way. */
 .theme-c.light {
-  --bg: #f3f1ec;
-  --surface: #fffefb;
-  --text: #191817;
-  --muted: #6b675e;
-  --accent: #b34a1d;
-  --line: #ddd9cf;
+  --bg: #f2efe6;
+  --surface: #fbfaf5;
+  --surface-2: #e9e6da;
+  --text: #17150f;
+  --muted: #5c6055;
+  --accent: #1e7a1e;
+  --accent-40: rgb(30 122 30 / 0.4);
+  --led: #c02415;
+  --amber: #8a5a00;
+  --line: #d8d4c6;
+  --grid-gutter: 1rem;
+}
+@media (min-width: 768px) {
+  .theme-c,
+  .theme-c.light {
+    --grid-gutter: 1.5rem;
+  }
 }
 
 /* ---- Base ---- */
@@ -94,8 +156,8 @@ html {
   /* No page-level horizontal scroll: the tool frame breaks out to full
      viewport width with 100vw, which runs wider than the visible area
      by the vertical scrollbar's width on desktop. `clip` (not `hidden`)
-     doesn't create a scroll container, so the fixed chrome (top bar,
-     mobile bottom bar) is unaffected. */
+     doesn't create a scroll container, so the fixed chrome (bottom bar,
+     toggle, home link) is unaffected. */
   overflow-x: clip;
 }
 
@@ -104,16 +166,8 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-}
-
-/* Clearance for the fixed mobile bottom bar (plus phone
-   home-indicator area). Desktop has no bottom bar — the top bar is
-   cleared by .page-top on sub-pages and the home page's own top
-   padding. */
-@media (max-width: 767px) {
-  body {
-    padding-bottom: calc(var(--bar-height) + env(safe-area-inset-bottom));
-  }
+  /* Clearance for the fixed bottom bar (plus phone home-indicator area). */
+  padding-bottom: calc(var(--bar-height) + env(safe-area-inset-bottom));
 }
 
 ::selection {
@@ -132,7 +186,8 @@ body {
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
    is dropped so the page title doesn't sit under a double gap. 4rem
-   clears the fixed 64px top bar. */
+   clears the fixed top-left home link and top-right toggle on mobile
+   (the link's bottom edge is ~41px; 3rem left only ~7px). */
 .page-top {
   padding-top: 4rem;
 }
@@ -223,6 +278,11 @@ body {
 .project-body {
   margin-top: 2rem;
   max-width: 40rem;
+}
+
+/* Workbench body copy caps at 64ch. */
+.theme-c .project-body {
+  max-width: 64ch;
 }
 
 .project-body p {
@@ -349,6 +409,19 @@ body {
   border-color: var(--accent);
 }
 
+/* Cards (Workbench): 2px radius, one chamfered corner — 10px off the
+   top-right via clip-path — 1px line border. Hover: phosphor-at-40%
+   border + 2px lift, no shadow. The node rows share .card but render
+   borderless, so the cut is invisible on them. */
+.theme-c .card {
+  border-radius: 2px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.theme-c .lift:hover {
+  border-color: var(--accent-40);
+}
+
 /*
  * Home teaser cards: a per-section mark at the top-right of each card
  * (brush = art, waveform = music, nodes = projects, terminal = tools),
@@ -377,6 +450,111 @@ body {
   transform: translateY(-1px);
 }
 
+/* Visible focus on every interactive element: 2px phosphor outline
+   + 2px offset. Uses each theme's own accent, so the /design pages
+   get it too without restyling them. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- Workbench base (real site only) ---- */
+
+/* Body copy: 16px mobile / 17px desktop, lh 1.6. The page is a flex
+   column with main growing, so the footer sits at the bottom on
+   short pages (min-height: 100dvh on main). */
+.theme-c body {
+  font-size: 1rem;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+@media (min-width: 768px) {
+  .theme-c body {
+    font-size: 1.0625rem;
+  }
+}
+
+/* 8px base rhythm; section gaps 64px mobile / 96px desktop. */
+.theme-c .section {
+  margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .theme-c .section {
+    margin-top: 6rem;
+  }
+}
+
+/* Type scale — headings are Big Shoulders Display 800, uppercase.
+   H1 56px mobile / 96px desktop, H2 32/40px, H3 22/24px. */
+.theme-c .h1 {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .theme-c .h1 {
+    font-size: 6rem;
+  }
+}
+
+.theme-c .section-title {
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .theme-c .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+.theme-c h3 {
+  font-size: 1.375rem;
+  font-weight: 800;
+}
+
+@media (min-width: 768px) {
+  .theme-c h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mono labels / UI / readouts: Departure Mono, 0.06em tracking —
+   never the old 0.2em+ stretch. The `01 /` section numbering is
+   untouched here (separate issue #13 owns it). */
+.theme-c .eyebrow {
+  letter-spacing: 0.06em;
+}
+
+/* Live/on/active indicator: LED red, and only for that. */
+.live-dot {
+  color: var(--led, currentColor);
+}
+
+/* Grain overlay — the only full-page texture on the real site:
+   2.5% opacity SVG feTurbulence noise, fixed, pointer-events none.
+   The div itself lives in SiteLayout; /design pages don't get it. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
 /* ---- Per-direction section styling ---- */
 
 .theme-a .section-title {
@@ -399,13 +577,6 @@ body {
   content: "";
   flex: 1;
   border-top: 1px solid var(--line);
-}
-
-.theme-c .section-title {
-  font-size: 1.55rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
 }
 
 /*
@@ -541,6 +712,45 @@ body {
 
 .node-row[hidden] {
   display: none;
+}
+
+/*
+ * Live-tool badge (Projects): pulsing green LED + LIVE label on cards
+ * with a live tool. The pulse is a fading box-shadow ring; the global
+ * prefers-reduced-motion rule zeroes the animation, leaving a static
+ * dot. Green is fixed (not a theme token): it reads as "live" in both
+ * themes, the way a bench LED does.
+ */
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #22c55e;
+  animation: live-pulse 2s ease-out infinite;
+}
+
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
 }
 
 /* ---- Bottom bar (mobile only, 64px + safe-area inset) ---- */
@@ -760,23 +970,6 @@ body {
   background: var(--accent);
 }
 
-/* Home link (logo, left end of the top bar): mono wordmark, reads as
-   a link, fixed size so it never shifts layout. */
-.home-link {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  cursor: pointer;
-  white-space: nowrap;
-  padding: 0.25rem 0.5rem;
-}
-
-.home-link:hover {
-  color: var(--text);
-  text-decoration: underline;
-}
-
 /* ---- Footer social icons ---- */
 
 .footer-socials {
@@ -801,6 +994,23 @@ body {
 
 .social-link:hover {
   color: var(--accent);
+}
+
+/* Top-left home link (fixed chrome, mirrors the toggle top-right):
+   mono wordmark, reads as a link, fixed size so it never shifts layout. */
+.home-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+}
+
+.home-link:hover {
+  color: var(--text);
+  text-decoration: underline;
 }
 
 /* ---- Theme toggle: pedal footswitch in the nav bar ---- */
@@ -855,6 +1065,14 @@ body {
 
 /* ---- Restrained motion ---- */
 
+/* View transitions (SPA feel): short crossfade on navigation.
+   The tool page's iframe is a separate document and still reloads
+   on navigation — expected, view transitions can't cross that. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
 /* Short cross-fade on navigation (static pages fade in on load). */
 main {
   animation: fade-in 0.25s ease-out both;
@@ -888,6 +1106,9 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
@@ -895,4 +1116,24 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  /* No crossfade at all for view transitions: instant swap. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* Workbench chrome labels + footer push — kept down here, after the
+   base .filter-btn / .bottombar-* / .home-link / main rules above,
+   so these (0,2,0) overrides never sit above a rule they beat. */
+.theme-c main {
+  flex: 1 0 auto;
+}
+
+.theme-c .bottombar-link,
+.theme-c .chain-link,
+.theme-c .home-link,
+.theme-c .filter-btn {
+  letter-spacing: 0.06em;
 }
