@@ -378,6 +378,38 @@ body {
 .project-gh svg {
   display: block;
 }
+/* Coming-soon teaser card (issue #18): dashed border, blurred teaser
+   image, stamped IN THE WORKS. The blur is a stand-in, not the art. */
+.project-teaser {
+  border-style: dashed;
+}
+
+.project-teaser-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-teaser-img {
+  filter: blur(8px) grayscale(0.4);
+  transform: scale(1.06);
+}
+
+.project-teaser-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 
 /*
  * Instagram feed (Workbench): uniform grid, square crops, hairline
