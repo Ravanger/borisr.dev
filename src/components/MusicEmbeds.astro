@@ -1,19 +1,34 @@
 ---
 import { music } from "../data/site";
 
-// SoundCloud uses the classic player (visual=false) with the phosphor
-// accent as its colour param: visual=true wastes the height on artwork
-// (a real-browser render showed 2 track rows + a clipped third at
-// 470px), while the classic player at 470px shows the track list.
-// The player sits in an .embed-frame so it never renders as a white
-// box while loading. The Bandcamp player moved to the album hero
-// (AlbumHero.astro) as the slim player under the tracklist — the large
-// Bandcamp embed is gone, not duplicated here.
+// Bandcamp large player (size=large, 470px) and the SoundCloud classic
+// player (visual=false, 470px) sit side by side in a two-column grid on
+// desktop, stacking to one column on mobile — the PR #24 arrangement,
+// restored below the album hero. PR #29 moved the Bandcamp player into
+// the hero as a slim player; the grid supersedes it, so the slim player
+// is gone and there is no duplicate Bandcamp player. Both players sit in
+// an .embed-frame so their outer boxes measure the same height — tops
+// and bottoms flush, no optical offset. SoundCloud visual=true wastes
+// the height on artwork (a real-browser render showed 2 track rows + a
+// clipped third at 470px), while the classic player at 470px shows the
+// track list. Bandcamp bgcol matches the current theme surface
+// (0a0b09), not the pre-theme grey from #24.
+const bandcampSrc = `https://bandcamp.com/EmbeddedPlayer/album=${music.bandcampAlbumId}/size=large/bgcol=0a0b09/linkcol=8cff6a/tracklist=true/artwork=small/transparent=true/`;
 const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(music.soundcloudUrl)}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false&color=8cff6a`;
 ---
 
 <section id="music" class="section">
-  <div class="mt-10">
+  <div class="mt-10 grid gap-10 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
+    <figure class="min-w-0">
+      <p class="eyebrow mb-3">Bandcamp — From the Depths</p>
+      <div class="embed-frame">
+        <iframe
+          title="From the Depths by Ravanger on Bandcamp"
+          src={bandcampSrc}
+          loading="lazy"
+          class="h-[470px] w-full max-w-[350px] border-0"></iframe>
+      </div>
+    </figure>
     <figure class="min-w-0">
       <p class="eyebrow mb-3">SoundCloud — Latest tracks</p>
       <div class="embed-frame">
