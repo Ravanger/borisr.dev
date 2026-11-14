@@ -259,6 +259,79 @@ body {
 }
 
 /*
+ * About page: two-column grid, avatar sticky on desktop. The avatar is
+ * his GitHub avatar (external CDN, never committed): 320px, slight
+ * tilt, mono unit label. The rig renders each item's name in text
+ * colour with the parenthetical note muted, items separated by ·.
+ */
+.about-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .about-side {
+    position: sticky;
+    top: 6rem;
+    align-self: start;
+  }
+}
+
+.avatar-card {
+  margin: 0;
+  transform: rotate(-2deg);
+}
+
+.avatar-img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.avatar-label {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.about-copy {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.rig {
+  margin-top: 2.5rem;
+}
+
+.rig-group {
+  margin-top: 1.25rem;
+}
+
+.rig-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rig-items {
+  margin-top: 0.5rem;
+  line-height: 1.7;
+}
+
+/*
  * Embedded tool frame (Workbench): the Routefinder runs in a full-height
  * iframe on a real borisr.dev page. The frame breaks out of the centered
  * column to full viewport width; its height fills the viewport minus the

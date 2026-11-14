@@ -1,0 +1,20 @@
+---
+/**
+ * Avatar card — the illustrated avatar at 320px with a slight tilt and
+ * the mono unit label. The Home hero uses the same treatment; keep the
+ * two in sync. The image is his GitHub avatar (external CDN, fetched
+ * from api.github.com/users/Ravanger), never committed to the repo.
+ */
+import { about } from "../data/site";
+---
+
+<figure class="avatar-card">
+  <img
+    class="avatar-img"
+    src={about.avatarUrl}
+    alt="Boris Rossovsky"
+    width="320"
+    height="320"
+  />
+  <figcaption class="avatar-label">{about.avatarLabel}</figcaption>
+</figure>
