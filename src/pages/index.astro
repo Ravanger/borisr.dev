@@ -1,5 +1,4 @@
 ---
-import ScopeTrace from "../components/ScopeTrace.astro";
 import StompboxBoard from "../components/StompboxBoard.astro";
 import { site } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
@@ -7,7 +6,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 
 <SiteLayout title="Boris Rossovsky — borisr.dev" description={site.description}>
   <section class="hero" aria-labelledby="home-title">
-    <ScopeTrace />
     <div class="hero-copy">
       <!-- WORDMARK SLOT: the hand-drawn wordmark goes here once Boris
            draws it. Until then the typeset name below is the placeholder
