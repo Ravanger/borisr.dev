@@ -1,22 +1,25 @@
 ---
 import { getCollection } from "astro:content";
+import ProjectFilter from "../components/ProjectFilter.svelte";
 import { projectsMoreLine, sections } from "../data/site";
 
 // The card reads the projects collection itself, so every page that
 // renders it (the /projects index and the /design/* reference pages)
 // gets the same list with no props to forget.
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const categories = [...new Set(projects.map((entry) => entry.data.category))];
 ---
 
 <section id="projects" class="section">
   <p class="eyebrow">{sections.projects.eyebrow}</p>
   <h2 class="section-title">{sections.projects.title}</h2>
+  <ProjectFilter client:load categories={categories} />
   {
     projects.map((entry) => {
       const p = entry.data;
       const href = `/projects/${entry.id}`;
       return (
-        <article class="card node-row mt-6 p-6">
+        <article class="card node-row mt-6 p-6" data-category={p.category}>
           <span class="node-disc" aria-hidden="true">&nearr;</span>
           <span class="node-link" aria-hidden="true"></span>
           <div class="node-body">

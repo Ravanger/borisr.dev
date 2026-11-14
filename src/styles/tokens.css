@@ -443,7 +443,7 @@ body {
   position: relative;
 }
 
-.theme-c .node-row:has(+ .node-row)::before {
+.theme-c .node-row:has(+ .node-row:not([hidden]))::before {
   content: "";
   position: absolute;
   left: 13px;
@@ -488,6 +488,46 @@ body {
 .theme-c .node-body {
   flex: 1;
   min-width: 0;
+}
+
+/*
+ * Projects filter (Workbench): mono uppercase buttons, one per category
+ * plus All. The active button is filled with the accent. Filtering
+ * toggles `hidden` on the cards; the rule below is needed because the
+ * theme-c node rows set display:flex, which beats the UA [hidden] rule.
+ */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.filter-btn[aria-pressed="true"] {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.node-row[hidden] {
+  display: none;
 }
 
 /* ---- Bottom bar (fixed nav, OS-taskbar vibe) ---- */
