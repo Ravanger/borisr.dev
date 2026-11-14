@@ -100,19 +100,18 @@ theme (direction C); the three `/design/*` pages stay as reference.
 - **Grid**: one centered column (1200px max, 24px gutters desktop /
   16px mobile, in the tokens); header, sections, cards,
   footer, and bottom bar all sit on it via `.site-wrap`.
-- **Projects filter**: All / Software / Framework / Hardware / Live
+- **Projects filter**: All / Software / Framework / Hardware
   buttons (`src/components/ProjectFilter.svelte`, client-side, no
-  reload); categories come from each project's frontmatter, Live shows
-  only projects with a live tool. The filter syncs to the URL
-  (`?filter=<category>`, e.g. `?filter=live`) via `history.pushState` —
+  reload); categories come from each project's frontmatter. The filter syncs to the URL
+  (`?filter=<category>`, e.g. `?filter=software`) via `history.pushState` —
   no reload, shareable links, back/forward works; `All` clears the
-  param (plain `/projects`).
+  param (plain `/projects`). An unknown value (e.g. a bookmarked
+  `?filter=live` from the removed Live filter) falls back to `All`.
 - **Tools**: the Routefinder is embedded, not proxied — a full-height
   iframe on `/tools/brighter-shores-routefinder` (real borisr.dev page,
   site chrome stays visible), with an "open in a new tab" link to the
-  direct URL. There is no `/tools` index page: live tools are a filter
-  on `/projects` (`?filter=live`), and the home Tools teaser links
-  there. Why no proxy: the app is a Vite build with base `"./"`,
+  direct URL. There is no `/tools` index page: the Routefinder is
+  linked from its project card on `/projects`. Why no proxy: the app is a Vite build with base `"./"`,
   so under a subpath its relative JS/CSS resolve against `/tools/` and
   404 (blank page without a trailing slash); its router also assumes
   site root. The `netlify.toml` proxy rewrite was removed.

@@ -32,9 +32,9 @@ export const nav = [
 
 /** Page navigation for the bottom bar: the three real pages. Home is
  * the logo tap; Tools is folded into Projects (issue #19, decided) —
- * live tools are a filter on /projects, and
- * /tools/brighter-shores-routefinder stays live as a bookmarked URL
- * with no index page behind it. About was dropped by Boris 2026-11-14
+ * the Routefinder lives at /tools/brighter-shores-routefinder as a
+ * bookmarked URL with no index page behind it, linked from its
+ * project card. About was dropped by Boris 2026-11-14
  * (PR #27 closed unmerged) — there is no About page and nothing
  * links to one. */
 export const siteNav = [
