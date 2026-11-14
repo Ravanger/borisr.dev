@@ -1,4 +1,5 @@
 ---
+import TeaserMotif from "../components/TeaserMotif.astro";
 import { site, teasers } from "../data/site";
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
@@ -19,9 +20,12 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     {
       teasers.map((t) => (
         <a href={t.href} class="card lift block p-6">
-          <p class="eyebrow">
-            {t.index} / {t.label}
-          </p>
+          <div class="teaser-head">
+            <p class="eyebrow">
+              {t.index} / {t.label}
+            </p>
+            <TeaserMotif motif={t.motif} />
+          </div>
           <p class="muted mt-3 text-sm leading-relaxed">{t.description}</p>
           <p class="mt-4 text-sm">
             <span class="link-accent">Open &nearr;</span>

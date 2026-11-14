@@ -227,6 +227,34 @@ body {
   border-color: var(--accent);
 }
 
+/*
+ * Home teaser cards: a per-section mark at the top-right of each card
+ * (brush = art, waveform = music, nodes = projects, terminal = tools),
+ * all in the accent color. The mark nudges on card hover.
+ */
+.teaser-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.teaser-mark {
+  flex: none;
+  color: var(--accent);
+  transition: transform 0.15s ease-out;
+}
+
+.teaser-mark svg {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.lift:hover .teaser-mark {
+  transform: translateY(-1px);
+}
+
 /* ---- Per-direction section styling ---- */
 
 .theme-a .section-title {
