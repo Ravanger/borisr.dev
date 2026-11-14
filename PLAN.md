@@ -37,10 +37,11 @@ open-source builder. Not a design portfolio, not a corporate resume.
 - `/projects` — curated GitHub projects with one-line descriptions,
   thumbnails and detail pages (`/projects/*`, one MDX file per
   project): Routefinder, OpenParty, ESP32 desk gadget.
-- `/tools/*` — the Routefinder, embedded in a full-height iframe on a
-  real borisr.dev page (`/tools/brighter-shores-routefinder`), so the
-  site chrome stays visible. No proxy: the app is a Vite build with
-  base "./" whose relative assets 404 under a subpath.
+- `/tools/*` — no index page (folded into Projects 2026-11-14, issue
+  #19). The Routefinder stays live at `/tools/brighter-shores-
+  routefinder`, embedded in a full-height iframe on a real borisr.dev
+  page, so the site chrome stays visible. No proxy: the app is a Vite
+  build with base "./" whose relative assets 404 under a subpath.
 - No `/contact` page (removed 2026-11-14) — the footer is the contact
   point: JS-assembled email + GitHub only.
 - No blog unless he asks for one.
@@ -180,7 +181,10 @@ palette, which projects/tools, art scope, contact/socials.
 ## Decisions — direction + nav (2026-11-14, Boris)
 - Direction C (Workbench) chosen. A and B stay at /design/* as reference.
 - Site split into real pages (no everything-on-one-page): /, /art,
-  /music, /projects, /tools. Home stays light (teasers + links).
+  /music, /projects. Home stays light (teasers + links). The /tools
+  index was folded into Projects 2026-11-14 (issue #19): nav is four
+  items, live tools are a filter on /projects, and
+  /tools/brighter-shores-routefinder stays live with no index behind it.
 - Nav: ONE fixed bottom bar, OS-taskbar vibe, on every page, with
   active-page state. Mobile responsive. Plus a fixed top-left home
   link ("borisr.dev" -> /) on every page, mirroring the toggle.
@@ -245,3 +249,22 @@ palette, which projects/tools, art scope, contact/socials.
   Netlify site. No Facebook Page needed, no paid widget.
 - Desk gadget detail page has a CAD-files section: no CAD files in
   its repo yet, so it notes they are coming (later step).
+
+## Fold Tools into Projects (2026-11-14, issue #19)
+- Decided by Boris: fold Tools into Projects. Nav is four items (Home,
+  Art, Music, Projects); the /tools index page is gone.
+- /tools/brighter-shores-routefinder stays live at the same URL
+  (bookmarked links keep working); it counts as a Projects page for
+  the bottom-bar active state. The tool page itself is unchanged.
+- Projects gains a Live filter (only projects with a live tool, pulsing
+  LED badge on live cards) and the filter syncs to the URL
+  (?filter=<category>) without a page reload; back/forward works.
+- Home Tools teaser links to /projects?filter=live.
+- Project cards render an "Open Tool" link from the project's liveUrl
+  frontmatter (content config already had the optional field; only the
+  Routefinder has one). OpenParty (framework) and the desk gadget
+  (hardware) have no tool link.
+- Page transitions use Astro View Transitions (ClientRouter, ~200ms
+  crossfade, prefers-reduced-motion respected). Note: the tool page's
+  iframe is a separate document and still reloads on navigation —
+  expected.

@@ -78,9 +78,12 @@ theme (direction C); the three `/design/*` pages stay as reference.
 
 - **Real pages** (Workbench theme, `src/layouts/SiteLayout.astro`): `/`
   (intro + section teasers, each with its own mark), `/art`, `/music`,
-  `/projects`, `/tools`. Thin composition over the shared components.
+  `/projects`. Thin composition over the shared components.
   There is no `/contact` page — the footer is the contact point
-  (JS-assembled email + GitHub only).
+  (JS-assembled email + GitHub only). There is no `/tools` index page
+  either (folded into Projects 2026-11-14, issue #19) — the Routefinder
+  stays live at `/tools/brighter-shores-routefinder` with no index
+  behind it.
 - **Project detail pages** (`src/content/projects/*.mdx`, one file per
   project, rendered by `src/pages/projects/[slug].astro`):
   `/projects/brighter-shores-routefinder`, `/projects/openparty`,
@@ -88,7 +91,7 @@ theme (direction C); the three `/design/*` pages stay as reference.
   photos from the project's own repo (or its GitHub social preview),
   GitHub link on each page. Not a blog: no dates, no feed, no pagination.
 - **Navigation**: one fixed bottom bar on every page (Home, Art, Music,
-  Projects, Tools; current page marked by a short vertical accent bar,
+  Projects; current page marked by a short vertical accent bar,
   hover by a dot). A fixed top-left home link ("borisr.dev" → `/`)
   mirrors it on every page. The dark/light toggle is a separate fixed
   top-right `<button>` (sun/moon icon, 44px), so toggling never shifts
@@ -103,7 +106,9 @@ theme (direction C); the three `/design/*` pages stay as reference.
 - **Tools**: the Routefinder is embedded, not proxied — a full-height
   iframe on `/tools/brighter-shores-routefinder` (real borisr.dev page,
   site chrome stays visible), with an "open in a new tab" link to the
-  direct URL. Why no proxy: the app is a Vite build with base `"./"`,
+  direct URL. There is no `/tools` index page: live tools are a filter
+  on `/projects` (`?filter=live`), and the home Tools teaser links
+  there. Why no proxy: the app is a Vite build with base `"./"`,
   so under a subpath its relative JS/CSS resolve against `/tools/` and
   404 (blank page without a trailing slash); its router also assumes
   site root. The `netlify.toml` proxy rewrite was removed.

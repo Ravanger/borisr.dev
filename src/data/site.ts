@@ -30,13 +30,15 @@ export const nav = [
   { label: "Contact", href: "#contact" },
 ];
 
-/** Page navigation for the bottom bar (real pages, not anchors). */
+/** Page navigation for the bottom bar (real pages, not anchors).
+ * Four items since the Tools fold (2026-11-14, issue #19): live tools
+ * are a filter on /projects, and /tools/brighter-shores-routefinder
+ * stays live as a bookmarked URL with no index page behind it. */
 export const siteNav = [
   { label: "Home", href: "/" },
   { label: "Art", href: "/art" },
   { label: "Music", href: "/music" },
   { label: "Projects", href: "/projects" },
-  { label: "Tools", href: "/tools" },
 ];
 
 /** Home page teasers (Workbench): index-numbered cards linking to sections.
@@ -75,7 +77,7 @@ export const teasers: Teaser[] = [
   {
     index: "04",
     label: "Tools",
-    href: "/tools",
+    href: "/projects?filter=live",
     description: "The Routefinder, running right here.",
     motif: "terminal",
   },
