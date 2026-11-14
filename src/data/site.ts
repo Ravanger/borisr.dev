@@ -148,8 +148,7 @@ export const tools = {
   description: "Merchant route finder for Brighter Shores, hosted here.",
   liveLabel: "Open the tool",
   status: "Live",
-  disclaimer:
-    "Fan-made tool, not affiliated with Brighter Shores or its developers.",
+  disclaimer: "Fan-made tool, not affiliated with Brighter Shores or its developers.",
 };
 
 export const socials = [
