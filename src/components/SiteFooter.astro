@@ -34,8 +34,7 @@ const { wrapClass = "max-w-6xl" } = Astro.props;
 <script define:vars={{ user: email.user, domain: email.domain }}>
   // Assemble the address here so the plain address never appears in the
   // HTML source. (The players above are third-party embeds; see their note.)
-  // Class-based: assembles every .email-link on the page, so the contact
-  // page's link gets filled in by this one footer script too.
+  // Class-based: assembles every .email-link on the page.
   (function () {
     var addr = user + "@" + domain;
     var links = document.querySelectorAll(".email-link");

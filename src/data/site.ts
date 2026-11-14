@@ -37,7 +37,6 @@ export const siteNav = [
   { label: "Music", href: "/music" },
   { label: "Projects", href: "/projects" },
   { label: "Tools", href: "/tools" },
-  { label: "Contact", href: "/contact" },
 ];
 
 /** Home page teasers (Workbench): index-numbered cards linking to sections.
@@ -119,12 +118,6 @@ export const sections = {
   music: { eyebrow: "Music", title: "Music" },
   projects: { eyebrow: "Projects", title: "Projects" },
   tools: { eyebrow: "Tools", title: "Tools" },
-  contact: { eyebrow: "Contact", title: "Contact" },
-};
-
-export const contact = {
-  intro: "Email is the fastest way to reach me.",
-  socialsHeading: "Elsewhere",
 };
 
 export const music = {
@@ -203,13 +196,12 @@ export const tools = {
   disclaimer: "Fan-made tool, not affiliated with Brighter Shores or its developers.",
 };
 
-export const socials = [
-  { label: "GitHub", href: "https://github.com/Ravanger" },
-  { label: "Instagram", href: "https://www.instagram.com/ravanger666" },
-  { label: "TikTok", href: "https://www.tiktok.com/@ravanger666" },
-  { label: "Bandcamp", href: "https://ravanger.bandcamp.com" },
-  { label: "SoundCloud", href: "https://soundcloud.com/ravanger" },
-];
+/**
+ * Footer socials: email is separate (JS-assembled, see SiteFooter).
+ * Instagram, TikTok, Bandcamp and SoundCloud live on their own pages
+ * (/art, /music) — the footer keeps only GitHub.
+ */
+export const socials = [{ label: "GitHub", href: "https://github.com/Ravanger" }];
 
 /**
  * Email is kept split so the plain address never appears in the HTML
