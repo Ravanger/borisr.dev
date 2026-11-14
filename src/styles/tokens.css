@@ -885,6 +885,293 @@ body {
   border-color: var(--accent);
 }
 
+/* ---- Music page: From the Depths album hero (#17) ---- */
+
+/*
+ * Theme tokens from issue #14 / PR #25: --accent is phosphor (#8CFF6A
+ * dark / #1E7A1E light), --led #FF3D2E, --surface-2 #1B1E18. The --led
+ * and --surface-2 uses keep a literal fallback; the accent uses
+ * --accent directly so light mode tracks the theme.
+ */
+
+.album-hero {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .album-hero {
+    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.album-art {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  aspect-ratio: 1;
+}
+
+.album-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Subtle red-black vignette over the art. */
+.album-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 120% at 50% 42%, transparent 55%, rgb(0 0 0 / 0.55) 100%),
+    linear-gradient(
+      color-mix(in srgb, var(--led, #ff3d2e) 7%, transparent),
+      color-mix(in srgb, var(--led, #ff3d2e) 7%, transparent)
+    );
+}
+
+/* Slow breathing scale, gated behind prefers-reduced-motion (the global
+   reduced-motion rule below zeroes it as well). */
+@media (prefers-reduced-motion: no-preference) {
+  .album-art img {
+    animation: album-breathe 20s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes album-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+.album-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.album-title {
+  font-family: "Big Shoulders Display", var(--font-display);
+  font-size: 4.5rem;
+  line-height: 0.95;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 0.75rem;
+}
+
+.album-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+.tracklist {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  list-style: none;
+  padding-left: 0;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding-inline: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.track-row:hover,
+.track-row:focus-visible {
+  background: var(--surface-2, #1b1e18);
+}
+
+.track-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.track-num,
+.track-play {
+  flex: none;
+  width: 2ch;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.track-play {
+  display: none;
+  color: var(--accent);
+}
+
+.track-row:hover .track-num,
+.track-row:focus-visible .track-num {
+  display: none;
+}
+
+.track-row:hover .track-play,
+.track-row:focus-visible .track-play {
+  display: inline;
+}
+
+.track-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-duration {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.album-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  background: var(--accent);
+  color: #0a0b09;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.btn-solid:hover {
+  text-decoration: underline;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+}
+
+.btn-solid:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Slim Bandcamp player under the tracklist: size=small renders a 42px
+   single-row player. Dark shell (see .embed-frame) so it never renders
+   as a white box while loading. */
+.album-player {
+  margin-top: 1.5rem;
+}
+
+.album-player .embed-frame iframe {
+  height: 42px;
+}
+
+/* "More noise" cards: one per audio home (Bandcamp, SoundCloud,
+   Newgrounds). The mark is a two-letter mono tag, not a brand logo. */
+.more-noise {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .more-noise {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.noise-card {
+  display: block;
+  padding: 1.25rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.noise-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.noise-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.noise-mark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+
+.noise-label {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.noise-arrow {
+  color: var(--muted);
+}
+
+.noise-blurb {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 /* ---- Restrained motion ---- */
 
 /* View transitions (SPA feel): short crossfade on navigation.
