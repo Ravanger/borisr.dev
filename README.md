@@ -6,6 +6,9 @@ resume: music, art, projects, and tools. No analytics, no cookies, no blog.
 Live site: [borisr.dev](https://borisr.dev) (Netlify). The redesign plan lives
 in [PLAN.md](PLAN.md).
 
+Staging (previews): [borisr-redesign.netlify.app](https://borisr-redesign.netlify.app)
+— the separate Netlify staging site, auto-deploys from `main`.
+
 ## Stack
 
 - **Astro 7** (static output) + **TypeScript strict**
