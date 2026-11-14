@@ -1,0 +1,25 @@
+---
+title: "OpenParty"
+tagline: "A flexible, modern, TypeScript-first framework for building party games."
+category: "Framework"
+order: 2
+thumb: "https://opengraph.githubassets.com/1/Ravanger/vibe-code-partygame-framework"
+repoUrl: "https://github.com/Ravanger/vibe-code-partygame-framework"
+---
+
+<img src="https://opengraph.githubassets.com/1/Ravanger/vibe-code-partygame-framework" alt="OpenParty" loading="lazy" width="1200" height="600" className="project-photo" />
+
+OpenParty is a TypeScript framework for multi-device party games: the game runs on a TV-connected PC while the host and players join from their phones.
+
+It ships with four reference games, all built only on the framework's packages:
+
+- **WitClash** (3–8 players) — the full reference game: rules, browser UI, bots, terminal client and content.
+- **Bluff** (3–8 players) — playable with a browser UI, bot kit, demo tables and a terminal client.
+- **Crew** (3–5 players) — headless rules only: an asymmetric co-op guess-the-sum game.
+- **Rush** (2–8 players) — headless rules only: a tap race driven by the server tick.
+
+## How it works
+
+One command launches a game — `bun run launch wit-clash` opens the host page, and players join with a room code. Bots can fill empty seats and play by themselves, and games with a terminal entry can be played at a prompt or watched as an all-bot demo.
+
+Under the hood the framework is split into small packages — the Colyseus-free runtime, the Colyseus host, a Svelte 5 client SDK, generic viewmodels and components, a bot kit, terminal clients, and a launcher that runs the server, code API, client, bots or demo as one process group. Tests enforce 100% coverage.

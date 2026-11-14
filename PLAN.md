@@ -34,16 +34,15 @@ open-source builder. Not a design portfolio, not a corporate resume.
   The 9 Gatsby posts + Inktober videos + Blender52 renders.
 - `/music` — Ravanger (Bandcamp), guitar + pedal builds, FM-1.
   Links first; embeds only where they earn their place.
-- `/projects` — curated GitHub projects with one-line descriptions
-  and repo + live links (WitClash, routefinder, scan-turntable,
-  esp32-desk-gadget, canvas-glow, crystal-radio, …).
-- `/tools/*` — hosted tools under borisr.dev, e.g.
-  `/tools/brighter-shores-routefinder`. Each tool keeps its own repo
-  and Netlify site; borisr.dev proxies via a 200 rewrite so the URL
-  stays on borisr.dev. This supersedes the 2026-11-14 "keep the
-  routefinder off borisr.dev for now" call — Boris asked for /tools/
-  hosting in this redesign.
-- `/contact` — email + socials. No form unless he wants one.
+- `/projects` — curated GitHub projects with one-line descriptions,
+  thumbnails and detail pages (`/projects/*`, one MDX file per
+  project): Routefinder, OpenParty, ESP32 desk gadget.
+- `/tools/*` — the Routefinder, embedded in a full-height iframe on a
+  real borisr.dev page (`/tools/brighter-shores-routefinder`), so the
+  site chrome stays visible. No proxy: the app is a Vite build with
+  base "./" whose relative assets 404 under a subpath.
+- No `/contact` page (removed 2026-11-14) — the footer is the contact
+  point: JS-assembled email + GitHub only.
 - No blog unless he asks for one.
 
 ## Stack (proposed)
@@ -62,10 +61,10 @@ open-source builder. Not a design portfolio, not a corporate resume.
   Tailwind theme (`@theme` in CSS). Tokens are the design file.
 - **Content as data**: `src/content/{art,music,projects}/` MDX +
   schema. Adding a project = one MDX file. No code changes.
-- **Tools proxy**: `netlify.toml` 200 rewrites, e.g.
-  `/tools/brighter-shores-routefinder/*` ->
-  `https://brighter-shores-routefinder.netlify.app/:splat`.
-  Each tool deploys independently from its own repo.
+- **Tools embedded, not proxied**: the Routefinder runs in a
+  full-height iframe on `/tools/brighter-shores-routefinder`, at its
+  own root (its Vite base "./" breaks under a subpath). Each tool
+  deploys independently from its own repo.
 - **Old URLs preserved**: old post slugs (`/3d-steampunk-chess`, …)
   redirect to the new art archive URLs. Backlinks don't die.
 - **Quality gates**: Biome (lint+format, already his standard in
@@ -144,13 +143,18 @@ palette, which projects/tools, art scope, contact/socials.
   (ravanger.bandcamp.com/album/from-the-depths), Newgrounds audio
   (himenow.newgrounds.com/audio), SoundCloud (soundcloud.com/ravanger).
   Embed players where available.
-- Projects: Routefinder only for now (most public-facing). WitClash later.
+- Projects: Routefinder, OpenParty, ESP32 desk gadget (round 3).
+  WitClash later. Scan turntable, Canvas Glow and crystal radio are
+  out — not built / not showcaseable yet.
 - No blog.
 - Tools path: Wilson's judgment -> `/tools/brighter-shores-routefinder`.
 - Dark + light themes, default dark. New palette, restrained, not
   overwhelming. Simple with good UX, not minimalism.
 - Typefaces: a nice matched set (chosen per design direction).
-- Contact: email link only, behind bot protection (JS-assembled mailto).
+- Contact: no contact page (removed 2026-11-14). The footer is the
+  contact point: email link only, behind bot protection (JS-assembled
+  mailto), plus GitHub. Instagram, TikTok, Bandcamp and SoundCloud
+  live on their own pages (/art, /music), not in the footer.
 - No analytics, no cookies. Tools pages get a disclaimer when needed
   (e.g. routefinder fan-tool / unofficial note if applicable).
 - Stack: Astro 7 + Svelte islands + TS strict + Tailwind v4 + MDX (proposed, no veto —
@@ -176,17 +180,19 @@ palette, which projects/tools, art scope, contact/socials.
 ## Decisions — direction + nav (2026-11-14, Boris)
 - Direction C (Workbench) chosen. A and B stay at /design/* as reference.
 - Site split into real pages (no everything-on-one-page): /, /art,
-  /music, /projects, /tools, /contact. Home stays light (teasers + links).
+  /music, /projects, /tools. Home stays light (teasers + links).
 - Nav: ONE fixed bottom bar, OS-taskbar vibe, on every page, with
-  active-page state. Mobile responsive.
+  active-page state. Mobile responsive. Plus a fixed top-left home
+  link ("borisr.dev" -> /) on every page, mirroring the toggle.
 - Theme toggle: separate fixed button (top-right), real <button>,
   sun/moon icon for the mode it switches to, fixed size, cursor:pointer
   — toggling must not shift any layout.
 - Grid discipline: everything sits on the Workbench grid.
 - Bandcamp player taller via its natural large layout (art + tracklist),
   never stretched with CSS.
-- Tools proxy: netlify.toml 200 rewrite /tools/brighter-shores-routefinder/*
-  -> brighter-shores-routefinder.netlify.app/:splat.
+- Tools embedded, not proxied: the Routefinder opens in a full-height
+  iframe on `/tools/brighter-shores-routefinder` (see "Round 3" below
+  for why the proxy failed).
 
 ## Design inspo — jonnykreell.dev (2026-11-14, Boris's buddy)
 - CV vibe not needed; design language only, nothing copied.
@@ -207,3 +213,35 @@ palette, which projects/tools, art scope, contact/socials.
 - Netlify builds a deploy preview per PR; production deploys on merge.
 - Squash on merge (his WitClash norm). One commit per feature on the
   branch; never amend / rebase / force-push pushed commits.
+
+## Round 3 (2026-11-14, Boris)
+- Projects page: Routefinder, OpenParty, ESP32 desk gadget — each with
+  a thumbnail (the repo's GitHub social preview, external CDN,
+  lazy-loaded) and a detail page (`/projects/*`, one MDX file per
+  project in `src/content/projects/`, no blog). Scan turntable, Canvas
+  Glow and crystal radio are out (not built / not showcaseable yet).
+  Index cards link to the detail page first, GitHub second. Filter:
+  All / Software / Framework / Hardware (Svelte island, client-side).
+- Routefinder embedded, proxy removed: the proxy served HTML (200)
+  but the app was blank — the Vite build uses base "./", so without a
+  trailing slash its relative JS/CSS resolved against /tools/ and
+  404'd, and its router assumes site root. The fix is a full-height
+  iframe on a real borisr.dev page, where the app runs at its own
+  root; the proxy rewrite is gone, no trailing-slash redirect.
+- Contact page removed; footer = JS-assembled email + GitHub only.
+- Home teaser cards carry a per-section mark (brush / waveform /
+  nodes / terminal) in the Workbench language.
+- Nav wordmark horizontal (explicit in the tokens; no vertical
+  styling ever existed — the rule makes the reading unambiguous).
+  Top-left home link ("borisr.dev" -> /) on every page, mirroring
+  the toggle; on /design/* the header name links home instead.
+- Instagram live feed on /art: last 9 photos via a Netlify function
+  (`/.netlify/functions/instagram`) calling the Instagram API with
+  the `INSTAGRAM_TOKEN` env var; images from Instagram's CDN,
+  lazy-loaded. No token yet — the function returns an empty list and
+  the page falls back to a note + the profile link. Setup (Boris):
+  Creator/Business account, Meta developer app, Instagram Login,
+  long-lived token, set as `INSTAGRAM_TOKEN` on the borisr-redesign
+  Netlify site. No Facebook Page needed, no paid widget.
+- Desk gadget detail page has a CAD-files section: no CAD files in
+  its repo yet, so it notes they are coming (later step).

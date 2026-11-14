@@ -153,6 +153,132 @@ body {
   border: 1px solid var(--line);
 }
 
+/* Project thumbnails: each public repo's GitHub social preview (external
+   CDN, lazy-loaded). Capped so the card stays a list row, not a banner. */
+.project-thumb {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  border: 1px solid var(--line);
+  margin-bottom: 1rem;
+}
+
+/*
+ * Instagram feed (Workbench): uniform grid, square crops, hairline
+ * borders — the same language as the placeholder tiles it replaces.
+ * Photos come from Instagram's CDN, lazy-loaded.
+ */
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .insta-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.insta-tile {
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.insta-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.insta-note {
+  margin-top: 0.5rem;
+}
+
+/*
+ * Project detail pages (MDX body): plain type, hairlines, accent links.
+ * Photos in the body are external (the project's own repo or its GitHub
+ * social preview), lazy-loaded, never committed here.
+ */
+.project-body {
+  margin-top: 2rem;
+  max-width: 40rem;
+}
+
+.project-body p {
+  margin-top: 1rem;
+  line-height: 1.7;
+}
+
+.project-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.project-body ul {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.project-body li {
+  margin-top: 0.5rem;
+  line-height: 1.7;
+}
+
+.project-body a {
+  color: var(--accent);
+}
+
+.project-body a:hover {
+  text-decoration: underline;
+}
+
+.project-body code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.project-photo {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  border: 1px solid var(--line);
+  margin-top: 1.5rem;
+}
+
+/*
+ * Embedded tool frame (Workbench): the Routefinder runs in a full-height
+ * iframe on a real borisr.dev page. The frame breaks out of the centered
+ * column to full viewport width; its height fills the viewport minus the
+ * fixed bottom bar and the page header. The footer sits below the fold;
+ * the app scrolls inside its frame.
+ */
+.tool-frame-wrap {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: 2rem;
+}
+
+.tool-frame {
+  display: block;
+  width: 100%;
+  height: calc(100dvh - var(--bar-height) - 8rem);
+  min-height: 28rem;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
 .link-accent {
   color: var(--accent);
 }
@@ -190,6 +316,34 @@ body {
 .lift:hover {
   transform: translateY(-2px);
   border-color: var(--accent);
+}
+
+/*
+ * Home teaser cards: a per-section mark at the top-right of each card
+ * (brush = art, waveform = music, nodes = projects, terminal = tools),
+ * all in the accent color. The mark nudges on card hover.
+ */
+.teaser-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.teaser-mark {
+  flex: none;
+  color: var(--accent);
+  transition: transform 0.15s ease-out;
+}
+
+.teaser-mark svg {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.lift:hover .teaser-mark {
+  transform: translateY(-1px);
 }
 
 /* ---- Per-direction section styling ---- */
@@ -289,7 +443,7 @@ body {
   position: relative;
 }
 
-.theme-c .node-row:has(+ .node-row)::before {
+.theme-c .node-row:has(+ .node-row:not([hidden]))::before {
   content: "";
   position: absolute;
   left: 13px;
@@ -336,6 +490,46 @@ body {
   min-width: 0;
 }
 
+/*
+ * Projects filter (Workbench): mono uppercase buttons, one per category
+ * plus All. The active button is filled with the accent. Filtering
+ * toggles `hidden` on the cards; the rule below is needed because the
+ * theme-c node rows set display:flex, which beats the UA [hidden] rule.
+ */
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.filter-btn[aria-pressed="true"] {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.node-row[hidden] {
+  display: none;
+}
+
 /* ---- Bottom bar (fixed nav, OS-taskbar vibe) ---- */
 
 .bottombar {
@@ -349,6 +543,12 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   color: var(--muted);
+  /* Horizontal by construction: never stacked, never squeezed out of
+     the bar. (No vertical styling ever existed here — this makes the
+     horizontal reading explicit.) */
+  writing-mode: horizontal-tb;
+  white-space: nowrap;
+  flex: none;
 }
 
 .bottombar-wordmark:hover {
@@ -431,6 +631,23 @@ body {
   height: 12px;
   border-radius: 0;
   opacity: 1;
+}
+
+/* Top-left home link (fixed chrome, mirrors the toggle top-right):
+   mono wordmark, reads as a link, fixed size so it never shifts layout. */
+.home-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+}
+
+.home-link:hover {
+  color: var(--text);
+  text-decoration: underline;
 }
 
 /* ---- Theme toggle ---- */

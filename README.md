@@ -40,13 +40,22 @@ Do not push to `main` directly.
 
 | Layer | Where | Rule |
 |---|---|---|
-| Content / data | `src/data/site.ts` | The only place copy, links, and labels live. Components and pages never hardcode them. |
+| Content / data | `src/data/site.ts` + `src/content/` (MDX collections) | The only place copy, links, and labels live. Components and pages never hardcode them. |
 | Design tokens | `src/styles/tokens.css` | The only place colors, typefaces, and the type scale live. Themes are CSS custom properties (`.theme-a` / `.theme-b` / `.theme-c`, `.light` variant). |
 | Components | `src/components/` | Presentational only. Astro for static, Svelte for interactive islands. No data fetching, no content strings, no colors/type inside — styling comes from the tokens. |
 | Pages | `src/pages/` | Thin composition: import data + components, lay them out. No inline styles, no business logic. |
 
 Themes differ **only** in tokens + layout composition. There is one set of
 shared components and one set of shared data — never a per-direction copy.
+
+No formal MVC/MVP/MVVM pattern: the site is static and content-first,
+so there is nothing for a view-model to mediate — content and data live
+in `src/data` and the MDX collections, presentation lives in Astro
+components, the little interactive state there is (theme toggle, filters,
+feed loading) is self-contained in Svelte runes islands, and data flows
+one way from data to components. A formal pattern would be abstraction
+with no benefit at this size; revisit if the site ever grows stateful
+features.
 
 ## Design directions
 
@@ -68,20 +77,36 @@ theme (direction C); the three `/design/*` pages stay as reference.
 ## Site structure
 
 - **Real pages** (Workbench theme, `src/layouts/SiteLayout.astro`): `/`
-  (intro + section teasers), `/art`, `/music`, `/projects`, `/tools`,
-  `/contact`. Thin composition over the shared components.
+  (intro + section teasers, each with its own mark), `/art`, `/music`,
+  `/projects`, `/tools`. Thin composition over the shared components.
+  There is no `/contact` page — the footer is the contact point
+  (JS-assembled email + GitHub only).
+- **Project detail pages** (`src/content/projects/*.mdx`, one file per
+  project, rendered by `src/pages/projects/[slug].astro`):
+  `/projects/brighter-shores-routefinder`, `/projects/openparty`,
+  `/projects/esp32-desk-gadget`. Short writeups from each repo's README,
+  photos from the project's own repo (or its GitHub social preview),
+  GitHub link on each page. Not a blog: no dates, no feed, no pagination.
 - **Navigation**: one fixed bottom bar on every page (Home, Art, Music,
-  Projects, Tools, Contact; current page marked by a short vertical
-  accent bar, hover by a dot). The dark/light toggle is a separate
-  fixed top-right `<button>` (sun/moon icon, 44px), so toggling never
-  shifts any layout.
+  Projects, Tools; current page marked by a short vertical accent bar,
+  hover by a dot). A fixed top-left home link ("borisr.dev" → `/`)
+  mirrors it on every page. The dark/light toggle is a separate fixed
+  top-right `<button>` (sun/moon icon, 44px), so toggling never shifts
+  any layout. The bottom-bar wordmark is horizontal by construction
+  (`writing-mode: horizontal-tb`, no wrapping, never squeezed).
 - **Grid**: one centered column (`--grid-max: 56rem`,
   `--grid-gutter: 1.5rem` in the tokens); header, sections, cards,
   footer, and bottom bar all sit on it via `.site-wrap`.
-- **Tools proxy**: `netlify.toml` rewrites
-  `/tools/brighter-shores-routefinder/*` (200, `force = true`) to the
-  standalone Routefinder Netlify site, so the tool runs under borisr.dev.
-  The proxy is not verifiable locally — check it on the staging deploy.
+- **Projects filter**: All / Software / Framework / Hardware buttons
+  (`src/components/ProjectFilter.svelte`, client-side, no reload);
+  categories come from each project's frontmatter.
+- **Tools**: the Routefinder is embedded, not proxied — a full-height
+  iframe on `/tools/brighter-shores-routefinder` (real borisr.dev page,
+  site chrome stays visible), with an "open in a new tab" link to the
+  direct URL. Why no proxy: the app is a Vite build with base `"./"`,
+  so under a subpath its relative JS/CSS resolve against `/tools/` and
+  404 (blank page without a trailing slash); its router also assumes
+  site root. The `netlify.toml` proxy rewrite was removed.
 
 ### Adding or changing a direction
 
@@ -94,21 +119,43 @@ theme (direction C); the three `/design/*` pages stay as reference.
 
 ## Content
 
-Everything user-facing is in `src/data/site.ts`: intro, nav, home teasers,
-music links (Bandcamp album `3553260334`, SoundCloud, Newgrounds), art feed
-links (Instagram, TikTok `@ravanger666`), the Routefinder project card, the
-`/tools/brighter-shores-routefinder` tools entry (with live status and the
-fan-made disclaimer), socials, email (`contact@borisr.dev`, assembled in JS
-by the footer script for every `.email-link` on the page — footer and
-contact page — so the plain address isn't in the HTML source).
+Everything user-facing is in `src/data/site.ts` or the MDX collections:
+intro, nav, home teasers (each with a motif: brush / waveform / nodes /
+terminal), music links (Bandcamp album `3553260334`, SoundCloud,
+Newgrounds), art feed links (Instagram, TikTok `@ravanger666`), the
+projects collection, the `/tools/brighter-shores-routefinder` tools entry
+(with live status and the fan-made disclaimer), footer socials (GitHub
+only), email (`contact@borisr.dev`, assembled in JS by the footer script
+for every `.email-link` on the page, so the plain address isn't in the
+HTML source).
+
+## Instagram feed (live, on /art)
+
+The latest 9 photos come from a Netlify function,
+`netlify/functions/instagram.mts`, which calls the Instagram API
+(`graph.instagram.com/me/media`) with the `INSTAGRAM_TOKEN` env var and
+returns thumbnail URLs + permalinks + captions (briefly CDN-cached).
+`src/components/InstagramFeed.svelte` renders them in a grid,
+lazy-loaded from Instagram's CDN; while loading it shows placeholder
+tiles, and with no token (or any failure) the function returns an empty
+list and the page falls back to a note + the profile link. The live feed
+is unverified until the token exists.
+
+Setup (Boris): convert the Instagram account to Creator/Business, create
+a Meta developer app, use Instagram Login to generate a long-lived
+access token, and set it as the `INSTAGRAM_TOKEN` env var on the
+borisr-redesign Netlify site. No Facebook Page is needed, and no paid
+widget is used. Never put the token in the repo or in chat.
 
 ## Media policy
 
 No heavy media in the repo: no images, videos, or audio files. The Art
-section renders placeholder tiles; the live feed will pull from
-Instagram/TikTok's CDNs later, not from this repo. Thumbnails only if
-actually needed as lazy-loading placeholders, kept tiny. (The only asset
-committed is the 228-byte SVG favicon.)
+section pulls from Instagram's CDN (see above); project thumbnails are
+each repo's GitHub social preview (opengraph.githubassets.com, external,
+lazy-loaded); detail-page photos come from the project's own repo via
+raw.githubusercontent.com (or the same social preview where the repo has
+no usable photo — the Routefinder and OpenParty have none in-repo, only
+icons). The only asset committed is the 228-byte SVG favicon.
 
 ## Repo conventions
 

@@ -1,0 +1,24 @@
+---
+title: "Brighter Shores Routefinder"
+tagline: "Merchant route finder for Brighter Shores."
+category: "Software"
+order: 1
+thumb: "https://opengraph.githubassets.com/1/Ravanger/brighter-shores-routefinder"
+repoUrl: "https://github.com/Ravanger/brighter-shores-routefinder"
+liveUrl: "/tools/brighter-shores-routefinder"
+liveLabel: "Open the tool"
+directUrl: "https://brighter-shores-routefinder.netlify.app/"
+directLabel: "Open in a new tab"
+---
+
+<img src="https://opengraph.githubassets.com/1/Ravanger/brighter-shores-routefinder" alt="Brighter Shores Routefinder" loading="lazy" width="1200" height="600" className="project-photo" />
+
+A tool for Brighter Shores that finds the best merchanting routes. Pick the bounties you currently have and it works out the best paths to complete them, using Dijkstra's algorithm over the game's room graph.
+
+This is a fork of [bricefrisco's original RouteFinder](https://github.com/bricefrisco/brighter-shores-routefinder). The fork updates the bounty data to the game's current milestone and level system — all 54 bounties, with milestone and level requirements and current XP values from the [Brighter Shores wiki](https://brightershoreswiki.org/w/Trading_Game) — and fixes the route planner's XP sums.
+
+## How it works
+
+Routes are calculated by time, not distance. Each step of a route comes with an ETA, and rooms unlocked by quests and Detective City Shortcuts are taken into account (configure them in settings). You can also wait and pick up more bounties when they appear on the bounty board — the tool works out the best route across all of them and tells you which ones to abandon and which to pick up.
+
+The app is React and Vite, with all calculations done client-side — there is no back-end server.

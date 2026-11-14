@@ -1,21 +1,56 @@
 ---
-import { project, sections } from "../data/site";
+import { getCollection } from "astro:content";
+import ProjectFilter from "../components/ProjectFilter.svelte";
+import { projectsMoreLine, sections } from "../data/site";
+
+// The card reads the projects collection itself, so every page that
+// renders it (the /projects index and the /design/* reference pages)
+// gets the same list with no props to forget.
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+const categories = [...new Set(projects.map((entry) => entry.data.category))];
 ---
 
 <section id="projects" class="section">
   <p class="eyebrow">{sections.projects.eyebrow}</p>
   <h2 class="section-title">{sections.projects.title}</h2>
-  <article class="card node-row mt-6 p-6">
-    <span class="node-disc" aria-hidden="true">&nearr;</span>
-    <span class="node-link" aria-hidden="true"></span>
-    <div class="node-body">
-      <h3 class="font-display text-xl font-semibold">{project.name}</h3>
-      <p class="muted mt-2 text-sm leading-relaxed">{project.tagline}</p>
-      <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-        <a class="link-accent" href={project.liveUrl}>{project.liveLabel} &nearr;</a>
-        <a class="link-accent" href={project.repoUrl}>{project.repoLabel} &nearr;</a>
-      </p>
-    </div>
-  </article>
-  <p class="muted mt-4 text-sm">{project.moreLine}</p>
+  <ProjectFilter client:load categories={categories} />
+  {
+    projects.map((entry) => {
+      const p = entry.data;
+      const href = `/projects/${entry.id}`;
+      return (
+        <article class="card node-row mt-6 p-6" data-category={p.category}>
+          <span class="node-disc" aria-hidden="true">&nearr;</span>
+          <span class="node-link" aria-hidden="true"></span>
+          <div class="node-body">
+            <a href={href} aria-label={p.title}>
+              <img
+                src={p.thumb}
+                alt=""
+                loading="lazy"
+                width="1200"
+                height="600"
+                class="project-thumb"
+              />
+            </a>
+            <h3 class="font-display text-xl font-semibold">
+              <a href={href} class="hover:underline">
+                {p.title}
+              </a>
+            </h3>
+            <p class="muted mt-2 text-sm leading-relaxed">{p.tagline}</p>
+            <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+              <a class="link-accent" href={href}>
+                Read more &nearr;
+              </a>
+              <a class="link-accent" href={p.repoUrl}>
+                GitHub &nearr;
+              </a>
+            </p>
+          </div>
+        </article>
+      );
+    })
+  }
+  <p class="muted mt-4 text-sm">{projectsMoreLine}</p>
 </section>

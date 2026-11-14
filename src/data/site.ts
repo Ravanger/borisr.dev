@@ -37,34 +37,47 @@ export const siteNav = [
   { label: "Music", href: "/music" },
   { label: "Projects", href: "/projects" },
   { label: "Tools", href: "/tools" },
-  { label: "Contact", href: "/contact" },
 ];
 
-/** Home page teasers (Workbench): index-numbered cards linking to sections. */
-export const teasers = [
+/** Home page teasers (Workbench): index-numbered cards linking to sections.
+ * `motif` picks the card's mark (see TeaserMotif): brush = art, wave =
+ * music, nodes = projects, terminal = tools. */
+export interface Teaser {
+  index: string;
+  label: string;
+  href: string;
+  description: string;
+  motif: "brush" | "wave" | "nodes" | "terminal";
+}
+
+export const teasers: Teaser[] = [
   {
     index: "01",
     label: "Art",
     href: "/art",
     description: "Latest work — Instagram and TikTok first.",
+    motif: "brush",
   },
   {
     index: "02",
     label: "Music",
     href: "/music",
     description: "From the Depths, SoundCloud, Newgrounds.",
+    motif: "wave",
   },
   {
     index: "03",
     label: "Projects",
     href: "/projects",
-    description: "Brighter Shores Routefinder. More coming.",
+    description: "Routefinder, OpenParty, desk gadget.",
+    motif: "nodes",
   },
   {
     index: "04",
     label: "Tools",
     href: "/tools",
-    description: "The Routefinder, hosted right here.",
+    description: "The Routefinder, running right here.",
+    motif: "terminal",
   },
 ];
 
@@ -105,12 +118,6 @@ export const sections = {
   music: { eyebrow: "Music", title: "Music" },
   projects: { eyebrow: "Projects", title: "Projects" },
   tools: { eyebrow: "Tools", title: "Tools" },
-  contact: { eyebrow: "Contact", title: "Contact" },
-};
-
-export const contact = {
-  intro: "Email is the fastest way to reach me.",
-  socialsHeading: "Elsewhere",
 };
 
 export const music = {
@@ -132,32 +139,25 @@ export const art = {
   tileCount: 6,
 };
 
-export const project = {
-  name: "Brighter Shores Routefinder",
-  tagline: "Merchant route finder for Brighter Shores.",
-  liveUrl: "https://brighter-shores-routefinder.netlify.app/",
-  liveLabel: "Open the tool",
-  repoUrl: "https://github.com/Ravanger/brighter-shores-routefinder",
-  repoLabel: "GitHub",
-  moreLine: "More coming — WitClash later.",
-};
+export const projectsMoreLine = "More coming — WitClash later.";
 
 export const tools = {
   path: "/tools/brighter-shores-routefinder",
   label: "Brighter Shores Routefinder",
-  description: "Merchant route finder for Brighter Shores, hosted here.",
+  description: "Merchant route finder for Brighter Shores, running right here.",
   liveLabel: "Open the tool",
+  directUrl: "https://brighter-shores-routefinder.netlify.app/",
+  directLabel: "Open in a new tab",
   status: "Live",
   disclaimer: "Fan-made tool, not affiliated with Brighter Shores or its developers.",
 };
 
-export const socials = [
-  { label: "GitHub", href: "https://github.com/Ravanger" },
-  { label: "Instagram", href: "https://www.instagram.com/ravanger666" },
-  { label: "TikTok", href: "https://www.tiktok.com/@ravanger666" },
-  { label: "Bandcamp", href: "https://ravanger.bandcamp.com" },
-  { label: "SoundCloud", href: "https://soundcloud.com/ravanger" },
-];
+/**
+ * Footer socials: email is separate (JS-assembled, see SiteFooter).
+ * Instagram, TikTok, Bandcamp and SoundCloud live on their own pages
+ * (/art, /music) — the footer keeps only GitHub.
+ */
+export const socials = [{ label: "GitHub", href: "https://github.com/Ravanger" }];
 
 /**
  * Email is kept split so the plain address never appears in the HTML

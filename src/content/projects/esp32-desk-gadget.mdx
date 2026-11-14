@@ -1,0 +1,20 @@
+---
+title: "ESP32 desk gadget"
+tagline: "Multi-screen desk display: NTP clock, DHT11 temp and humidity, outdoor weather."
+category: "Hardware"
+order: 3
+thumb: "https://opengraph.githubassets.com/1/Ravanger/esp32-desk-gadget"
+repoUrl: "https://github.com/Ravanger/esp32-desk-gadget"
+---
+
+<img src="https://raw.githubusercontent.com/Ravanger/esp32-desk-gadget/main/assets/oled-display.jpg" alt="The desk gadget's OLED display" loading="lazy" className="project-photo" />
+
+A multi-screen desktop display built around an ESP32-C3 SuperMini and a 0.96-inch SSD1306 OLED. Four screens, stepped through with one push button: Clock (time synced over WiFi via NTP), Indoor (temperature and humidity from a DHT11 sensor), Outdoor weather, and a Summary screen with brightness, WiFi status and uptime. A potentiometer controls screen brightness; an optional rotary encoder can replace the button, and an optional PIR sensor blanks the display when the room is quiet.
+
+Two firmwares run on the same hardware and wiring. ESPHome is the default: the gadget joins Home Assistant, indoor readings and uptime appear there, outdoor weather comes from a Home Assistant weather entity, and updates go over the air after the first USB flash. The standalone Arduino sketch is the backup: it fetches outdoor weather itself from Open-Meteo — free, no API key, no account — and needs no Home Assistant at all.
+
+<img src="https://raw.githubusercontent.com/Ravanger/esp32-desk-gadget/main/assets/breadboard.png" alt="Breadboard layout for the desk gadget" loading="lazy" className="project-photo" />
+
+## CAD files
+
+The enclosure CAD files aren't in the repo yet — they are coming. The build docs (parts, wiring, setup, how it works) live in the repo meanwhile.
