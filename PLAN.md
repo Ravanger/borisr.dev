@@ -48,7 +48,7 @@ open-source builder. Not a design portfolio, not a corporate resume.
 
 ## Stack (proposed)
 
-- **Astro 7 + TypeScript (strict) + Tailwind CSS v4 + MDX content
+- **Astro 7 + Svelte islands + TypeScript (strict) + Tailwind CSS v4 + MDX content
   collections**, hosted on Netlify.
   - Why Astro: content-first static site; typed frontmatter via
     content collections (zod schemas) for art/music/projects;
@@ -153,5 +153,10 @@ palette, which projects/tools, art scope, contact/socials.
 - Contact: email link only, behind bot protection (JS-assembled mailto).
 - No analytics, no cookies. Tools pages get a disclaimer when needed
   (e.g. routefinder fan-tool / unofficial note if applicable).
-- Stack: Astro 7 + TS strict + Tailwind v4 + MDX (proposed, no veto —
+- Stack: Astro 7 + Svelte islands + TS strict + Tailwind v4 + MDX (proposed, no veto —
   proceed; Boris can veto at directions review).
+- Stack confirmed (2026-11-14): Astro 7 + Svelte islands (interactive
+  components in Svelte 5, static content in Astro). SvelteKit was
+  considered and passed over: app-first model, ships runtime JS per
+  page; Astro's content-first model + typed collections fit a showcase
+  site, and Svelte is already in his stack via WitClash.
