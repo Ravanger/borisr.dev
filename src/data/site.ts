@@ -72,7 +72,7 @@ export const pedals: Pedal[] = [
     name: "Music",
     href: "/music",
     knobs: ["GAIN", "FUZZ"],
-    line: "From the Depths. 10 tracks, 52 minutes.",
+    line: "From the Depths. 11 tracks, 55 minutes.",
     tint: "#1a1212",
   },
   {
