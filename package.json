@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Boris Rossovsky's personal website \u2014 music, art, projects, tools.",
+  "description": "Boris Rossovsky's personal website — music, art, projects, tools.",
   "engines": {
     "node": ">=22.22.0"
   },
@@ -15,8 +15,9 @@
     "format": "biome format --write src"
   },
   "dependencies": {
-    "astro": "^7",
+    "@astrojs/mdx": "^8.1.6",
     "@astrojs/svelte": "^9",
+    "astro": "^7",
     "svelte": "^5"
   },
   "devDependencies": {

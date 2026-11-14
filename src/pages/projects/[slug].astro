@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, tagline, category, repoUrl, liveUrl, liveLabel, directUrl, directLabel } =
+  entry.data;
+---
+
+<SiteLayout title={`${title} — borisr.dev`} description={tagline}>
+  <div class="page-top">
+    <section class="section">
+      <p class="eyebrow">{category}</p>
+      <h1 class="section-title">{title}</h1>
+      <p class="muted mt-3 max-w-xl text-sm leading-relaxed">{tagline}</p>
+      <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {
+          liveUrl && (
+            <a class="link-accent" href={liveUrl}>
+              {liveLabel ?? "Open the tool"} &nearr;
+            </a>
+          )
+        }
+        {
+          directUrl && (
+            <a class="link-accent" href={directUrl} target="_blank" rel="noopener">
+              {directLabel ?? "Open in a new tab"} &nearr;
+            </a>
+          )
+        }
+        <a class="link-accent" href={repoUrl}>GitHub &nearr;</a>
+      </p>
+      <div class="project-body">
+        <Content />
+      </div>
+    </section>
+    <p class="mt-8 text-sm">
+      <a class="link-accent" href="/projects">&larr; All projects</a>
+    </p>
+  </div>
+</SiteLayout>

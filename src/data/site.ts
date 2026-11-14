@@ -139,50 +139,6 @@ export const art = {
   tileCount: 6,
 };
 
-/**
- * Projects, in display order. `thumb` is each public repo's
- * GitHub-hosted social preview (opengraph.githubassets.com — external
- * CDN, lazy-loaded, nothing committed to this repo). `liveUrl` is the
- * in-site tool page for the Routefinder; other projects link to their
- * repo only. No entry links anywhere it shouldn't: only public repos
- * get a GitHub link.
- */
-export interface Project {
-  name: string;
-  tagline: string;
-  thumb: string;
-  liveUrl?: string;
-  liveLabel?: string;
-  repoUrl?: string;
-  repoLabel?: string;
-}
-
-export const projects: Project[] = [
-  {
-    name: "Brighter Shores Routefinder",
-    tagline: "Merchant route finder for Brighter Shores.",
-    thumb: "https://opengraph.githubassets.com/1/Ravanger/brighter-shores-routefinder",
-    liveUrl: "/tools/brighter-shores-routefinder",
-    liveLabel: "Open the tool",
-    repoUrl: "https://github.com/Ravanger/brighter-shores-routefinder",
-    repoLabel: "GitHub",
-  },
-  {
-    name: "OpenParty",
-    tagline: "A flexible, modern, TypeScript-first framework for building party games.",
-    thumb: "https://opengraph.githubassets.com/1/Ravanger/vibe-code-partygame-framework",
-    repoUrl: "https://github.com/Ravanger/vibe-code-partygame-framework",
-    repoLabel: "GitHub",
-  },
-  {
-    name: "ESP32 desk gadget",
-    tagline: "Multi-screen desk display: NTP clock, DHT11 temp and humidity, outdoor weather.",
-    thumb: "https://opengraph.githubassets.com/1/Ravanger/esp32-desk-gadget",
-    repoUrl: "https://github.com/Ravanger/esp32-desk-gadget",
-    repoLabel: "GitHub",
-  },
-];
-
 export const projectsMoreLine = "More coming — WitClash later.";
 
 export const tools = {
