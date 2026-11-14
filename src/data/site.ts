@@ -110,7 +110,7 @@ export const designIndex = {
       name: "C — Workbench",
       href: "/design/c",
       description:
-        "Grotesque + mono. Clash Display + Satoshi + JetBrains Mono, signal orange accent, index-numbered sections.",
+        "'Bench at 2am'. Big Shoulders Display + IBM Plex Sans + Departure Mono (self-hosted), phosphor accent, index-numbered sections.",
     },
   ],
 };

@@ -180,6 +180,11 @@ palette, which projects/tools, art scope, contact/socials.
 
 ## Decisions — direction + nav (2026-11-14, Boris)
 - Direction C (Workbench) chosen. A and B stay at /design/* as reference.
+- Theme — 'bench at 2am' (2026-11-14, issue #14): phosphor #8CFF6A
+  accent, LED red live-only, amber rare; Big Shoulders Display 800
+  headings, IBM Plex Sans body, Departure Mono labels — all self-hosted
+  woff2; light stays as a daylight/datasheet mode. OG image skipped:
+  it needs the hand-drawn wordmark, which doesn't exist yet.
 - Site split into real pages (no everything-on-one-page): /, /art,
   /music, /projects. Home stays light (teasers + links). The /tools
   index was folded into Projects 2026-11-14 (issue #19): nav is four

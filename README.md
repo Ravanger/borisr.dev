@@ -67,9 +67,9 @@ Each has a dark/light toggle (dark default, persisted in `localStorage`).
 - **B — Instrument** (`/design/b`): matched family. Instrument Serif +
   Instrument Sans + IBM Plex Mono, steel blue accent, left-aligned, ruled
   section labels.
-- **C — Workbench** (`/design/c`): grotesque + mono. Clash Display +
-  Satoshi (Fontshare) + JetBrains Mono, signal orange accent,
-  index-numbered sections.
+- **C — Workbench** (`/design/c`): "bench at 2am". Big Shoulders Display
+  + IBM Plex Sans + Departure Mono (all self-hosted woff2),
+  phosphor `#8CFF6A` accent on near-black, index-numbered sections.
 
 `/design/` lists all three. `/` is the real home page in the Workbench
 theme (direction C); the three `/design/*` pages stay as reference.
@@ -97,8 +97,8 @@ theme (direction C); the three `/design/*` pages stay as reference.
   top-right `<button>` (sun/moon icon, 44px), so toggling never shifts
   any layout. The bottom-bar wordmark is horizontal by construction
   (`writing-mode: horizontal-tb`, no wrapping, never squeezed).
-- **Grid**: one centered column (`--grid-max: 56rem`,
-  `--grid-gutter: 1.5rem` in the tokens); header, sections, cards,
+- **Grid**: one centered column (1200px max, 24px gutters desktop /
+  16px mobile, in the tokens); header, sections, cards,
   footer, and bottom bar all sit on it via `.site-wrap`.
 - **Projects filter**: All / Software / Framework / Hardware / Live
   buttons (`src/components/ProjectFilter.svelte`, client-side, no
@@ -166,7 +166,9 @@ each repo's GitHub social preview (opengraph.githubassets.com, external,
 lazy-loaded); detail-page photos come from the project's own repo via
 raw.githubusercontent.com (or the same social preview where the repo has
 no usable photo — the Routefinder and OpenParty have none in-repo, only
-icons). The only asset committed is the 228-byte SVG favicon.
+icons). The only assets committed are the 228-byte SVG favicon and
+the self-hosted woff2 fonts in `public/fonts/` (OFL, see
+`ATTRIBUTION.md` there).
 
 ## Repo conventions
 
