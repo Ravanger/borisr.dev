@@ -116,6 +116,16 @@ theme (direction C); the three `/design/*` pages stay as reference.
   so under a subpath its relative JS/CSS resolve against `/tools/` and
   404 (blank page without a trailing slash); its router also assumes
   site root. The `netlify.toml` proxy rewrite was removed.
+- **Fun layer** (issue #22): an oscilloscope trace on Home
+  (`src/components/ScopeTrace.astro`, full-bleed 1px phosphor canvas
+  behind the hero copy — idle slow sine, cursor speed drives
+  amplitude/frequency and morphs it square-ish; static line under
+  `prefers-reduced-motion`); a console greeting for devtools pokers
+  (ASCII skull + the GitHub link); and the Konami code
+  (↑ ↑ ↓ ↓ ← → ← → B A) → DEVOUR MODE, 10s of LED-red accent,
+  full-fuzz trace and doubled grain, then it reverts — all in
+  `src/components/FunLayer.astro`, included by `SiteLayout` on every
+  page. No sound anywhere.
 
 ### Adding or changing a direction
 

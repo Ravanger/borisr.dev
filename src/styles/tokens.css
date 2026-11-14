@@ -205,11 +205,33 @@ body {
  * stacked below the copy on mobile.
  */
 .hero {
+  position: relative;
   display: grid;
   gap: 2rem;
   align-items: center;
   padding-top: 4rem;
   padding-bottom: 2rem;
+}
+
+/* Oscilloscope trace (#22): full-bleed canvas, bottom 60% of the
+   hero, behind the copy and avatar. pointer-events none — it never
+   eats clicks. The 100vw breakout uses the same pattern as
+   .tool-frame-wrap; html already clips the overflow. */
+.scope-trace {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 60%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hero-copy,
+.hero-avatar {
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
@@ -1727,6 +1749,27 @@ body {
 .toggle-led.lit {
   background: var(--accent);
   box-shadow: 0 0 6px var(--accent);
+}
+
+/* ---- DEVOUR MODE (Konami easter egg, #22) ---- */
+
+/* Accent flips to LED red and the grain doubles for 10s; FunLayer
+   toggles .devour-mode on <html> and removes it on a timer — no
+   persistence. The second selector beats .theme-c.light on
+   specificity, so the flip works in both themes. The scope trace
+   reads --accent, so it flips red too, and goes full fuzz while the
+   class is present (see ScopeTrace.astro). */
+html.devour-mode {
+  --accent: var(--led);
+}
+
+html.theme-c.devour-mode,
+html.theme-c.light.devour-mode {
+  --accent: var(--led);
+}
+
+html.devour-mode .grain {
+  opacity: 0.05;
 }
 
 /* ---- Restrained motion ---- */

@@ -1,0 +1,76 @@
+---
+/**
+ * Console greeting + Konami → DEVOUR MODE (#22), site-wide. One
+ * script, included by SiteLayout on every page. Guarded so
+ * view-transition re-runs don't double-register the listener or
+ * re-log the greeting. No persistence: DEVOUR MODE lasts 10s, then
+ * the .devour-mode class comes off <html> and everything reverts.
+ * No sound.
+ */
+---
+
+<script>
+  (function () {
+    if (window.__borisrFunLayer) return;
+    window.__borisrFunLayer = true;
+
+    // Console greeting for anyone poking around in devtools.
+    console.log(
+      "%c   _____\n  /     \\\n | o   o |\n |   ^   |\n | \\___/ |\n  \\_____/\n%cyou're poking around. respect. → github.com/Ravanger",
+      "color: #8cff6a",
+      "color: inherit",
+    );
+
+    // Konami: up up down down left right left right B A.
+    var KONAMI = [
+      "ArrowUp",
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowLeft",
+      "ArrowRight",
+      "b",
+      "a",
+    ];
+    var pos = 0;
+    var timer = null;
+
+    function devour() {
+      var root = document.documentElement;
+      root.classList.add("devour-mode");
+      window.dispatchEvent(new CustomEvent("devour-mode", { detail: { active: true } }));
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () {
+        root.classList.remove("devour-mode");
+        window.dispatchEvent(new CustomEvent("devour-mode", { detail: { active: false } }));
+        timer = null;
+      }, 10000);
+    }
+
+    document.addEventListener("keydown", function (ev) {
+      // Don't hijack typing.
+      var target = ev.target;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      var key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
+      if (key === KONAMI[pos]) {
+        pos += 1;
+        if (pos === KONAMI.length) {
+          pos = 0;
+          devour();
+        }
+      } else {
+        pos = key === KONAMI[0] ? 1 : 0;
+      }
+    });
+  })();
+</script>
