@@ -15,7 +15,7 @@ export const site = {
   domain: "borisr.dev",
   tagline: "personal site",
   intro:
-    "I make loud music, build pedals and gadgets, and write tools for games I play too much. Everything here came off the same messy bench.",
+    "I make music, loud and quiet, build pedals and gadgets, and write tools for games I play too much. Everything here came off the same messy bench.",
   footerNote: "This site sets no cookies and runs no analytics.",
   description: "Music, pedals, software, and whatever else ends up on the bench.",
   contactPrefix: "Reach me at",
