@@ -777,17 +777,54 @@ body {
   text-decoration: underline;
 }
 
-/* ---- Theme toggle ---- */
+/* ---- Theme toggle: pedal footswitch in the nav bar ---- */
 
+/* Fixed-size wrapper (36px switch + 6px LED + gap) so the toggle
+   never shifts layout. */
+.theme-toggle-wrap {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+/* 36px metal footswitch: radial gradient, dark icon on the metal so
+   the sun/moon reads in either theme. Metal is metal — the gradient
+   is the same in light mode. */
 .btn-toggle {
-  border: 1px solid var(--line);
-  color: var(--muted);
-  background: var(--surface);
+  border: 1px solid rgb(0 0 0 / 0.45);
+  color: #1a1a18;
+  background: radial-gradient(circle at 35% 30%, #e8e8e2, #b0b0aa 40%, #6a6a64 75%, #3f3f3c);
+  box-shadow:
+    inset 0 1px 1px rgb(255 255 255 / 0.5),
+    inset 0 -2px 3px rgb(0 0 0 / 0.35),
+    0 1px 2px rgb(0 0 0 / 0.4);
 }
 
 .btn-toggle:hover {
-  color: var(--text);
-  border-color: var(--accent);
+  filter: brightness(1.08);
+}
+
+.btn-toggle:active {
+  transform: translateY(1px);
+}
+
+/* State LED beside the switch: unlit #2A2E26 in dark mode, lit
+   phosphor + glow when the light theme is on. */
+.toggle-led {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #2a2e26;
+  transition:
+    background-color 0.15s ease-out,
+    box-shadow 0.15s ease-out;
+}
+
+.toggle-led.lit {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
 }
 
 /* ---- Restrained motion ---- */
