@@ -874,6 +874,17 @@ body {
   outline-offset: 2px;
 }
 
+/* Slim Bandcamp player under the tracklist: size=small renders a 42px
+   single-row player. Dark shell (see .embed-frame) so it never renders
+   as a white box while loading. */
+.album-player {
+  margin-top: 1.5rem;
+}
+
+.album-player .embed-frame iframe {
+  height: 42px;
+}
+
 /* ---- Restrained motion ---- */
 
 /* Short cross-fade on navigation (static pages fade in on load). */
