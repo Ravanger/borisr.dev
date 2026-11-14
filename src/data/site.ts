@@ -128,6 +128,105 @@ export const music = {
   moreAudioPrefix: "More audio on",
   moreAudioMiddle: "and",
   playersNote: "Players load from Bandcamp and SoundCloud.",
+  /**
+   * From the Depths — real data from the public Bandcamp page
+   * (ravanger.bandcamp.com/album/from-the-depths, read 2026-11-14):
+   * 11 tracks, 55:27 total, released December 31, 2015. Track URLs are
+   * the pages' own links; art is the Bandcamp CDN 1000px file
+   * (a1251592280_10.jpg) — external only, never committed (issue #7).
+   */
+  album: {
+    artist: "Ravanger",
+    title: "From the Depths",
+    year: 2015,
+    released: "December 31, 2015",
+    artUrl: "https://f4.bcbits.com/img/a1251592280_10.jpg",
+    totalTime: "55:27",
+    buyLabel: "Buy / stream on Bandcamp",
+    downloadLabel: "Download",
+    tracks: [
+      {
+        name: "Unseeing Eyes",
+        duration: "02:41",
+        url: "https://ravanger.bandcamp.com/track/unseeing-eyes",
+      },
+      {
+        name: "From the Depths... (A Ritual of Blood)",
+        duration: "07:20",
+        url: "https://ravanger.bandcamp.com/track/from-the-depths-a-ritual-of-blood",
+      },
+      {
+        name: "Hatred for Mankind",
+        duration: "05:09",
+        url: "https://ravanger.bandcamp.com/track/hatred-for-mankind",
+      },
+      {
+        name: "Murder Thy Self",
+        duration: "05:48",
+        url: "https://ravanger.bandcamp.com/track/murder-thy-self",
+      },
+      {
+        name: "Unnecessary",
+        duration: "06:33",
+        url: "https://ravanger.bandcamp.com/track/unnecessary",
+      },
+      {
+        name: "Valhalla",
+        duration: "03:27",
+        url: "https://ravanger.bandcamp.com/track/valhalla",
+      },
+      {
+        name: "Of Black Curtains and Pandemonium",
+        duration: "03:01",
+        url: "https://ravanger.bandcamp.com/track/of-black-curtains-and-pandemonium",
+      },
+      {
+        name: "Chernobyl",
+        duration: "04:03",
+        url: "https://ravanger.bandcamp.com/track/chernobyl",
+      },
+      {
+        name: "They Must Sleep, Or They Will Devour Us",
+        duration: "09:06",
+        url: "https://ravanger.bandcamp.com/track/they-must-sleep-or-they-will-devour-us",
+      },
+      {
+        name: "Cold Comfort (A Prelude)",
+        duration: "05:16",
+        url: "https://ravanger.bandcamp.com/track/cold-comfort-a-prelude",
+      },
+      {
+        name: "Solace",
+        duration: "03:03",
+        url: "https://ravanger.bandcamp.com/track/solace",
+      },
+    ],
+  },
+  /**
+   * "More noise" cards. One-liners only — no counts: the Newgrounds and
+   * SoundCloud public pages don't expose a usable count (both blocked
+   * the fetch on 2026-11-14), and counts are never guessed.
+   */
+  moreNoise: [
+    {
+      label: "Bandcamp",
+      mark: "BC",
+      blurb: "From the Depths — full-length demo album, 2015.",
+      href: "https://ravanger.bandcamp.com/album/from-the-depths",
+    },
+    {
+      label: "SoundCloud",
+      mark: "SC",
+      blurb: "Latest tracks.",
+      href: "https://soundcloud.com/ravanger",
+    },
+    {
+      label: "Newgrounds",
+      mark: "NG",
+      blurb: "Older stuff, game tracks, experiments.",
+      href: "https://himenow.newgrounds.com/audio",
+    },
+  ],
 };
 
 export const art = {
