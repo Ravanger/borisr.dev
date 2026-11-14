@@ -43,7 +43,7 @@ import { pedals } from "../data/site";
   <div class="pedals">
     {
       pedals.map((p) => (
-        <a class="pedal" href={p.href} style={`--pedal-tint: ${p.tint}`}>
+        <a class="pedal" href={p.href} style={`--pedal-tint: ${p.tint}; --pedal-tint-light: ${p.tintLight}`}>
           <span class="pedal-knobs">
             {p.knobs.map((k) => (
               <span class="pedal-knob">

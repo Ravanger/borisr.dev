@@ -254,8 +254,9 @@ body {
  * gap, centred), patch-cable signal chain above them. Tablet 2x2 with
  * the third pedal centred in the second row; mobile a horizontal
  * scroll-snap row, 80vw per pedal with the next one peeking.
- * Enclosures are fixed dark tints in both themes (pedals are
- * hardware), so pedal text uses fixed light colours, not theme vars.
+ * Enclosures are dark metal tints in dark mode and pale tinted paper
+ * in light (datasheet) mode — see the .light overrides below; pedal
+ * text follows the theme tokens.
  */
 .board {
   margin-top: 4rem;
@@ -362,7 +363,7 @@ body {
   background: var(--pedal-tint);
   border: 1px solid var(--line);
   border-radius: 2px;
-  color: #e9e7df;
+  color: var(--text);
   text-decoration: none;
   transition:
     border-color 0.15s ease-out,
@@ -422,7 +423,7 @@ body {
 .knob-label {
   font-size: 10px;
   letter-spacing: 0.06em;
-  color: #8e9187;
+  color: var(--muted);
 }
 
 .pedal-name {
@@ -481,6 +482,27 @@ body {
 .pedal:active .pedal-switch,
 .pedal.thunk .pedal-switch {
   transform: translateY(2px);
+}
+
+/* Light (datasheet) mode: enclosures become pale tinted paper in the
+   pedal's own hue, knobs read as bright plastic on paper, the unlit
+   LED as a faint red smudge. The metal footswitch is hardware and
+   stays the same in both themes. */
+.light .pedal {
+  background: var(--pedal-tint-light);
+}
+
+.light .knob {
+  background: var(--surface);
+  border-color: var(--line);
+}
+
+.light .pedal-line {
+  color: color-mix(in oklab, var(--text) 82%, var(--bg));
+}
+
+.light .pedal-led {
+  background: color-mix(in oklab, var(--led) 22%, var(--surface));
 }
 
 /* ---- Shared semantic classes ---- */

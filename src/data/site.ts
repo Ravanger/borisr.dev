@@ -45,8 +45,8 @@ export const siteNav = [
 
 /** Home stompbox board (#16): one pedal per section, in signal-chain
  * order. `knobs` are the two decorative knob labels; `line` is the one
- * line of real content; `tint` is the pedal's dark enclosure colour
- * (fixed dark in both themes — pedals are hardware). */
+ * line of real content; `tint`/`tintLight` are the enclosure colours —
+ * dark metal in dark mode, pale tinted paper in light (datasheet) mode. */
 export interface Pedal {
   label: string;
   name: string;
@@ -54,6 +54,7 @@ export interface Pedal {
   knobs: [string, string];
   line: string;
   tint: string;
+  tintLight: string;
 }
 
 export const pedals: Pedal[] = [
@@ -64,6 +65,7 @@ export const pedals: Pedal[] = [
     knobs: ["SOLDER", "SCOPE"],
     line: "Routefinder, OpenParty, desk gadget.",
     tint: "#121712",
+    tintLight: "#e9ecdd",
   },
   {
     label: "MUSIC",
@@ -72,6 +74,7 @@ export const pedals: Pedal[] = [
     knobs: ["GAIN", "FUZZ"],
     line: "From the Depths. 11 tracks, 55 minutes.",
     tint: "#1a1212",
+    tintLight: "#efe6df",
   },
   {
     label: "ART",
@@ -80,6 +83,7 @@ export const pedals: Pedal[] = [
     knobs: ["INK", "CHAOS"],
     line: "Old drawings, from the Instagram archive.",
     tint: "#16131a",
+    tintLight: "#e8e5ee",
   },
 ];
 
