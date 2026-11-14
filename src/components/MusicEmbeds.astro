@@ -12,20 +12,28 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
 <section id="music" class="section">
   <p class="eyebrow">{sections.music.eyebrow}</p>
   <h2 class="section-title">{sections.music.title}</h2>
-  <div class="mt-6 grid gap-6">
-    <iframe
-      title="From the Depths by Ravanger on Bandcamp"
-      src={bandcampSrc}
-      loading="lazy"
-      class="h-[470px] w-full max-w-[350px] border-0"></iframe>
-    <div class="embed-frame">
+  <div class="mt-6 grid gap-6 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
+    <figure class="min-w-0">
+      <p class="eyebrow mb-3">Bandcamp — From the Depths</p>
       <iframe
-        title="Ravanger on SoundCloud"
-        src={soundcloudSrc}
+        title="From the Depths by Ravanger on Bandcamp"
+        src={bandcampSrc}
         loading="lazy"
-        allow="autoplay"
-        class="h-[300px] border-0"></iframe>
-    </div>
+        class="h-[470px] w-full max-w-[350px] border-0"></iframe>
+    </figure>
+    <figure class="min-w-0">
+      <p class="eyebrow mb-3">SoundCloud — Latest tracks</p>
+      <div class="embed-frame">
+        <iframe
+          title="Ravanger on SoundCloud"
+          src={soundcloudSrc}
+          loading="lazy"
+          allow="autoplay"
+          class="h-[300px] border-0"></iframe>
+      </div>
+    </figure>
+  </div>
+  <div class="mt-6">
     <p class="text-sm">
       <span class="muted">{music.moreAudioPrefix} </span>
       <a class="link-accent" href={music.newgroundsUrl}>Newgrounds</a>
