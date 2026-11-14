@@ -33,9 +33,9 @@ const iconFor: Record<string, "art" | "music" | "projects"> = {
               aria-current={isActive(item.href) ? "page" : undefined}
               class="bottombar-link"
             >
+              <span class="marker" aria-hidden="true" />
               <NavIcon name={iconFor[item.href]} />
               <span>{item.label}</span>
-              <span class="marker" aria-hidden="true" />
             </a>
           </li>
         ))
