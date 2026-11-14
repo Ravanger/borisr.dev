@@ -664,6 +664,216 @@ body {
   border-color: var(--accent);
 }
 
+/* ---- Music page: From the Depths album hero (#17) ---- */
+
+/*
+ * Theme tokens from issue #14 / PR #25 (phosphor #8CFF6A, LED #FF3D2E,
+ * surface-2 #1B1E18) don't exist yet on main — #25 is still open. Use
+ * var() with literal fallbacks so the page is correct now and picks up
+ * the real tokens when #25 merges.
+ */
+
+.album-hero {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .album-hero {
+    grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.album-art {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  aspect-ratio: 1;
+}
+
+.album-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Subtle red-black vignette over the art. */
+.album-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 120% at 50% 42%, transparent 55%, rgb(0 0 0 / 0.55) 100%),
+    linear-gradient(
+      color-mix(in srgb, var(--led, #ff3d2e) 7%, transparent),
+      color-mix(in srgb, var(--led, #ff3d2e) 7%, transparent)
+    );
+}
+
+/* Slow breathing scale, gated behind prefers-reduced-motion (the global
+   reduced-motion rule below zeroes it as well). */
+@media (prefers-reduced-motion: no-preference) {
+  .album-art img {
+    animation: album-breathe 20s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes album-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.02);
+  }
+}
+
+.album-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.album-title {
+  font-family: "Big Shoulders Display", var(--font-display);
+  font-size: 4.5rem;
+  line-height: 0.95;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 0.75rem;
+}
+
+.album-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+.tracklist {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  list-style: none;
+  padding-left: 0;
+}
+
+.track-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding-inline: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.track-row:hover,
+.track-row:focus-visible {
+  background: var(--surface-2, #1b1e18);
+}
+
+.track-row:focus-visible {
+  outline: 2px solid var(--phosphor, #8cff6a);
+  outline-offset: 2px;
+}
+
+.track-num,
+.track-play {
+  flex: none;
+  width: 2ch;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.track-play {
+  display: none;
+  color: var(--phosphor, #8cff6a);
+}
+
+.track-row:hover .track-num,
+.track-row:focus-visible .track-num {
+  display: none;
+}
+
+.track-row:hover .track-play,
+.track-row:focus-visible .track-play {
+  display: inline;
+}
+
+.track-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-duration {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.album-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  background: var(--phosphor, #8cff6a);
+  color: #0a0b09;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.btn-solid:hover {
+  text-decoration: underline;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  border-color: var(--phosphor, #8cff6a);
+}
+
+.btn-solid:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid var(--phosphor, #8cff6a);
+  outline-offset: 2px;
+}
+
 /* ---- Restrained motion ---- */
 
 /* Short cross-fade on navigation (static pages fade in on load). */
