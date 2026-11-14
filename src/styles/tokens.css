@@ -180,7 +180,6 @@ body {
 .tool-frame {
   display: block;
   width: 100%;
-  height: calc(100vh - var(--bar-height) - 8rem);
   height: calc(100dvh - var(--bar-height) - 8rem);
   min-height: 28rem;
   border: 0;
