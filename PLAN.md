@@ -126,3 +126,32 @@ open-source builder. Not a design portfolio, not a corporate resume.
 See the profile questions in chat (2026-11-14). Blocking ones:
 stack confirm (Astro vs Next), dark/light, keep the teal or new
 palette, which projects/tools, art scope, contact/socials.
+
+## Decisions (2026-11-14, Boris)
+
+- Design in code; stage on Netlify (separate staging site, swap domains
+  at launch).
+- Intro copy: Wilson writes it "like an old friend", brief. Draft:
+  "Boris Rossovsky. I make things — music, pedals, software, and
+  whatever else ends up on the bench. This is where it all lives."
+- Purpose: showcase of his stuff, not for getting work. Just his corner
+  of the internet.
+- No photo of Boris. No occupation listed. No personal overshare, no
+  "skills" bulleted list. Hobbies, art, music, projects only.
+- Art: old pictures NOT kept. Integrate Instagram / TikTok feed that
+  auto-updates if feasible (research pending — see below).
+- Music: Ravanger Bandcamp album "From the Depths"
+  (ravanger.bandcamp.com/album/from-the-depths), Newgrounds audio
+  (himenow.newgrounds.com/audio), SoundCloud (soundcloud.com/ravanger).
+  Embed players where available.
+- Projects: Routefinder only for now (most public-facing). WitClash later.
+- No blog.
+- Tools path: Wilson's judgment -> `/tools/brighter-shores-routefinder`.
+- Dark + light themes, default dark. New palette, restrained, not
+  overwhelming. Simple with good UX, not minimalism.
+- Typefaces: a nice matched set (chosen per design direction).
+- Contact: email link only, behind bot protection (JS-assembled mailto).
+- No analytics, no cookies. Tools pages get a disclaimer when needed
+  (e.g. routefinder fan-tool / unofficial note if applicable).
+- Stack: Astro 5 + TS strict + Tailwind v4 + MDX (proposed, no veto —
+  proceed; Boris can veto at directions review).
