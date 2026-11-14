@@ -19,7 +19,7 @@ const categories = [...new Set(projects.map((entry) => entry.data.category))];
       const p = entry.data;
       const href = `/projects/${entry.id}`;
       return (
-        <article class="card node-row mt-6 p-6" data-category={p.category}>
+        <article class="card node-row mt-6 p-6" data-category={p.category} data-live={p.liveUrl ? "true" : undefined}>
           <span class="node-disc" aria-hidden="true">&nearr;</span>
           <span class="node-link" aria-hidden="true"></span>
           <div class="node-body">
@@ -38,6 +38,14 @@ const categories = [...new Set(projects.map((entry) => entry.data.category))];
                 {p.title}
               </a>
             </h3>
+            {
+              p.liveUrl && (
+                <p class="live-badge">
+                  <span class="live-dot" aria-hidden="true" />
+                  <span>Live</span>
+                </p>
+              )
+            }
             <p class="muted mt-2 text-sm leading-relaxed">{p.tagline}</p>
             <p class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
               <a class="link-accent" href={href}>
