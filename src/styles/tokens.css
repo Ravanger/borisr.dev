@@ -1368,6 +1368,27 @@ body {
   box-shadow: 0 0 6px var(--accent);
 }
 
+/* ---- DEVOUR MODE (Konami easter egg, #22) ---- */
+
+/* Accent flips to LED red and the grain doubles for 10s; FunLayer
+   toggles .devour-mode on <html> and removes it on a timer — no
+   persistence. The second selector beats .theme-c.light on
+   specificity, so the flip works in both themes. The scope trace
+   reads --accent, so it flips red too, and goes full fuzz while the
+   class is present (see ScopeTrace.astro). */
+html.devour-mode {
+  --accent: var(--led);
+}
+
+html.theme-c.devour-mode,
+html.theme-c.light.devour-mode {
+  --accent: var(--led);
+}
+
+html.devour-mode .grain {
+  opacity: 0.05;
+}
+
 /* ---- Restrained motion ---- */
 
 /* View transitions (SPA feel): short crossfade on navigation.
