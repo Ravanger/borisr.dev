@@ -9,12 +9,16 @@ import { projectsMoreLine, sections } from "../data/site";
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 const categories = [...new Set(projects.map((entry) => entry.data.category))];
 
-// Silkscreen codes (issue #18): SW-01 / FW-01 / HW-01 from category
-// + collection order. The status LED beside them is lit for LIVE,
-// amber for WIP, unlit for ARCHIVED.
+// Silkscreen codes (issue #18): SW-01 / FW-01 / HW-01 — numbered per
+// category, in collection order. The status LED beside them is lit for
+// LIVE, amber for WIP, unlit for ARCHIVED.
 const prefix: Record<string, string> = { Software: "SW", Framework: "FW", Hardware: "HW" };
-const codeFor = (entry: (typeof projects)[number]) =>
-  `${prefix[entry.data.category] ?? "PR"}-${String(entry.data.order).padStart(2, "0")}`;
+const perCategoryCount: Record<string, number> = {};
+const codeFor = (entry: (typeof projects)[number]) => {
+  const category = entry.data.category;
+  perCategoryCount[category] = (perCategoryCount[category] ?? 0) + 1;
+  return `${prefix[category] ?? "PR"}-${String(perCategoryCount[category]).padStart(2, "0")}`;
+};
 ---
 
 <section id="projects" class="section">
