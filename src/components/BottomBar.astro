@@ -8,7 +8,7 @@ const isActive = (href: string) =>
   href === "/"
     ? pathname === "/"
     : pathname === href ||
-      pathname.startsWith(href + "/") ||
+      pathname.startsWith(`${href}/`) ||
       (href === "/projects" && pathname.startsWith("/tools/"));
 ---
 

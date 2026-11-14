@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import "../styles/tokens.css";
 import BottomBar from "../components/BottomBar.astro";
 import HomeLink from "../components/HomeLink.astro";
@@ -29,6 +30,7 @@ const fonts = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     {fonts.map((href) => <link rel="stylesheet" href={href} />)}
+    <ClientRouter />
     <ThemeInit />
   </head>
   <body id="top">

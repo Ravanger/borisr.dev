@@ -704,6 +704,14 @@ body {
 
 /* ---- Restrained motion ---- */
 
+/* View transitions (SPA feel): short crossfade on navigation.
+   The tool page's iframe is a separate document and still reloads
+   on navigation — expected, view transitions can't cross that. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
 /* Short cross-fade on navigation (static pages fade in on load). */
 main {
   animation: fade-in 0.25s ease-out both;
@@ -743,5 +751,11 @@ main {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* No crossfade at all for view transitions: instant swap. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
   }
 }
