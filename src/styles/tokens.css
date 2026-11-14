@@ -189,12 +189,11 @@ body {
 }
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
-   is dropped so the page title doesn't sit under a double gap. 5rem
+   is dropped so the page title doesn't sit under a double gap. 4.5rem
    clears the fixed top row (60px: 36px toggle + 12px padding each
-   side) with ~20px to spare — 4rem left content flush against the
-   old 64px top bar, and only ~4px against the new row. */
+   side) with ~12px to spare; tightened from 5rem for a denser rhythm. */
 .page-top {
-  padding-top: 5rem;
+  padding-top: 4.5rem;
 }
 .page-top > .section:first-child {
   margin-top: 0;
