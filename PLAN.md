@@ -166,3 +166,9 @@ palette, which projects/tools, art scope, contact/socials.
   placeholders that can't be generated dynamically, kept tiny.
 - Commits (2026-11-14): separate commits for separate features as you
   build — one commit per feature, never bundle unrelated changes.
+- Principles (2026-11-14, Boris, high importance): separation of
+  concerns and history. Code: content/data, tokens, components, pages
+  strictly separate. History: the commit log is a record — one commit
+  per feature, descriptive conventional-commit messages, never amend /
+  rebase / force-push pushed commits, never squash distinct features
+  together; fix mistakes with a new commit on top.
