@@ -185,14 +185,11 @@ body {
 }
 
 /* Sub-pages: top spacing lives here; the first section's own top margin
-   is dropped so the page title doesn't sit under a double gap. */
+   is dropped so the page title doesn't sit under a double gap. 4rem
+   clears the fixed top-left home link and top-right toggle on mobile
+   (the link's bottom edge is ~41px; 3rem left only ~7px). */
 .page-top {
-  padding-top: 3rem;
-}
-@media (min-width: 768px) {
-  .page-top {
-    padding-top: 4rem;
-  }
+  padding-top: 4rem;
 }
 .page-top > .section:first-child {
   margin-top: 0;
@@ -354,6 +351,22 @@ body {
   border: 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/*
+ * Embedded players: a dark shell so a player iframe never renders as a
+ * white box while loading on the dark site (interim fix — the Music
+ * rebuild restyles the players properly).
+ */
+.embed-frame {
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.embed-frame iframe {
+  display: block;
+  width: 100%;
   background: var(--surface);
 }
 
@@ -564,24 +577,6 @@ body {
   content: "";
   flex: 1;
   border-top: 1px solid var(--line);
-}
-
-.theme-c main {
-  counter-reset: section;
-}
-
-.theme-c .section {
-  counter-increment: section;
-}
-
-.theme-c .section-title::before {
-  content: counter(section, decimal-leading-zero) " / ";
-  font-family: var(--font-mono);
-  font-size: 0.55em;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  vertical-align: 0.15em;
 }
 
 /*
