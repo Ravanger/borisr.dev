@@ -78,7 +78,8 @@ theme (direction C); the three `/design/*` pages stay as reference.
 
 - **Real pages** (Workbench theme, `src/layouts/SiteLayout.astro`): `/`
   (intro + section teasers, each with its own mark), `/art`, `/music`,
-  `/projects`, `/tools`. Thin composition over the shared components.
+  `/projects`, `/tools`, `/about` (short bio + the rig; not in the
+  bottom-bar nav, reachable directly). Thin composition over the shared components.
   There is no `/contact` page — the footer is the contact point
   (JS-assembled email + GitHub only).
 - **Project detail pages** (`src/content/projects/*.mdx`, one file per

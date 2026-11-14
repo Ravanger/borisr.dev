@@ -29,7 +29,9 @@ open-source builder. Not a design portfolio, not a corporate resume.
 ## Site map (one idea per page, no info dumps)
 
 - `/` Home — who he is in one screen, links to everything, latest thing.
-- `/about` — short bio, current work, current skills, clients.
+- `/about` — short bio (approved copy, #10) + the rig (PLAYS / BUILDS /
+  CODES), avatar with `U1 BORIS` label. Reachable directly; not in the
+  bottom-bar nav.
 - `/art` — archive, framed as such ("things I made, 2019–2021").
   The 9 Gatsby posts + Inktober videos + Blender52 renders.
 - `/music` — Ravanger (Bandcamp), guitar + pedal builds, FM-1.
