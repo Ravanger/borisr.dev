@@ -187,3 +187,15 @@ palette, which projects/tools, art scope, contact/socials.
   never stretched with CSS.
 - Tools proxy: netlify.toml 200 rewrite /tools/brighter-shores-routefinder/*
   -> brighter-shores-routefinder.netlify.app/:splat.
+
+## Design inspo — jonnykreell.dev (2026-11-14, Boris's buddy)
+- CV vibe not needed; design language only, nothing copied.
+- Borrow: tick-and-rule section headers (accent tick + hairline to the
+  edge); node-and-connector rows (discs + hairlines + elbows) for
+  project/tool entries; mono-for-labels/nav + sans-for-reading with
+  wide tracking; minimal geometric nav state markers (bar = current,
+  dot = hover); restrained purposeful motion (hairlines drawing in,
+  subtle hover lift, short cross-fade).
+- Do not borrow: empty left column; decorative (non-nav) bottom strip;
+  total lack of hover feedback; low contrast. No light mode or mobile
+  story on his site — both are ours to design.
