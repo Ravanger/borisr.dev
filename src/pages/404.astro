@@ -1,0 +1,27 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Page not found — borisr.dev" description="No signal here.">
+  <div class="page-top">
+    <section class="section">
+      <p class="eyebrow">404</p>
+      <h1 class="section-title">No signal</h1>
+      <svg
+        class="mt-6 w-full"
+        viewBox="0 0 600 40"
+        fill="none"
+        aria-hidden="true"
+        role="presentation"
+      >
+        <line x1="0" y1="20" x2="600" y2="20" stroke="var(--accent)" stroke-width="1.5" />
+      </svg>
+      <p class="muted mt-6 max-w-xl text-sm leading-relaxed">
+        They must sleep, or they will devour us.
+      </p>
+      <p class="mt-6">
+        <a class="filter-btn" href="/">Plug back in &rarr;</a>
+      </p>
+    </section>
+  </div>
+</SiteLayout>
