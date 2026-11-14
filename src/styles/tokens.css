@@ -383,24 +383,6 @@ body {
   text-transform: uppercase;
 }
 
-.theme-c main {
-  counter-reset: section;
-}
-
-.theme-c .section {
-  counter-increment: section;
-}
-
-.theme-c .section-title::before {
-  content: counter(section, decimal-leading-zero) " / ";
-  font-family: var(--font-mono);
-  font-size: 0.55em;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  vertical-align: 0.15em;
-}
-
 /*
  * Workbench section headers — tick-and-rule motif: a short vertical
  * accent tick, the mono label, then a hairline running to the right
