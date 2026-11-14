@@ -21,6 +21,15 @@ const projects = defineCollection({
     liveLabel: z.string().optional(),
     directUrl: z.string().optional(),
     directLabel: z.string().optional(),
+    // Card + detail spec sheet (issue #18). `status` drives the
+    // silkscreen LED; `imageNote` marks the thumb as a placeholder
+    // until the real asset lands (never commit heavy media — the
+    // thumb stays an external CDN URL).
+    status: z.enum(["LIVE", "WIP", "ARCHIVED"]).default("WIP"),
+    tech: z.array(z.string()).default([]),
+    lang: z.string(),
+    stack: z.string(),
+    imageNote: z.string().optional(),
   }),
 });
 
