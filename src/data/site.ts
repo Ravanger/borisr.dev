@@ -40,31 +40,45 @@ export const siteNav = [
   { label: "Contact", href: "/contact" },
 ];
 
-/** Home page teasers (Workbench): index-numbered cards linking to sections. */
-export const teasers = [
+/** Home page teasers (Workbench): index-numbered cards linking to sections.
+ * `motif` picks the card's mark (see TeaserMotif): brush = art, wave =
+ * music, nodes = projects, terminal = tools. */
+export interface Teaser {
+  index: string;
+  label: string;
+  href: string;
+  description: string;
+  motif: "brush" | "wave" | "nodes" | "terminal";
+}
+
+export const teasers: Teaser[] = [
   {
     index: "01",
     label: "Art",
     href: "/art",
     description: "Latest work — Instagram and TikTok first.",
+    motif: "brush",
   },
   {
     index: "02",
     label: "Music",
     href: "/music",
     description: "From the Depths, SoundCloud, Newgrounds.",
+    motif: "wave",
   },
   {
     index: "03",
     label: "Projects",
     href: "/projects",
-    description: "Brighter Shores Routefinder. More coming.",
+    description: "Routefinder, OpenParty, desk gadget.",
+    motif: "nodes",
   },
   {
     index: "04",
     label: "Tools",
     href: "/tools",
-    description: "The Routefinder, hosted right here.",
+    description: "The Routefinder, running right here.",
+    motif: "terminal",
   },
 ];
 
@@ -132,15 +146,51 @@ export const art = {
   tileCount: 6,
 };
 
-export const project = {
-  name: "Brighter Shores Routefinder",
-  tagline: "Merchant route finder for Brighter Shores.",
-  liveUrl: "https://brighter-shores-routefinder.netlify.app/",
-  liveLabel: "Open the tool",
-  repoUrl: "https://github.com/Ravanger/brighter-shores-routefinder",
-  repoLabel: "GitHub",
-  moreLine: "More coming — WitClash later.",
-};
+/**
+ * Projects, in display order. `thumb` is each public repo's
+ * GitHub-hosted social preview (opengraph.githubassets.com — external
+ * CDN, lazy-loaded, nothing committed to this repo). `liveUrl` is the
+ * in-site tool page for the Routefinder; other projects link to their
+ * repo only. No entry links anywhere it shouldn't: only public repos
+ * get a GitHub link.
+ */
+export interface Project {
+  name: string;
+  tagline: string;
+  thumb: string;
+  liveUrl?: string;
+  liveLabel?: string;
+  repoUrl?: string;
+  repoLabel?: string;
+}
+
+export const projects: Project[] = [
+  {
+    name: "Brighter Shores Routefinder",
+    tagline: "Merchant route finder for Brighter Shores.",
+    thumb: "https://opengraph.githubassets.com/1/Ravanger/brighter-shores-routefinder",
+    liveUrl: "/tools/brighter-shores-routefinder",
+    liveLabel: "Open the tool",
+    repoUrl: "https://github.com/Ravanger/brighter-shores-routefinder",
+    repoLabel: "GitHub",
+  },
+  {
+    name: "OpenParty",
+    tagline: "A flexible, modern, TypeScript-first framework for building party games.",
+    thumb: "https://opengraph.githubassets.com/1/Ravanger/vibe-code-partygame-framework",
+    repoUrl: "https://github.com/Ravanger/vibe-code-partygame-framework",
+    repoLabel: "GitHub",
+  },
+  {
+    name: "ESP32 desk gadget",
+    tagline: "Multi-screen desk display: NTP clock, DHT11 temp and humidity, outdoor weather.",
+    thumb: "https://opengraph.githubassets.com/1/Ravanger/esp32-desk-gadget",
+    repoUrl: "https://github.com/Ravanger/esp32-desk-gadget",
+    repoLabel: "GitHub",
+  },
+];
+
+export const projectsMoreLine = "More coming — WitClash later.";
 
 export const tools = {
   path: "/tools/brighter-shores-routefinder",

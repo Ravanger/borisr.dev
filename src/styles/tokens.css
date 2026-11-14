@@ -153,6 +153,17 @@ body {
   border: 1px solid var(--line);
 }
 
+/* Project thumbnails: each public repo's GitHub social preview (external
+   CDN, lazy-loaded). Capped so the card stays a list row, not a banner. */
+.project-thumb {
+  display: block;
+  width: 100%;
+  max-width: 32rem;
+  height: auto;
+  border: 1px solid var(--line);
+  margin-bottom: 1rem;
+}
+
 .link-accent {
   color: var(--accent);
 }
