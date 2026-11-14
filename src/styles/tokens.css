@@ -502,6 +502,23 @@ body {
   opacity: 1;
 }
 
+/* Top-left home link (fixed chrome, mirrors the toggle top-right):
+   mono wordmark, reads as a link, fixed size so it never shifts layout. */
+.home-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+}
+
+.home-link:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 /* ---- Theme toggle ---- */
 
 .btn-toggle {

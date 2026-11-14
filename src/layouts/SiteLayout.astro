@@ -1,6 +1,7 @@
 ---
 import "../styles/tokens.css";
 import BottomBar from "../components/BottomBar.astro";
+import HomeLink from "../components/HomeLink.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import ThemeInit from "../components/ThemeInit.astro";
 import ThemeToggle from "../components/ThemeToggle.svelte";
@@ -31,6 +32,9 @@ const fonts = [
     <ThemeInit />
   </head>
   <body id="top">
+    <div class="fixed left-4 top-4 z-50">
+      <HomeLink />
+    </div>
     <div class="fixed right-4 top-4 z-50">
       <ThemeToggle client:load />
     </div>
