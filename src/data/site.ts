@@ -34,7 +34,7 @@ export const nav = [
  * the logo tap; Tools is folded into Projects (issue #19, decided) —
  * the Routefinder lives at /tools/brighter-shores-routefinder as a
  * bookmarked URL with no index page behind it, linked from its
- * project card. About was dropped by Boris 2026-11-14
+ * project card. About was dropped 2026-11-14
  * (PR #27 closed unmerged) — there is no About page and nothing
  * links to one. */
 export const siteNav = [

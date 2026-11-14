@@ -205,8 +205,8 @@ body {
 /*
  * Hero: 100vh minus the fixed bottom bar on desktop, auto height on
  * mobile. The H1 is the typeset name in the wordmark slot (see
- * index.astro) — a clearly-marked placeholder until Boris draws the
- * hand-drawn wordmark. Intro 20px, max 44ch.
+ * index.astro) — a clearly-marked placeholder until a hand-drawn
+ * wordmark replaces it. Intro 20px, max 44ch.
  */
 .hero {
   position: relative;
