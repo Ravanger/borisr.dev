@@ -276,3 +276,21 @@ palette, which projects/tools, art scope, contact/socials.
   crossfade, prefers-reduced-motion respected). Note: the tool page's
   iframe is a separate document and still reloads on navigation —
   expected.
+
+## Fun layer (2026-11-14, issue #22)
+- Scope trace on Home: full-bleed 1px phosphor `<canvas>` behind the
+  hero copy, ~60% of hero height (`src/components/ScopeTrace.astro`).
+  Idle slow sine; cursor speed drives amplitude/frequency and morphs
+  the wave square-ish, like distortion kicking in. Static line under
+  `prefers-reduced-motion`. Colour is read from the `--accent` token,
+  so it follows the theme.
+- Console greeting, site-wide (`src/components/FunLayer.astro`,
+  included by `SiteLayout`): ASCII skull + "you're poking around.
+  respect. → github.com/Ravanger".
+- Konami code (↑ ↑ ↓ ↓ ← → ← → B A) → DEVOUR MODE: accent flips to
+  LED red, scope trace goes full fuzz, grain doubles, all for 10s,
+  then reverts. Pure easter egg, no persistence, no sound. Ignores
+  keystrokes typed into inputs.
+- Out of scope here (already done / skipped per #22): custom 404
+  (done), stompbox click LED/thunk (separate), knob hover (skipped),
+  any sound (off).
