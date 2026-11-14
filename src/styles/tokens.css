@@ -44,10 +44,11 @@
  * Colors are CSS custom properties so every direction shares the same
  * component markup and only the tokens change.
  *
- * Grid (real site): a single centered column, --grid-max wide, with
- * --grid-gutter side padding. .site-wrap is the only wrapper the real
- * pages use — header, sections, cards, footer and the bottom bar all
- * sit on it.
+ * Grid (real site, .theme-c only): a single centered column, 1200px
+ * max, 24px gutters desktop / 16px mobile. .site-wrap is the only
+ * wrapper the real pages use — header, sections, cards, footer and
+ * the bottom bar all sit on it. The /design directions keep their
+ * own narrower wraps.
  */
 
 :root {
@@ -98,25 +99,53 @@
   --line: #e2e2dc;
 }
 
-/* Direction C — "Workbench": grotesque + mono */
+/*
+ * Direction C — "Workbench", the real site: 'bench at 2am'.
+ * Phosphor #8CFF6A is the only primary accent (links, scope trace,
+ * focus ring); LED #FF3D2E is reserved for on/active/live, amber
+ * #FFB43F is rare (warnings, fan-made note). Glow lives only on lit
+ * things, never on body text. Muted #8E9187 is 6.15:1 on the bg,
+ * text 15.9:1 — both clear 4.5:1.
+ */
 .theme-c {
-  --bg: #0f0f0e;
-  --surface: #171716;
-  --text: #e9e7e1;
-  --muted: #97948a;
-  --accent: #e86a33;
-  --line: #262624;
-  --font-display: "Clash Display", "Inter", system-ui, sans-serif;
-  --font-body: "Satoshi", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --bg: #0a0b09;
+  --surface: #131511;
+  --surface-2: #1b1e18;
+  --text: #e9e7df;
+  --muted: #8e9187;
+  --accent: #8cff6a;
+  --accent-40: rgb(140 255 106 / 0.4);
+  --led: #ff3d2e;
+  --amber: #ffb43f;
+  --line: #262a22;
+  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "Departure Mono", ui-monospace, monospace;
+  /* 12-col grid, 1200px max; 16px gutters mobile, 24px desktop. */
+  --grid-max: 75rem;
+  --grid-gutter: 1rem;
 }
+/* Daylight / datasheet mode: paper, black ink, phosphor darkened to
+   #1E7A1E so the accent still clears 4.5:1 on paper (4.73:1);
+   muted #5C6055 is 5.6:1 on paper. LED/amber darkened the same way. */
 .theme-c.light {
-  --bg: #f3f1ec;
-  --surface: #fffefb;
-  --text: #191817;
-  --muted: #6b675e;
-  --accent: #b34a1d;
-  --line: #ddd9cf;
+  --bg: #f2efe6;
+  --surface: #fbfaf5;
+  --surface-2: #e9e6da;
+  --text: #17150f;
+  --muted: #5c6055;
+  --accent: #1e7a1e;
+  --accent-40: rgb(30 122 30 / 0.4);
+  --led: #c02415;
+  --amber: #8a5a00;
+  --line: #d8d4c6;
+  --grid-gutter: 1rem;
+}
+@media (min-width: 768px) {
+  .theme-c,
+  .theme-c.light {
+    --grid-gutter: 1.5rem;
+  }
 }
 
 /* ---- Base ---- */
@@ -254,6 +283,11 @@ body {
   max-width: 40rem;
 }
 
+/* Workbench body copy caps at 64ch. */
+.theme-c .project-body {
+  max-width: 64ch;
+}
+
 .project-body p {
   margin-top: 1rem;
   line-height: 1.7;
@@ -362,6 +396,19 @@ body {
   border-color: var(--accent);
 }
 
+/* Cards (Workbench): 2px radius, one chamfered corner — 10px off the
+   top-right via clip-path — 1px line border. Hover: phosphor-at-40%
+   border + 2px lift, no shadow. The node rows share .card but render
+   borderless, so the cut is invisible on them. */
+.theme-c .card {
+  border-radius: 2px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+
+.theme-c .lift:hover {
+  border-color: var(--accent-40);
+}
+
 /*
  * Home teaser cards: a per-section mark at the top-right of each card
  * (brush = art, waveform = music, nodes = projects, terminal = tools),
@@ -390,6 +437,111 @@ body {
   transform: translateY(-1px);
 }
 
+/* Visible focus on every interactive element: 2px phosphor outline
+   + 2px offset. Uses each theme's own accent, so the /design pages
+   get it too without restyling them. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- Workbench base (real site only) ---- */
+
+/* Body copy: 16px mobile / 17px desktop, lh 1.6. The page is a flex
+   column with main growing, so the footer sits at the bottom on
+   short pages (min-height: 100dvh on main). */
+.theme-c body {
+  font-size: 1rem;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+@media (min-width: 768px) {
+  .theme-c body {
+    font-size: 1.0625rem;
+  }
+}
+
+/* 8px base rhythm; section gaps 64px mobile / 96px desktop. */
+.theme-c .section {
+  margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .theme-c .section {
+    margin-top: 6rem;
+  }
+}
+
+/* Type scale — headings are Big Shoulders Display 800, uppercase.
+   H1 56px mobile / 96px desktop, H2 32/40px, H3 22/24px. */
+.theme-c .h1 {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .theme-c .h1 {
+    font-size: 6rem;
+  }
+}
+
+.theme-c .section-title {
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .theme-c .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+.theme-c h3 {
+  font-size: 1.375rem;
+  font-weight: 800;
+}
+
+@media (min-width: 768px) {
+  .theme-c h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mono labels / UI / readouts: Departure Mono, 0.06em tracking —
+   never the old 0.2em+ stretch. The `01 /` section numbering is
+   untouched here (separate issue #13 owns it). */
+.theme-c .eyebrow {
+  letter-spacing: 0.06em;
+}
+
+/* Live/on/active indicator: LED red, and only for that. */
+.live-dot {
+  color: var(--led, currentColor);
+}
+
+/* Grain overlay — the only full-page texture on the real site:
+   2.5% opacity SVG feTurbulence noise, fixed, pointer-events none.
+   The div itself lives in SiteLayout; /design pages don't get it. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
 /* ---- Per-direction section styling ---- */
 
 .theme-a .section-title {
@@ -412,13 +564,6 @@ body {
   content: "";
   flex: 1;
   border-top: 1px solid var(--line);
-}
-
-.theme-c .section-title {
-  font-size: 1.55rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
 }
 
 .theme-c main {
@@ -742,6 +887,9 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
@@ -749,4 +897,18 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Workbench chrome labels + footer push — kept down here, after the
+   base .filter-btn / .bottombar-* / .home-link / main rules above,
+   so these (0,2,0) overrides never sit above a rule they beat. */
+.theme-c main {
+  flex: 1 0 auto;
+}
+
+.theme-c .bottombar-wordmark,
+.theme-c .bottombar-link,
+.theme-c .home-link,
+.theme-c .filter-btn {
+  letter-spacing: 0.06em;
 }
