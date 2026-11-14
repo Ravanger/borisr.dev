@@ -777,6 +777,32 @@ body {
   text-decoration: underline;
 }
 
+/* ---- Footer social icons ---- */
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+/* 20px icons, 44px tap targets, muted until hover turns them
+   phosphor. */
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  color: var(--muted);
+}
+
+.social-link:hover {
+  color: var(--accent);
+}
+
 /* ---- Theme toggle: pedal footswitch in the nav bar ---- */
 
 /* Fixed-size wrapper (36px switch + 6px LED + gap) so the toggle
