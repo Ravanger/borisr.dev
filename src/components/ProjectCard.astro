@@ -51,6 +51,13 @@ const categories = [...new Set(projects.map((entry) => entry.data.category))];
               <a class="link-accent" href={href}>
                 Read more &nearr;
               </a>
+              {
+                p.liveUrl && (
+                  <a class="link-accent" href={p.liveUrl}>
+                    {p.liveLabel ?? "Open Tool"} &nearr;
+                  </a>
+                )
+              }
               <a class="link-accent" href={p.repoUrl}>
                 GitHub &nearr;
               </a>
