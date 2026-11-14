@@ -38,9 +38,9 @@ export const nav = [
  * (PR #27 closed unmerged) — there is no About page and nothing
  * links to one. */
 export const siteNav = [
-  { label: "Art", href: "/art" },
-  { label: "Music", href: "/music" },
   { label: "Projects", href: "/projects" },
+  { label: "Music", href: "/music" },
+  { label: "Art", href: "/art" },
 ];
 
 /** Home stompbox board (#16): one pedal per section, in signal-chain
@@ -58,12 +58,12 @@ export interface Pedal {
 
 export const pedals: Pedal[] = [
   {
-    label: "ART",
-    name: "Art",
-    href: "/art",
-    knobs: ["INK", "CHAOS"],
-    line: "Old drawings, from the Instagram archive.",
-    tint: "#16131a",
+    label: "PROJECTS",
+    name: "Projects",
+    href: "/projects",
+    knobs: ["SOLDER", "SCOPE"],
+    line: "Routefinder, OpenParty, desk gadget.",
+    tint: "#121712",
   },
   {
     label: "MUSIC",
@@ -74,12 +74,12 @@ export const pedals: Pedal[] = [
     tint: "#1a1212",
   },
   {
-    label: "PROJECTS",
-    name: "Projects",
-    href: "/projects",
-    knobs: ["SOLDER", "SCOPE"],
-    line: "Routefinder, OpenParty, desk gadget.",
-    tint: "#121712",
+    label: "ART",
+    name: "Art",
+    href: "/art",
+    knobs: ["INK", "CHAOS"],
+    line: "Old drawings, from the Instagram archive.",
+    tint: "#16131a",
   },
 ];
 
