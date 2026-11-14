@@ -64,9 +64,13 @@ import { pedals } from "../data/site";
   </div>
 </section>
 
-<script>
+<script data-astro-rerun>
   // Pedal click: switch depresses (2px, 120ms "thunk") before navigating.
   // No-JS keeps the plain link; reduced motion navigates at once.
+  // data-astro-rerun: the router remembers executed scripts by content
+  // across navigations, so on returning home it would treat this script
+  // as a duplicate and never re-run it — the swapped-in pedal links
+  // would get no click handler and the thunk would be dead.
   (function () {
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var links = document.querySelectorAll("a.pedal");
