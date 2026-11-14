@@ -18,17 +18,6 @@ import SiteLayout from "../layouts/SiteLayout.astro";
       <p class="hero-wordmark-note mono">hand-drawn wordmark goes here</p>
       <p class="hero-intro">{site.intro}</p>
     </div>
-    <figure class="hero-avatar">
-      <img
-        src={site.avatarUrl}
-        alt="Illustrated avatar of Boris Rossovsky"
-        width="280"
-        height="280"
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption class="mono">{site.avatarLabel}</figcaption>
-    </figure>
   </section>
   <StompboxBoard />
 </SiteLayout>

@@ -19,12 +19,6 @@ export const site = {
   footerNote: "This site sets no cookies and runs no analytics.",
   description: "Music, pedals, software, and whatever else ends up on the bench.",
   contactPrefix: "Reach me at",
-  /**
-   * Illustrated GitHub avatar, hotlinked from GitHub's CDN
-   * (api.github.com/users/Ravanger -> avatar_url) — never committed.
-   */
-  avatarUrl: "https://avatars.githubusercontent.com/u/814853?v=4",
-  avatarLabel: "U1 BORIS",
 };
 
 export const nav = [
