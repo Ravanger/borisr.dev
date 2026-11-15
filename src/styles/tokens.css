@@ -721,11 +721,40 @@ body {
   background: var(--surface);
 }
 
+/* Placeholder tiles and not-yet-loaded photos share a soft out-of-focus
+   glow, so the grid reads as pictures waiting to come into focus. */
+.insta-grid .tile,
+.insta-tile {
+  background:
+    radial-gradient(
+      120% 90% at 30% 25%,
+      color-mix(in oklab, var(--muted) 14%, transparent),
+      transparent 65%
+    ),
+    var(--surface);
+}
+
+/* Blur-up: photos start blurred and slightly zoomed (the zoom hides the
+   blur's edge falloff, clipped by the tile's overflow) and resolve into
+   focus once their bytes arrive — see .is-loaded in InstagramFeed. */
 .insta-tile img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(16px);
+  transform: scale(1.08);
+  opacity: 0;
+  transition:
+    filter 0.5s ease,
+    transform 0.5s ease,
+    opacity 0.4s ease;
+}
+
+.insta-tile img.is-loaded {
+  filter: blur(0);
+  transform: scale(1);
+  opacity: 1;
 }
 
 .insta-note {
