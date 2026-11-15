@@ -276,13 +276,21 @@ body {
   line-height: 1.1;
   text-transform: uppercase;
   letter-spacing: 0.01em;
-  margin: 0;
+  margin: 0 0 3rem;
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .board-title {
     font-size: 2.5rem;
+  }
+}
+
+/* At >=900px the patch cable sits between title and pedals and
+   provides its own spacing, so the title's margin goes away. */
+@media (min-width: 900px) {
+  .board-title {
+    margin-bottom: 0;
   }
 }
 
