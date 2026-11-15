@@ -1,5 +1,5 @@
 ---
-import { music } from "../data/site";
+import { music, sections } from "../data/site";
 import SocialIcon from "./SocialIcon.astro";
 
 // Bandcamp large player (size=large, 470px) and the SoundCloud classic
@@ -12,17 +12,23 @@ import SocialIcon from "./SocialIcon.astro";
 // the height on artwork (a real-browser render showed 2 track rows + a
 // clipped third at 470px), while the classic player at 470px shows the
 // track list. Bandcamp bgcol matches the current theme surface
-// (0a0b09), not the pre-theme grey from #24.
+// (0a0b09), not the pre-theme grey from #24. The players' accent is set
+// through URL params (Bandcamp linkcol=, SoundCloud color=) and synced to
+// the page --accent by a client script below — cross-origin iframes can't
+// read CSS custom properties, so that is the only way they follow theme.
 const bandcampSrc = `https://bandcamp.com/EmbeddedPlayer/album=${music.bandcampAlbumId}/size=large/bgcol=0a0b09/linkcol=8cff6a/tracklist=true/artwork=small/transparent=true/`;
 const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent(music.soundcloudUrl)}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=false&color=8cff6a`;
 ---
 
 <section id="music" class="section">
-  <div class="mt-10 grid gap-10 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
+  <p class="eyebrow">{sections.music.eyebrow}</p>
+  <h2 class="section-title">{sections.music.title}</h2>
+  <div class="mt-6 grid gap-10 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
     <figure class="min-w-0">
       <p class="eyebrow mb-3">Bandcamp — From the Depths</p>
       <div class="embed-frame">
         <iframe
+          data-player="bandcamp"
           title="From the Depths by Ravanger on Bandcamp"
           src={bandcampSrc}
           loading="lazy"
@@ -33,6 +39,7 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
       <p class="eyebrow mb-3">SoundCloud — Latest tracks</p>
       <div class="embed-frame">
         <iframe
+          data-player="soundcloud"
           title="Ravanger on SoundCloud"
           src={soundcloudSrc}
           loading="lazy"
@@ -64,3 +71,51 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
     </div>
   </div>
 </section>
+
+<script data-astro-rerun>
+  // The Bandcamp + SoundCloud players are cross-origin iframes, so the
+  // page's --accent can't reach them through CSS; each takes its accent as
+  // a URL param (Bandcamp linkcol=, SoundCloud color=). Sync those to the
+  // live --accent on load and whenever the theme flips light/dark.
+  // data-astro-rerun: re-colors the players when soft navigation swaps in
+  // fresh iframes; the observer below watches <html> (which persists), so
+  // it is registered once and a re-run must not stack another one.
+  (function () {
+    var PLAYERS = [
+      { sel: 'iframe[data-player="bandcamp"]', key: "linkcol" },
+      { sel: 'iframe[data-player="soundcloud"]', key: "color" }
+    ];
+
+    function accentHex() {
+      var raw = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+      if (raw.charAt(0) === "#") return raw.slice(1).toLowerCase();
+      var m = raw.match(/rgba?\((\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+      if (m) {
+        return [m[1], m[2], m[3]].map(function (n) {
+          return (+n).toString(16).padStart(2, "0");
+        }).join("");
+      }
+      return "8cff6a";
+    }
+
+    function sync() {
+      var hex = accentHex();
+      PLAYERS.forEach(function (p) {
+        var el = document.querySelector(p.sel);
+        if (!el) return;
+        var next = el.src.replace(new RegExp(p.key + "=[0-9a-fA-F]{6}"), p.key + "=" + hex);
+        if (next !== el.src) el.src = next;
+      });
+    }
+
+    sync();
+
+    if (!window.__borisrMusicAccent) {
+      window.__borisrMusicAccent = new MutationObserver(sync);
+      window.__borisrMusicAccent.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"]
+      });
+    }
+  })();
+</script>
