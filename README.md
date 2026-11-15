@@ -151,22 +151,30 @@ HTML source).
 ## Instagram feed (live, on /art)
 
 The latest 9 photos come from a Netlify function,
-`netlify/functions/instagram.mts`, which calls the Instagram API
-(`graph.instagram.com/me/media`) with the `INSTAGRAM_TOKEN` env var and
-returns thumbnail URLs + permalinks + captions (briefly CDN-cached).
-`src/components/InstagramFeed.svelte` renders them in a grid,
-lazy-loaded from Instagram's CDN; while loading it shows placeholder
-tiles, and with no token (or any failure) the function returns an empty
-list and the page falls back to a note + the profile link. The live feed
-is unverified until the token exists.
+`netlify/functions/instagram.mts`, which calls the Instagram Graph API
+on `graph.facebook.com` with the `INSTAGRAM_TOKEN` env var (resolves the
+account via `/me/assigned_instagram_accounts`, then fetches
+`/{account-id}/media`) and returns thumbnail URLs + permalinks + captions
+(briefly CDN-cached). `src/components/InstagramFeed.svelte` renders them
+in a grid, lazy-loaded from Instagram's CDN; while loading it shows
+placeholder tiles, and with no token (or any failure) the function
+returns an empty list and the page falls back to a note + the profile
+link.
 
-Setup (Boris): convert the Instagram account to Creator/Business, create
-a Meta developer app, use Instagram Login to generate a long-lived
-access token, and set it as the `INSTAGRAM_TOKEN` env var on the
-borisr-redesign Netlify site. No Facebook Page is needed, and no paid
-widget is used. The token lives only as a Netlify secret — see
-`.env.example` for the variable name; never commit a real value, and
-never put the token in the repo or in chat.
+Setup (Boris): keep @ravanger666 a public Creator account. In the Meta
+developer app (use case "Manage messaging & content on Instagram"), open
+Instagram → "API setup with Unified login", create a configuration from
+the "Instagram Login Compatible" template, add the account as an
+Instagram Tester (accept the invite in Instagram: Settings → Website
+permissions → Apps and websites → Tester invites), then Generate token.
+Set that system-user access token as the `INSTAGRAM_TOKEN` env var on
+the borisr-redesign Netlify site — a fresh deploy is needed for it to
+take effect. The configured token does not expire; if Meta changes that,
+regenerate it from the same dashboard page. No Facebook Page is needed,
+and no paid widget is used. The token lives only as a Netlify secret —
+see `.env.example` for the variable name (a local copy in `.env` works
+for local runs); never commit a real value, and never put the token in
+the repo or in chat.
 
 ## Media policy
 
