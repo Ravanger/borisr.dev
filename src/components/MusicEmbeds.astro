@@ -1,5 +1,5 @@
 ---
-import { music } from "../data/site";
+import { music, sections } from "../data/site";
 import SocialIcon from "./SocialIcon.astro";
 
 // Bandcamp large player (size=large, 470px) and the SoundCloud classic
@@ -18,7 +18,9 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
 ---
 
 <section id="music" class="section">
-  <div class="mt-10 grid gap-10 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
+  <p class="eyebrow">{sections.music.eyebrow}</p>
+  <h2 class="section-title">{sections.music.title}</h2>
+  <div class="mt-6 grid gap-10 md:grid-cols-[350px_minmax(0,1fr)] md:gap-8">
     <figure class="min-w-0">
       <p class="eyebrow mb-3">Bandcamp — From the Depths</p>
       <div class="embed-frame">
