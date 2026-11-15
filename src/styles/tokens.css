@@ -719,6 +719,13 @@ body {
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--surface);
+  transition: transform 0.3s ease;
+}
+
+/* Hover: the tile expands slightly and lifts above its neighbours. */
+.insta-tile:hover {
+  transform: scale(1.02);
+  z-index: 1;
 }
 
 /* Placeholder tiles and not-yet-loaded photos share a soft out-of-focus
