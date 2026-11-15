@@ -1,0 +1,34 @@
+---
+title: "borisr.dev"
+tagline: "This site. The personal hub for music, art and code — built as a living project."
+category: "Software"
+order: 4
+thumb: "https://opengraph.githubassets.com/1/Ravanger/borisr.dev"
+repoUrl: "https://github.com/Ravanger/borisr.dev"
+liveUrl: "/"
+liveLabel: "Live site"
+status: "LIVE"
+tech: ["TypeScript", "Astro", "Svelte 5", "Tailwind CSS"]
+lang: "TypeScript"
+stack: "Astro + Svelte 5 islands"
+imageNote: "Placeholder — GitHub social preview. Real asset: screenshot of the home page."
+---
+
+The site you are reading is its own project. A personal hub that puts the stompbox board front and centre: music, art, and software on one bench, with a single dark theme (and a light toggle) designed like a piece of hardware rather than a webpage.
+
+## How it works
+
+Static-first by design. Astro renders every page at build time; interactive bits are Svelte 5 islands (`$state`/`$props` runes) loaded only where needed, so most of the site ships with no client JavaScript at all. Soft navigation between pages is Astro's view transitions, and page behaviour that must survive it uses `data-astro-rerun` scripts.
+
+A few of the moving parts:
+
+- **The stompbox board (home).** The nav is a pedalboard: each pedal is a real switch that depresses with a 120 ms thunk before navigating. No JS, the links still work; reduced motion skips the thunk entirely.
+- **Live Instagram grid (/art/).** A Netlify function calls the Meta Graph API with a system-user access token (Unified Login flow) and returns the latest media; the Svelte island renders it with blur-up placeholders and hover-expand tiles. No token or any failure degrades to a short note, never a broken page.
+- **Music page.** Bandcamp and SoundCloud embeds are cross-origin iframes, so their accent colour is synced by URL parameter (`linkcol`/`color`) to the page's `--accent`. Toggling the theme reloads the players — the colour is baked into the URL and neither embed exposes a live-recolor API.
+- **Theme system.** One active theme (`theme-c`) with all tokens in a single stylesheet; dark by default, light on toggle, persisted across visits. A global `prefers-reduced-motion` rule zeroes every transition and animation duration.
+
+## Stack
+
+Astro + Svelte 5 islands, Tailwind CSS v4 for utilities, Biome for lint and format, TypeScript throughout. Deployed on Netlify with auto-deploy on every push to `main`; the Instagram feed runs as a serverless function.
+
+There is also an easter egg. The console greets anyone who pokes around, and a certain twelve-key sequence has consequences for ten seconds.
