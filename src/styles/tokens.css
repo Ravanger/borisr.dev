@@ -1560,6 +1560,18 @@ body {
   background: var(--accent);
 }
 
+/* Netlify injects its free-tier "Powered by" badge as a fixed iframe
+   (#nl-badge-frame, inline-styled bottom:0 right:0) on every page — it
+   lands on top of the 64px bottom bar. Lifting the whole frame clears
+   the bar; the pill stays visible and expandable (the card opens
+   upward). !important is required to beat the inline style; if Netlify
+   retires or renames the element this rule simply goes inert. */
+#nl-badge-frame,
+#nl-hud-frame {
+  /* biome-ignore lint/complexity/noImportantStyles: must beat Netlify's inline style on the badge iframe */
+  bottom: calc(64px + env(safe-area-inset-bottom) + 8px) !important;
+}
+
 /* ---- Footer social icons ---- */
 
 .footer-socials {
