@@ -8,6 +8,12 @@ interface Props {
 }
 
 const { wrapClass = "max-w-6xl" } = Astro.props;
+
+// Encode the address parts at build time (issue #36): a static scan of
+// the shipped JS then finds no usable substring of the address — only
+// two opaque base64 blobs that are decoded and joined at runtime.
+const userEnc = Buffer.from(email.user, "utf-8").toString("base64");
+const domainEnc = Buffer.from(email.domain, "utf-8").toString("base64");
 const iconFor: Record<
   string,
   "github" | "instagram" | "tiktok" | "bandcamp" | "soundcloud" | "newgrounds"
@@ -43,16 +49,16 @@ const iconFor: Record<
   <p class="muted mt-8 text-xs">{site.footerNote}</p>
 </footer>
 
-<script data-astro-rerun define:vars={{ user: email.user, domain: email.domain }}>
-  // Assemble the address here so the plain address never appears in the
-  // HTML source. (The players above are third-party embeds; see their note.)
-  // Class-based: assembles every .email-link on the page.
+<script data-astro-rerun define:vars={{ userEnc, domainEnc }}>
+  // The address parts arrive base64-encoded and are decoded here, so the
+  // plain address appears in neither the HTML source nor a static scan of
+  // this bundle. Class-based: assembles every .email-link on the page.
   // data-astro-rerun: the script is byte-identical on every page, so
   // without this the view-transitions router treats it as a duplicate
   // after the first load and never re-runs it — the swapped-in footer
   // anchor would keep href="#" and the link would be dead.
   (function () {
-    var addr = user + "@" + domain;
+    var addr = atob(userEnc) + "@" + atob(domainEnc);
     var links = document.querySelectorAll(".email-link");
     for (var i = 0; i < links.length; i++) {
       links[i].href = "mailto:" + addr;
