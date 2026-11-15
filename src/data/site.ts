@@ -163,7 +163,7 @@ export const art = {
   instagramLabel: "Instagram",
   tiktokUrl: "https://www.tiktok.com/@ravanger666",
   tiktokLabel: "TikTok",
-  feedLine: "New work lands on Instagram and TikTok first — this feed pulls from both.",
+  feedLine: "New work lands on Instagram and TikTok first — the latest is below.",
   tileCount: 6,
 };
 
