@@ -699,11 +699,13 @@ body {
 /*
  * Instagram feed (Workbench): uniform grid, square crops, hairline
  * borders — the same language as the placeholder tiles it replaces.
- * Photos come from Instagram's CDN, lazy-loaded.
+ * Photos come from Instagram's CDN, lazy-loaded. One photo per row on
+ * small phones; three across from 640px up — the site's smallest
+ * existing breakpoint.
  */
 .insta-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
 }
 

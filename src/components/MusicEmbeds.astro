@@ -4,7 +4,9 @@ import SocialIcon from "./SocialIcon.astro";
 
 // Bandcamp large player (size=large, 470px) and the SoundCloud classic
 // player (visual=false, 470px) sit side by side in a two-column grid on
-// desktop, stacking to one column on mobile — the PR #24 arrangement.
+// desktop, stacking to one column below md, where both span the full
+// width (at md+ the grid's 350px track pins the Bandcamp player) — the
+// PR #24 arrangement.
 // This section is the whole music page: players up top, "More noise"
 // links below (the old album hero was removed). Both players sit in
 // an .embed-frame so their outer boxes measure the same height — tops
@@ -32,7 +34,7 @@ const soundcloudSrc = `https://w.soundcloud.com/player/?url=${encodeURIComponent
           title="From the Depths by Ravanger on Bandcamp"
           src={bandcampSrc}
           loading="lazy"
-          class="h-[470px] w-full max-w-[350px] border-0"></iframe>
+          class="h-[470px] w-full border-0"></iframe>
       </div>
     </figure>
     <figure class="min-w-0">
