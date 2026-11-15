@@ -1516,9 +1516,10 @@ body {
   background: transparent;
 }
 
+/* Full accent, no fade: the same colour and opacity as the section
+   eyebrow tick (.theme-c section > .eyebrow::before). */
 .bottombar-link[aria-current="page"] .marker {
   background: var(--accent);
-  opacity: 0.5;
 }
 
 /* ---- Footer social icons ---- */
